@@ -1,0 +1,19 @@
+Document 5ab3df7b0b4ef20889de0517a318df8746940971ad9b2021e54c820eb9e74dce
+Base set
+Param 2ef0dbc560f4aba05346926782e584726ed94e6cc5f65568b80a37ddbfa5d716 Empty : set
+Def or : TpArr Prop TpArr Prop Prop
+ := Lam A Prop Lam B Prop All x1 Prop Imp Imp A x1 Imp Imp B x1 x1
+Def False : Prop
+ := All x2 Prop x2
+Def not : TpArr Prop Prop
+ := Lam A Prop Imp A False
+Known Known1 : All x3 Prop Ap Ap or x3 Ap not x3
+Known Known2 : Imp False All x4 Prop x4
+Param 98aaaf225067eca7b3f9af03e4905bbbf48fc0ccbe2b4777422caed3e8d4dfb9 iff : TpArr Prop TpArr Prop Prop
+Known Known3 : All x5 set All x6 set Imp All x7 set Ap Ap iff Ap Ap Prim 1 x7 x5 Ap Ap Prim 1 x7 x6 Eq set x5 x6
+Known Known4 : All x8 Prop All x9 Prop Imp Imp x8 x9 Imp Imp x9 x8 Ap Ap iff x8 x9
+Def nIn : TpArr set TpArr set Prop
+ := Lam x set Lam X set Ap not Ap Ap Prim 1 x X
+Known Known5 : All x10 set Ap Ap nIn x10 Empty
+Thm xboole_0_t7 : All x1 set Imp Imp Eq set x1 Empty All p Prop p Ex x2 set Ap Ap Prim 1 x2 x1
+ := TmLa x1 set PrLa A1 Imp Eq set x1 Empty All p Prop p PrAp PrAp TmAp TmAp Known1 Ex x9 set Ap Ap Prim 1 x9 x1 Ex x8 set Ap Ap Prim 1 x8 x1 PrLa A6 Ex x7 set Ap Ap Prim 1 x7 x1 A6 PrLa A2 Ap not Ex x6 set Ap Ap Prim 1 x6 x1 TmAp PrAp Known2 PrAp A1 PrAp TmAp TmAp Known3 x1 Empty TmLa x3 set PrAp PrAp TmAp TmAp Known4 Ap Ap Prim 1 x3 x1 Ap Ap Prim 1 x3 Empty PrLa A4 Ap Ap Prim 1 x3 x1 TmAp PrAp Known2 PrAp A2 TmLa x4 Prop PrLa A5 All x5 set Imp Ap Ap Prim 1 x5 x1 x4 PrAp TmAp A5 x3 A4 Ap Ap Prim 1 x3 Empty PrLa A3 Ap Ap Prim 1 x3 Empty TmAp PrAp Known2 PrAp TmAp Known5 x3 A3 Ap Ap Prim 1 x3 x1 Ex x2 set Ap Ap Prim 1 x2 x1

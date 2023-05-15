@@ -1,0 +1,187 @@
+Definition False : prop := forall p:prop, p.
+Definition True : prop := forall p:prop, p -> p.
+Definition not : prop -> prop := fun A:prop => A -> False.
+(* Unicode ~ "00ac" *)
+Prefix ~ 700 := not.
+
+Definition and : prop -> prop -> prop := fun A B:prop => forall p:prop, (A -> B -> p) -> p.
+
+(* Unicode /\ "2227" *)
+Infix /\ 780 left := and.
+
+Definition or : prop -> prop -> prop := fun A B:prop => forall p:prop, (A -> p) -> (B -> p) -> p.
+
+(* Unicode \/ "2228" *)
+Infix \/ 785 left := or.
+
+Definition iff : prop -> prop -> prop := fun A B:prop => and (A -> B) (B -> A).
+
+(* Unicode <-> "2194" *)
+Infix <-> 805 := iff.
+
+Section Eq.
+Variable A:SType.
+Definition eq : A->A->prop := fun x y:A => forall Q:A->A->prop, Q x y -> Q y x.
+Definition neq : A->A->prop := fun x y:A => ~ eq x y.
+End Eq.
+
+Infix = 502 := eq.
+(* Unicode <> "2260" *)
+Infix <> 502 := neq.
+
+Section FE.
+Variable A B : SType.
+Axiom func_ext : forall f g : A -> B , (forall x : A , f x = g x) -> f = g.
+End FE.
+
+Section Ex.
+Variable A:SType.
+Definition ex : (A->prop)->prop := fun Q:A->prop => forall P:prop, (forall x:A, Q x -> P) -> P.
+End Ex.
+
+(* Unicode exists "2203" *)
+Binder+ exists , := ex.
+
+Definition emp : set -> prop := fun x => False.
+
+Definition adj : (set -> prop) -> set -> set -> prop := fun G x y => G y \/ y = x.
+
+Axiom FalseE : False -> forall p:prop, p.
+Axiom TrueI : True.
+Axiom notI : forall A:prop, (A -> False) -> ~A.
+Axiom notE : forall A:prop, ~A -> A -> False.
+Axiom andI : forall (A B : prop), A -> B -> A /\ B.
+Axiom andEL : forall (A B : prop), A /\ B -> A.
+Axiom andER : forall (A B : prop), A /\ B -> B.
+Axiom orIL : forall (A B : prop), A -> A \/ B.
+Axiom orIR : forall (A B : prop), B -> A \/ B.
+Axiom orE : forall (A B C:prop), (A -> C) -> (B -> C) -> A \/ B -> C.
+Axiom iffEL : forall A B:prop, (A <-> B) -> A -> B.
+Axiom iffER : forall A B:prop, (A <-> B) -> B -> A.
+Axiom iffI : forall A B:prop, (A -> B) -> (B -> A) -> (A <-> B).
+Axiom iff_ref : forall A:prop, A <-> A.
+Axiom pred_ext_2 : forall P Q:set -> prop, P c= Q -> Q c= P -> P = Q.
+Axiom pred_ext : forall P Q:set -> prop, (forall x, P x <-> Q x) -> P = Q.
+Axiom adjI1 : forall G:set -> prop, forall x y, G y -> adj G x y.
+Axiom adjI2 : forall G:set -> prop, forall x, adj G x x.
+Axiom adjE : forall G:set -> prop, forall x y, adj G x y -> forall p:prop, (G y -> p) -> (y = x -> p) -> p.
+
+(* Parameter pair "d58762d200971dcc7f1850726d9f2328403127deeba124fc3ba2d2d9f7c3cb8c" "d58762d200971dcc7f1850726d9f2328403127deeba124fc3ba2d2d9f7c3cb8c" *)
+(* Parameter bind "73c9efe869770ab42f7cde0b33fe26bbc3e2bd157dad141c0c27d1e7348d60f5" "73c9efe869770ab42f7cde0b33fe26bbc3e2bd157dad141c0c27d1e7348d60f5" *)
+Parameter pair : set -> set -> set.
+Parameter bind : (set -> set) -> set.
+
+Axiom pair_inj : forall x y z w, pair x y = pair z w -> forall p:prop, (x = z -> y = w -> p) -> p.
+Axiom bind_inj : forall f g:set -> set, bind f = bind g -> f = g.
+Axiom pair_not_bind : forall x y, forall f:set -> set, pair x y = bind f -> forall p:prop, p.
+Axiom prop_ext : forall p q:prop, (p -> q) -> (q -> p) -> p = q.
+
+Definition nil : set := bind (fun x => x).
+
+Axiom neq_nil_pair : forall y z, nil = pair y z -> forall p:prop, p.
+Axiom neq_nil_bind_bind : forall f:set -> set -> set, nil = bind (fun x => bind (f x)) -> forall p:prop, p.
+Axiom neq_nil_bind_pair : forall f:set -> set, forall g:set -> set, nil = bind (fun x => pair (f x) (g x)) -> forall p:prop, p.
+
+Definition transclos : (set -> set -> prop) -> set -> set -> prop :=
+  fun q x y =>
+   forall r:set -> set -> prop,
+        (forall x y, q x y -> r x y)
+     -> (forall x y z, r x y -> r y z -> r x z)
+     -> r x y.
+
+Axiom transclos_incl : forall q:set -> set -> prop, forall x y, q x y -> transclos q x y.
+Axiom transclos_tra : forall q:set -> set -> prop, forall x y z, transclos q x y -> transclos q y z -> transclos q x z.
+
+Axiom transclos_mono : forall R R':set -> set -> prop, R c= R' -> transclos R c= transclos R'.
+
+Definition bit0 : set := bind (fun x => nil).
+Definition bit1 : set := bind (fun x => bind (fun y => x)).
+
+Axiom nil_not_bit0 : nil <> bit0.
+Axiom nil_not_bit1 : nil <> bit1.
+Axiom bit0_not_bit1 : bit0 <> bit1.
+
+Definition Kind := bit0.
+Definition Type := bit1.
+
+Definition ap : set -> set -> set := fun x y => pair nil (pair x y).
+Definition lam : set -> (set -> set) -> set := fun A f => pair bit0 (pair A (bind f)).
+Definition Pi : set -> (set -> set) -> set := fun A f => pair bit1 (pair A (bind f)).
+
+Definition arr : set -> set -> set := fun A B => Pi A (fun _ => B).
+
+Definition congclos : (set -> set -> prop) -> set -> set -> prop
+  := fun R M N =>
+  forall q:set -> set -> prop,
+     (forall M N, R M N -> q M N)
+  -> (forall M, q M M)
+  -> (forall M N P Q, q M N -> q P Q -> q (ap M P) (ap N Q))
+  -> (forall A B, forall M N:set -> set, q A B -> (forall z, q (M z) (N z)) -> q (lam A M) (lam B N))
+  -> (forall A B, forall C D:set -> set, q A B -> (forall z, q (C z) (D z)) -> q (Pi A C) (Pi B D))
+  -> q M N.
+
+Axiom congclos_mono : forall R R':set -> set -> prop, R c= R' -> congclos R c= congclos R'.
+
+Definition betared : set -> set -> prop
+  := fun M N =>
+  forall q:set -> set -> prop,
+     (forall A, forall M:set -> set, forall N, q (lam A M) (M N))
+  -> q M N.
+
+Definition etared : set -> set -> prop
+  := fun M N =>
+  forall q:set -> set -> prop,
+     (forall A, forall M, q (lam A (fun x => ap M x)) M)
+  -> q M N.
+
+Definition red : (set -> set -> prop) -> set -> set -> prop := fun R => transclos (congclos (fun M N => R M N \/ betared M N)).
+
+Definition redweta : (set -> set -> prop) -> set -> set -> prop := fun R => transclos (congclos (fun M N => R M N \/ betared M N \/ etared M N)).
+
+Axiom red_mono : forall R R':set -> set -> prop, R c= R' -> red R c= red R'.
+
+Definition emp2 : set -> set -> prop := fun x y => False.
+
+Definition adj2 : (set -> set -> prop) -> set -> set -> set -> set -> prop := fun G x A y B => G y B \/ y = x /\ B = A.
+
+Axiom adj2_Subq : forall G G':set -> set -> prop, forall x A, G c= G' -> adj2 G x A c= adj2 G' x A.
+
+Definition sortp : set -> prop := fun s => s = Type \/ s = Kind.
+
+Axiom sortp_Type : sortp Type.
+Axiom sortp_Kind : sortp Kind.
+
+Definition of : (set -> set -> prop) -> (set -> set -> prop) -> (set -> set -> prop) -> set -> set -> prop
+  := fun S R G M A =>
+  forall q : (set -> set -> prop) -> set -> set -> prop,
+     (forall G:set -> set -> prop, forall c A, S c A -> q G c A)
+  -> (forall G:set -> set -> prop, forall x A, G x A -> q G x A)
+  -> (forall G:set -> set -> prop, q G Type Kind)
+  -> (forall G:set -> set -> prop, forall s A, forall B:set -> set, sortp s -> q G A Type -> (forall z, q (adj2 G z A) (B z) s) -> q G (Pi A B) s)
+  -> (forall G:set -> set -> prop, forall M N A, forall B:set -> set, q G M (Pi A B) -> q G N A -> q G (ap M N) (B N))
+  -> (forall G:set -> set -> prop, forall s A, forall M B:set -> set, sortp s -> q G (Pi A B) s -> (forall z, q (adj2 G z A) (M z) (B z)) -> q G (lam nil M) (Pi A B))
+  -> (forall G:set -> set -> prop, forall s A, forall M B:set -> set, sortp s -> q G (Pi A B) s -> (forall z, q (adj2 G z A) (M z) (B z)) -> q G (lam A M) (Pi A B))
+  -> (forall G:set -> set -> prop, forall s M A B C, sortp s -> q G M A -> q G B s -> red R A C -> red R B C -> q G M B)
+  -> q G M A.
+
+Axiom of_con : forall S R G:set -> set -> prop, forall c A, S c A -> of S R G c A.
+Axiom of_var : forall S R G:set -> set -> prop, forall x A, G x A -> of S R G x A.
+Axiom of_Type : forall S R G:set -> set -> prop, of S R G Type Kind.
+Axiom of_Pi : forall S R G:set -> set -> prop, forall s A, forall B:set -> set, sortp s -> of S R G A Type -> (forall z, of S R (adj2 G z A) (B z) s) -> of S R G (Pi A B) s.
+Axiom of_ap : forall S R G:set -> set -> prop, forall M N A, forall B:set -> set, of S R G M (Pi A B) -> of S R G N A -> of S R G (ap M N) (B N).
+Axiom of_lam_nil : forall S R G:set -> set -> prop, forall s A, forall M B:set -> set, sortp s -> of S R G (Pi A B) s -> (forall z, of S R (adj2 G z A) (M z) (B z)) -> of S R G (lam nil M) (Pi A B).
+Axiom of_lam : forall S R G:set -> set -> prop, forall s A, forall M B:set -> set, sortp s -> of S R G (Pi A B) s -> (forall z, of S R (adj2 G z A) (M z) (B z)) -> of S R G (lam A M) (Pi A B).
+Axiom of_conv : forall S R G:set -> set -> prop, forall s M A B C, sortp s -> of S R G M A -> of S R G B s -> red R A C -> red R B C -> of S R G M B.
+Axiom of_mono : forall S R S' R' G:set -> set -> prop, S c= S' -> R c= R' -> forall M A, of S R G M A -> of S' R' G M A.
+Axiom of_monoG : forall S R G:set -> set -> prop, forall M A, of S R G M A -> forall G':set -> set -> prop, G c= G' -> of S R G' M A.
+Axiom of_arr : forall S R G:set -> set -> prop, forall s A B, sortp s -> of S R G A Type -> of S R G B s -> of S R G (arr A B) s.
+Axiom of_arr_Type : forall S R G:set -> set -> prop, forall A B, of S R G A Type -> of S R G B Type -> of S R G (arr A B) Type.
+
+Definition functionalp : (set -> set -> prop) -> prop := fun S => forall c A B, S c A -> S c B -> A = B.
+
+Definition valid_sig_tp : (set -> set -> prop) -> (set -> set -> prop) -> set -> prop
+  := fun S R A => of S R emp2 A Kind \/ of S R emp2 A Type.
+
+Axiom valid_sig_tp_Kind : forall S R:set -> set -> prop, forall A, of S R emp2 A Kind -> valid_sig_tp S R A.
+Axiom valid_sig_tp_Type : forall S R:set -> set -> prop, forall A, of S R emp2 A Type -> valid_sig_tp S R A.
+

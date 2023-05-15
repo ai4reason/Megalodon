@@ -1,0 +1,6 @@
+Document 6ffc9680fbe00a58d70cdeb319f11205ed998131ce51bb96f16c7904faf74a3d
+Base set
+Known Known1 : Imp Prim 1 All x1 Prop x1
+Known Known2 : All x2 set Imp Ap Ap Prim 7 x2 Prim 9 Prim 1
+Thm Random1_197_pos : All x1 set Imp Ap Ap Prim 7 x1 Prim 9 All x2 set Imp Ap Ap Prim 7 x2 x1 All x3 set Imp Ap Ap Prim 7 x3 x2 Ex x4 set All x5 set Imp Imp Ap Prim 62 x4 Ap Ap Prim 4 Ap Prim 19 x4 Ap Prim 3 Ap Prim 22 x5 Imp Imp Imp Ap Prim 62 x4 Ap Prim 19 x4 Imp Ap Prim 14 x4 Imp Imp Imp Ap Prim 3 Ap Prim 14 Ap Prim 11 Ap Ap Prim 71 Ap Prim 11 Ap Prim 11 Prim 9 Prim 9 Eq set x4 x5 Ap Prim 15 x4 Ap Ap Prim 4 Ap Prim 17 x3 Ap Prim 3 Ap Ap Prim 38 Ap Ap Prim 94 x3 Ap Ap Prim 71 Ap Prim 11 Ap Prim 11 Ap Prim 11 Ap Prim 11 Prim 9 Prim 9 Ap Prim 13 x5 Ap Prim 58 x4
+ := TmLa x1 set PrLa A1 Ap Ap Prim 7 x1 Prim 9 TmAp PrAp Known1 PrAp TmAp Known2 x1 A1 All x2 set Imp Ap Ap Prim 7 x2 x1 All x3 set Imp Ap Ap Prim 7 x3 x2 Ex x4 set All x5 set Imp Imp Ap Prim 62 x4 Ap Ap Prim 4 Ap Prim 19 x4 Ap Prim 3 Ap Prim 22 x5 Imp Imp Imp Ap Prim 62 x4 Ap Prim 19 x4 Imp Ap Prim 14 x4 Imp Imp Imp Ap Prim 3 Ap Prim 14 Ap Prim 11 Ap Ap Prim 71 Ap Prim 11 Ap Prim 11 Prim 9 Prim 9 Eq set x4 x5 Ap Prim 15 x4 Ap Ap Prim 4 Ap Prim 17 x3 Ap Prim 3 Ap Ap Prim 38 Ap Ap Prim 94 x3 Ap Ap Prim 71 Ap Prim 11 Ap Prim 11 Ap Prim 11 Ap Prim 11 Prim 9 Prim 9 Ap Prim 13 x5 Ap Prim 58 x4

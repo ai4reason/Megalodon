@@ -1,0 +1,13 @@
+This directory contains structures. There are a total of 263 structures defined
+and 234 of these have published into the Proofgold chain.
+
+The file PfgEgalStructsPreamble.mgs contains opaque versions of the
+structures that can be included in a preamble file when they are needed.
+
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructs1.mg
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructs2.mg
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructs3.mg
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructs4.mg
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructs5.mg
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructs6.mg
+megalodon -owned ownedSep192022 -I PfgEPreStructsPreamble.mgs PfgEgalStructsPreamble.mgs

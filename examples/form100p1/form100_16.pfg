@@ -1,0 +1,45 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param 0708055ba3473c2f52dbd9ebd0f0042913b2ba689b64244d92acea4341472a1d unpack_b_b_e_e_i : TpArr set TpArr TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set TpArr set set set
+Param 3be1c5f3e403e02caebeaf6a2b30d019be74b996581a62908316c01702a459df nat_primrec : TpArr set TpArr TpArr set TpArr set set TpArr set set
+Def Ring_with_id_omega : TpArr set TpArr set set
+ := Lam R set Lam n set Ap Ap unpack_b_b_e_e_i R Lam _ set Lam plus TpArr set TpArr set set Lam _ TpArr set TpArr set set Lam zero set Lam one set Ap Ap Ap nat_primrec zero Lam _ set Lam r set Ap Ap plus r one n
+Param e5405bc7309f2aa971bcab97aadae821ba1e89825a425c7bf10000998c5266c9 Ring_minus : TpArr set TpArr set set
+Param 9f7755a326e730a1c98395c05032d068f1d3a5762700ae73598c3c57a6bd51ea Ring_of_Ring_with_id : TpArr set set
+Def Ring_with_id_minus_omega : TpArr set TpArr set set
+ := Lam R set Lam n set Ap Ap Ring_minus Ap Ring_of_Ring_with_id R Ap Ap Ring_with_id_omega R n
+Param 7e80cba90c488f36c81034790c30418111d63919ffb3a9b47a18fd1817ba628e explicit_Ring_with_id_eval_poly : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set TpArr set TpArr set set
+Def Ring_with_id_eval_poly : TpArr set TpArr set TpArr set TpArr set set
+ := Lam R set Lam n set Lam cs set Lam x set Ap Ap unpack_b_b_e_e_i R Lam R set Lam plus TpArr set TpArr set set Lam mult TpArr set TpArr set set Lam zero set Lam one set Ap Ap Ap Ap Ap Ap Ap Ap explicit_Ring_with_id_eval_poly R zero one plus mult n cs x
+Param 2ba7d093d496c0f2909a6e2ea3b2e4a943a97740d27d15003a815d25340b379a and : TpArr Prop TpArr Prop Prop
+Param 7685bdf4f6436a90f8002790ede7ec64e03b146138f7d85bc11be7d287d3652b struct_b_b_e_e : TpArr set Prop
+Param 1bcc21b2f13824c926a364c5b001d252d630f39a0ebe1f8af790facbe0f63a11 unpack_b_b_e_e_o : TpArr set TpArr TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set TpArr set Prop Prop
+Param 32dcc27d27b5003a86f8b13ba9ca16ffaec7168a11c5d9850940847c48148591 explicit_Field : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set Prop
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Def Field_characteristic_0 : TpArr set Prop
+ := Lam F set Ap Ap and Ap struct_b_b_e_e F Ap Ap unpack_b_b_e_e_o F Lam Q set Lam plus TpArr set TpArr set set Lam mult TpArr set TpArr set set Lam zero set Lam one set Ap Ap and Ap Ap Ap Ap Ap explicit_Field Q zero one plus mult All x1 set Imp Ap Ap Prim 1 x1 omega Imp Eq set Ap Ap Ap nat_primrec one Lam _ set Lam r set Ap Ap plus one r x1 zero All p Prop p
+Param da14f3f79323b9ad1fb102c951a6ba616694bc14e5602b46a53c3b0e4928a55e explicit_Ring_with_id_exp_nat : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set TpArr set set
+Def Ring_with_id_exp_nat : TpArr set TpArr set TpArr set set
+ := Lam R set Lam a set Lam n set Ap Ap unpack_b_b_e_e_i R Lam Q set Lam plus TpArr set TpArr set set Lam mult TpArr set TpArr set set Lam zero set Lam one set Ap Ap Ap Ap Ap Ap Ap explicit_Ring_with_id_exp_nat Q zero one plus mult a n
+Param 9216abdc1fcc466f5af2b17824d279c6b333449b4f283df271151525ba7c9aca subfield : TpArr set TpArr set Prop
+Param 1de7fcfb8d27df15536f5567084f73d70d2b8526ee5d05012e7c9722ec76a8a6 setexp : TpArr set TpArr set set
+Param c7aaa670ef9b6f678b8cf10b13b2571e4dc1e6fde061d1f641a5fa6c30c09d46 decode_u : TpArr set TpArr set set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Def poly_splits_in_field : TpArr set TpArr set TpArr set TpArr set Prop
+ := Lam F set Lam F' set Lam n set Lam cs set Ap Ap and Ap Ap and Ap Ap subfield F F' Ap Ap Prim 1 cs Ap Ap setexp Ap Ap decode_u F Prim 2 Ap ordsucc n Ex _ TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set set Ex x1 set Ap Ap and Ap Ap Prim 1 x1 Ap Ap decode_u F Prim 2 Ap Ap unpack_b_b_e_e_o F' Lam Q' set Lam _ TpArr set TpArr set set Lam mult' TpArr set TpArr set set Lam _ set Lam one' set Ex x2 set Ap Ap and Ap Ap Prim 1 x2 Ap Ap setexp Ap Ap setexp Q' Ap ordsucc Ap ordsucc Prim 2 n Ap Ap and All x4 set Imp Ap Ap Prim 1 x4 n Eq set Ap Ap decode_u Ap Ap decode_u x2 x4 Ap ordsucc Prim 2 one' All x3 set Imp Ap Ap Prim 1 x3 Q' Eq set Ap Ap Ap Ap Ring_with_id_eval_poly F' Ap ordsucc n cs x3 Ap Ap Ap nat_primrec x1 Lam i set Lam r set Ap Ap mult' r Ap Ap Ap Ap Ring_with_id_eval_poly F' Ap ordsucc Ap ordsucc Prim 2 Ap Ap decode_u x2 i x3 n
+Param 597c2157fb6463f8c1c7affb6f14328b44b57967ce9dff5ef3c600772504b9de Field_Hom : TpArr set TpArr set TpArr set Prop
+Def splitting_field_for : TpArr set TpArr set TpArr set TpArr set Prop
+ := Lam F set Lam F' set Lam n set Lam cs set Ap Ap and Ap Ap Ap Ap poly_splits_in_field F F' n cs All x1 set Imp Ap Ap Ap Ap poly_splits_in_field F x1 n cs Ex x2 set Ap Ap and Ap Ap and Ap Ap Ap Field_Hom F' x1 x2 All x5 set Imp Ap Ap Prim 1 x5 Ap Ap decode_u F Prim 2 Eq set Ap Ap decode_u x2 x5 x5 All x3 set Imp Ap Ap Prim 1 x3 Ap Ap decode_u F Prim 2 All x4 set Imp Ap Ap Prim 1 x4 Ap Ap decode_u F Prim 2 Imp Eq set Ap Ap decode_u x2 x3 Ap Ap decode_u x2 x4 Eq set x3 x4
+Param 4b1aa61ecf07fd27a8a97a4f5ac5a6df80f2d3ad5f55fc4cc58e6d3e76548591 radical_field_extension : TpArr set TpArr set Prop
+Def Univar_Polynomial_solvable_by_radicals : TpArr set TpArr set TpArr set Prop
+ := Lam F set Lam n set Lam cs set Ex x1 set Ap Ap and Ap Ap radical_field_extension F x1 Ap Ap Ap Ap splitting_field_for F x1 n cs
+Param f30435b6080d786f27e1adaca219d7927ddce994708aacaf4856c5b701fe9fa1 not : TpArr Prop Prop
+Conj Abel_Ruffini_Theorem_v1 : Ex x1 set Ap Ap and Ap Field_characteristic_0 x1 Ex x2 set Ap Ap and Ap Ap Prim 1 x2 omega Ex x3 set Ap Ap and Ap Ap Prim 1 x3 Ap Ap setexp Ap Ap decode_u x1 Prim 2 Ap ordsucc x2 Ap not Ap Ap Ap Univar_Polynomial_solvable_by_radicals x1 Ap ordsucc x2 x3
+Conj Abel_Ruffini_Theorem_v2 : Ex x1 set Ap Ap and Ap Field_characteristic_0 x1 Ex x2 set Ap Ap and Ap Ap Prim 1 x2 Ap Ap setexp Ap Ap decode_u x1 Prim 2 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap not Ap Ap Ap Univar_Polynomial_solvable_by_radicals x1 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 x2
+Param 8acbb2b5de4ab265344d713b111d82b0048c8a4bf732a67ad35f1054a4eb4642 encode_u : TpArr set TpArr TpArr set set set
+Param b8ff52f838d0ff97beb955ee0b26fad79602e1529f8a2854bda0ecd4193a8a3c If_i : TpArr Prop TpArr set TpArr set set
+Conj Abel_Ruffini_Theorem_v2a : Ex x1 set Ap Ap and Ap Field_characteristic_0 x1 Ap not Ap Ap Ap Univar_Polynomial_solvable_by_radicals x1 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap encode_u Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Lam x2 set Ap Ap Ap If_i Eq set x2 Prim 2 Ap Ap Ring_with_id_minus_omega x1 Ap ordsucc Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Prim 2 Ap Ap Ring_with_id_minus_omega x1 Ap ordsucc Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ring_with_id_omega x1 Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ring_with_id_omega x1 Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ring_with_id_omega x1 Prim 2 Ap Ap Ring_with_id_omega x1 Ap ordsucc Prim 2
+Conj Abel_Ruffini_Theorem_v2b : Ex x1 set Ap Ap and Ap Field_characteristic_0 x1 Ap not Ap Ap Ap Univar_Polynomial_solvable_by_radicals x1 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap encode_u Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Lam x2 set Ap Ap Ap If_i Eq set x2 Prim 2 Ap Ap Ring_with_id_omega x1 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Prim 2 Ap Ap Ring_with_id_minus_omega x1 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ring_with_id_omega x1 Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ring_with_id_omega x1 Prim 2 Ap Ap Ap If_i Eq set x2 Ap ordsucc Ap ordsucc Ap ordsucc Ap ordsucc Prim 2 Ap Ap Ring_with_id_omega x1 Prim 2 Ap Ap Ring_with_id_omega x1 Ap ordsucc Prim 2
+Param 49803500fa75d5030dddbb3d7a18d03eeebfdd720d57630629384cec6d8b3afc solvable_Group_p : TpArr set Prop
+Param 831192b152172f585e3b6d9b53142cba7a2d8becdffe4e6337c037c027e01e21 Galois_Group : TpArr set TpArr set set
+Conj Galois_Group_radical_solvable : All x1 set All x2 set Imp Ap Ap radical_field_extension x1 x2 Ap solvable_Group_p Ap Ap Galois_Group x2 x1

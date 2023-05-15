@@ -1,0 +1,123 @@
+#!/bin/bash
+
+# If ocamlc is not in your PATH, put the full path here.
+export OCAMLC=ocamlc
+export OCAMLLEX=ocamllex
+
+$OCAMLLEX src/lexer.mll
+
+$OCAMLC -I bin -o bin/ser.cmi -c src/ser.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/ser.cmo -c src/ser.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/hashaux.cmi -c src/hashaux.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/hashaux.cmo -c src/hashaux.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/sha256.cmi -c src/sha256.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/sha256.cmo -c src/sha256.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/hash.cmi -c src/hash.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/hash.cmo -c src/hash.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/mathdata.cmi -c src/mathdata.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/mathdata.cmo -c src/mathdata.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/mathdatapfg.cmi -c src/mathdatapfg.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/mathdatapfg.cmo -c src/mathdatapfg.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/syntax.cmi -c src/syntax.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/syntax.cmo -c src/syntax.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/parser.cmi -c src/parser.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/parser.cmo -c src/parser.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/lexer.cmo -c src/lexer.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/megaauto.cmi -c src/megaauto.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/megaauto.cmo -c src/megaauto.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/interpret.cmi -c src/interpret.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/interpret.cmo -c src/interpret.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -I bin -o bin/megalodon.cmo -c src/megalodon.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLC -o bin/megalodon unix.cma bin/ser.cmo bin/hashaux.cmo bin/sha256.cmo bin/hash.cmo bin/mathdata.cmo bin/mathdatapfg.cmo bin/syntax.cmo bin/parser.cmo bin/lexer.cmo bin/megaauto.cmo bin/interpret.cmo bin/megalodon.cmo
+if [ $? -gt 0 ]
+then
+    exit 1
+fi

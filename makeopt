@@ -1,0 +1,123 @@
+#!/bin/bash
+
+# If ocamlopt is not in your PATH, put the full path here.
+export OCAMLOPT=ocamlopt
+export OCAMLLEX=ocamllex
+
+$OCAMLLEX src/lexer.mll
+
+$OCAMLOPT -I bin -o bin/ser.cmi -c src/ser.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/ser.cmx -c src/ser.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/hashaux.cmi -c src/hashaux.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/hashaux.cmx -c src/hashaux.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/sha256.cmi -c src/sha256.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/sha256.cmx -c src/sha256.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/hash.cmi -c src/hash.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/hash.cmx -c src/hash.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/mathdata.cmi -c src/mathdata.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/mathdata.cmx -c src/mathdata.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/mathdatapfg.cmi -c src/mathdatapfg.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/mathdatapfg.cmx -c src/mathdatapfg.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/syntax.cmi -c src/syntax.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/syntax.cmx -c src/syntax.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/parser.cmi -c src/parser.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/parser.cmx -c src/parser.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/lexer.cmx -c src/lexer.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/megaauto.cmi -c src/megaauto.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/megaauto.cmx -c src/megaauto.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/interpret.cmi -c src/interpret.mli
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/interpret.cmx -c src/interpret.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -I bin -o bin/megalodon.cmx -c src/megalodon.ml
+if [ $? -gt 0 ]
+then
+    exit 1
+fi
+$OCAMLOPT -o bin/megalodon unix.cmxa bin/ser.cmx bin/hashaux.cmx bin/sha256.cmx bin/hash.cmx bin/mathdata.cmx bin/mathdatapfg.cmx bin/syntax.cmx bin/parser.cmx bin/lexer.cmx bin/megaauto.cmx bin/interpret.cmx bin/megalodon.cmx
+if [ $? -gt 0 ]
+then
+    exit 1
+fi

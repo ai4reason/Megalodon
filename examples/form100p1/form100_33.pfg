@@ -1,0 +1,14 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Param afa8ae66d018824f39cfa44fb10fe583334a7b9375ac09f92d622a4833578d1a add_nat : TpArr set TpArr set set
+Param 37c5310c8da5c9f9db9152285b742d487f1a5b1bd7c73a4207d40bcd4f4d13fb exp_nat : TpArr set TpArr set set
+Conj FermatsLastTheorem_v1 : All x1 set Imp Ap Ap Prim 1 x1 omega All x2 set Imp Ap Ap Prim 1 x2 omega All x3 set Imp Ap Ap Prim 1 x3 omega All x4 set Imp Ap Ap Prim 1 x4 omega Imp Ap Ap Prim 1 Prim 2 x1 Imp Ap Ap Prim 1 Prim 2 x2 Imp Ap Ap Prim 1 Prim 2 x3 Imp Ap Ap Prim 1 Ap ordsucc Ap ordsucc Prim 2 x4 Imp Eq set Ap Ap add_nat Ap Ap exp_nat x1 x4 Ap Ap exp_nat x2 x4 Ap Ap exp_nat x3 x4 All p Prop p
+Param 3fb62f75e778736947d086a36d35ebe45a5d60bf0a340a0761ba08a396d4123a explicit_Nats : TpArr set TpArr set TpArr TpArr set set Prop
+Param 46e7ed0ee512360f08f5e5f9fc40a934ff27cfd0c79d3c2384e6fb16d461bd95 SNoLt : TpArr set TpArr set Prop
+Param c14dd5291f7204df5484a3c38ca94107f29d636a3cdfbd67faf1196b3bf192d6 explicit_Nats_one_plus : TpArr set TpArr set TpArr TpArr set set TpArr set TpArr set set
+Param cbcee236e6cb4bea1cf64f58905668aa36807a85032ea58e6bb539f5721ff4c4 explicit_Nats_one_exp : TpArr set TpArr set TpArr TpArr set set TpArr set TpArr set set
+Conj FermatsLastTheorem_v2_buggy : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 set Imp Ap Ap Prim 1 x4 x1 All x5 set Imp Ap Ap Prim 1 x5 x1 All x6 set Imp Ap Ap Prim 1 x6 x1 All x7 set Imp Ap Ap Prim 1 x7 x1 Imp Ap Ap SNoLt Ap x3 x2 x7 Imp Eq set Ap Ap Ap Ap Ap explicit_Nats_one_plus x1 x2 x3 Ap Ap Ap Ap Ap explicit_Nats_one_exp x1 x2 x3 x4 x7 Ap Ap Ap Ap Ap explicit_Nats_one_exp x1 x2 x3 x5 x7 Ap Ap Ap Ap Ap explicit_Nats_one_exp x1 x2 x3 x6 x7 All p Prop p
+Param a887fc6dd84a5c55d822e4ceb932c68ead74c9292ff8f29b32a732a2ee261b73 explicit_Nats_one_lt : TpArr set TpArr set TpArr TpArr set set TpArr set TpArr set Prop
+Conj FermatsLastTheorem_v2 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 set Imp Ap Ap Prim 1 x4 x1 All x5 set Imp Ap Ap Prim 1 x5 x1 All x6 set Imp Ap Ap Prim 1 x6 x1 All x7 set Imp Ap Ap Prim 1 x7 x1 Imp Ap Ap Ap Ap Ap explicit_Nats_one_lt x1 x2 x3 Ap x3 x2 x7 Imp Eq set Ap Ap Ap Ap Ap explicit_Nats_one_plus x1 x2 x3 Ap Ap Ap Ap Ap explicit_Nats_one_exp x1 x2 x3 x4 x7 Ap Ap Ap Ap Ap explicit_Nats_one_exp x1 x2 x3 x5 x7 Ap Ap Ap Ap Ap explicit_Nats_one_exp x1 x2 x3 x6 x7 All p Prop p

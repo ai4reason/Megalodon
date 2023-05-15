@@ -1,0 +1,5 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param 264b04a8ece7fd74ec4abb7dd2111104a2e6cde7f392363afe4acca8d5faa416 inj : TpArr set TpArr set TpArr TpArr set set Prop
+Param eb44199255e899126f4cd0bbf8cf2f5222a90aa4da547822cd6d81c671587877 equip : TpArr set TpArr set Prop
+Conj SchroederBernstein' : All x1 set All x2 set All x3 TpArr set set All x4 TpArr set set Imp Ap Ap Ap inj x1 x2 x3 Imp Ap Ap Ap inj x2 x1 x4 Ap Ap equip x1 x2

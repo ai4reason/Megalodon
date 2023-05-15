@@ -1,0 +1,20 @@
+You need ocaml. You don't need make.
+
+There are two scripts: makebytecode and makeopt.
+Try makeopt. If it doesn't work, try makebytecode instead.
+
+You might need to edit these scripts of ocamlc and/or ocamlopt is not in your PATH.
+
+The command line options are:
+
+-v <verbosity> : Set the verbosity level.
+-I <sigfilenames> : Include these signature files. Signature files are not allowed to have proofs in them.
+-owned <ownedfilename> : This is a file generated from Proofgold's reportowned command.
+-pfg : Output a Proofgold version of the document.
+-hf  : Use the HF theory (instead of HOTG-Egal theory)
+-hoas : Use the HOAS theory (instead of HOTG-Egal theory)
+-mizar : Use the HOTG-Mizar theory (instead of HOTG-Egal theory)
+-indout <indexfilename> : Create an output this index file.
+-ind <indexfilename> : Use this index file.
+-reportpfcomplexity : Output information about a "proof complexity" (this was used to suggest the relative sizes of treasures).
+-reporteachitem : Note when each item is being processed.

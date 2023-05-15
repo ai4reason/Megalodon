@@ -1,0 +1,11 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param bacb8536bbb356aa59ba321fb8eade607d1654d8a7e0b33887be9afbcfa5c504 explicit_Complex : TpArr set TpArr TpArr set set TpArr TpArr set set TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set Prop
+Param c68e5a1f5f57bc5b6e12b423f8c24b51b48bcc32149a86fc2c30a969a15d8881 setminus : TpArr set TpArr set set
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Param 1de7fcfb8d27df15536f5567084f73d70d2b8526ee5d05012e7c9722ec76a8a6 setexp : TpArr set TpArr set set
+Param c7aaa670ef9b6f678b8cf10b13b2571e4dc1e6fde061d1f641a5fa6c30c09d46 decode_u : TpArr set TpArr set set
+Param 2ba7d093d496c0f2909a6e2ea3b2e4a943a97740d27d15003a815d25340b379a and : TpArr Prop TpArr Prop Prop
+Param 7e80cba90c488f36c81034790c30418111d63919ffb3a9b47a18fd1817ba628e explicit_Ring_with_id_eval_poly : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set TpArr set TpArr set set
+Conj FundamentalTheoremOfAlgebra : All x1 set All x2 TpArr set set All x3 TpArr set set All x4 set All x5 set All x6 set All x7 TpArr set TpArr set set All x8 TpArr set TpArr set set Imp Ap Ap Ap Ap Ap Ap Ap Ap explicit_Complex x1 x2 x3 x4 x5 x6 x7 x8 All x9 set Imp Ap Ap Prim 1 x9 Ap Ap setminus omega Ap ordsucc Prim 2 All x10 set Imp Ap Ap Prim 1 x10 Ap Ap setexp x1 Ap ordsucc x9 Imp Imp Eq set Ap Ap decode_u x10 x9 x4 All p Prop p Ex x11 set Ap Ap and Ap Ap Prim 1 x11 x1 Eq set Ap Ap Ap Ap Ap Ap Ap Ap explicit_Ring_with_id_eval_poly x1 x4 x5 x7 x8 Ap ordsucc x9 x10 x11 x4

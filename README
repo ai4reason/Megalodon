@@ -1,0 +1,35 @@
+(* Copyright (c) 2020-2023 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
+
+Megalodon is an open source interactive theorem prover and proof checker.
+Its main application is to create Proofgold documents (proofgold.org).
+It currently supports four Proofgold theories:
+
+Egal: Higher order Tarski-Grothendieck Set Theory (using Egal's axioms).
+  (see Brown, Pak "A Tale of Two Set Theories" CICM 2019)
+
+Mizar: Higher order Tarski-Grothendieck Set Theory (using Mizar's axioms).
+  http://grid01.ciirc.cvut.cz/~chad/pfgmizar.pdf
+
+HF: Higher order theory of hereditarily finite sets
+  http://grid01.ciirc.cvut.cz/~chad/pfghf.pdf
+
+HOAS: Higher order abstract syntax (intuitionistic)
+  http://grid01.ciirc.cvut.cz/~chad/hoas/pfghoas.pdf
+
+The Egal theory is the default theory.
+To use the Mizar theory, use the -mizar command line argument.
+To use the HF theory, use the -hf command line argument.
+To use the HOAS theory, use the -hoas command line argument.
+
+Examples for each theory are in
+
+examples/egal
+examples/mizar
+examples/hf
+examples/hoas
+
+See examples/README for more information about the examples.
+
+Information about how to install it is in INSTALL.
+
+The open source license is in LICENSE.

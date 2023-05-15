@@ -1,0 +1,28 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param f30435b6080d786f27e1adaca219d7927ddce994708aacaf4856c5b701fe9fa1 not : TpArr Prop Prop
+Param eb44199255e899126f4cd0bbf8cf2f5222a90aa4da547822cd6d81c671587877 equip : TpArr set TpArr set Prop
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Conj form100_22_v1 : Ap not Ap Ap equip omega Ap Prim 4 omega
+Param 264b04a8ece7fd74ec4abb7dd2111104a2e6cde7f392363afe4acca8d5faa416 inj : TpArr set TpArr set TpArr TpArr set set Prop
+Conj form100_22_v2 : All x1 TpArr set set Ap not Ap Ap Ap inj Ap Prim 4 omega omega x1
+Param 4b68e472ec71f7c8cd275af0606dbbc2f78778d7cbcc9491f000ebf01bcd894c surj : TpArr set TpArr set TpArr TpArr set set Prop
+Conj form100_22_v3 : All x1 TpArr set set Ap not Ap Ap Ap surj omega Ap Prim 4 omega x1
+Param 1de7fcfb8d27df15536f5567084f73d70d2b8526ee5d05012e7c9722ec76a8a6 setexp : TpArr set TpArr set set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Conj form100_22_v4 : Ap not Ap Ap equip omega Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 omega
+Conj form100_22_v5 : All x1 TpArr set set Ap not Ap Ap Ap inj Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 omega omega x1
+Conj form100_22_v6 : All x1 TpArr set set Ap not Ap Ap Ap surj omega Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 omega x1
+Param 3fb62f75e778736947d086a36d35ebe45a5d60bf0a340a0761ba08a396d4123a explicit_Nats : TpArr set TpArr set TpArr TpArr set set Prop
+Conj form100_22_v7 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 Ap not Ap Ap equip x1 Ap Prim 4 x1
+Conj form100_22_v8 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap inj Ap Prim 4 x1 x1 x4
+Conj form100_22_v9 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap surj x1 Ap Prim 4 x1 x4
+Conj form100_22_v10 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 Ap not Ap Ap equip x1 Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 x1
+Conj form100_22_v11 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap inj Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 x1 x1 x4
+Conj form100_22_v12 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap surj x1 Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 x1 x4
+Conj form100_22_v13 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 Ap not Ap Ap equip x1 Ap Prim 4 x1
+Conj form100_22_v14 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap inj Ap Prim 4 x1 x1 x4
+Conj form100_22_v15 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap surj x1 Ap Prim 4 x1 x4
+Conj form100_22_v16 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 Ap not Ap Ap equip x1 Ap Ap setexp Ap ordsucc Ap ordsucc Prim 2 x1
+Conj form100_22_v17 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap inj Ap Prim 4 x1 x1 x4
+Conj form100_22_v18 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 TpArr set set Ap not Ap Ap Ap surj x1 Ap Prim 4 x1 x4

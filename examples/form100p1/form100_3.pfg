@@ -1,0 +1,35 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param eb44199255e899126f4cd0bbf8cf2f5222a90aa4da547822cd6d81c671587877 equip : TpArr set TpArr set Prop
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Param 604584444cba0be7f74a050669bc3716573bcc6798d790d2a2e1d8203a2fd4d1 rational : set
+Conj form100_3_v1 : Ap Ap equip omega rational
+Param 2ba7d093d496c0f2909a6e2ea3b2e4a943a97740d27d15003a815d25340b379a and : TpArr Prop TpArr Prop Prop
+Conj form100_3_v2 : Ex x1 TpArr set set All x2 set Imp Ap Ap Prim 1 x2 rational Ex x3 set Ap Ap and Ap Ap Prim 1 x3 omega Eq set Ap x1 x3 x2
+Param f336a4ec8d55185095e45a638507748bac5384e04e0c48d008e4f6a9653e9c44 encode_p : TpArr set TpArr TpArr set Prop set
+Param fc0b600a21afd76820f1fb74092d9aa81687f3b0199e9b493dafd3e283c6e8ca setprod : TpArr set TpArr set set
+Param 185d8f16b44939deb8995cbb9be7d1b78b78d5fc4049043a3b6ccc9ec7b33b41 quotient : TpArr TpArr set TpArr set Prop TpArr set Prop
+Param 35a1ef539d3e67ef8257da2bd992638cf1225c34d637bc7d8b45cf51e0445d80 mul_nat : TpArr set TpArr set set
+Param c7aaa670ef9b6f678b8cf10b13b2571e4dc1e6fde061d1f641a5fa6c30c09d46 decode_u : TpArr set TpArr set set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Conj form100_3_v3 : Ap Ap equip omega Ap Ap encode_p Ap Ap setprod omega omega Lam x1 set Ap Ap quotient Lam u set Lam v set Eq set Ap Ap mul_nat Ap Ap decode_u u Prim 2 Ap Ap decode_u v Ap ordsucc Prim 2 Ap Ap mul_nat Ap Ap decode_u u Ap ordsucc Prim 2 Ap Ap decode_u v Prim 2 x1
+Param 48d05483e628cb37379dd5d279684d471d85c642fe63533c3ad520b84b18df9d mul_SNo : TpArr set TpArr set set
+Conj form100_3_v4 : Ap Ap equip omega Ap Ap encode_p Ap Ap setprod omega omega Lam x1 set Ap Ap quotient Lam u set Lam v set Eq set Ap Ap mul_SNo Ap Ap decode_u u Prim 2 Ap Ap decode_u v Ap ordsucc Prim 2 Ap Ap mul_SNo Ap Ap decode_u u Ap ordsucc Prim 2 Ap Ap decode_u v Prim 2 x1
+Param e40da52d94418bf12fcea785e96229c7cfb23420a48e78383b914917ad3fa626 mul_CSNo : TpArr set TpArr set set
+Conj form100_3_v5 : Ap Ap equip omega Ap Ap encode_p Ap Ap setprod omega omega Lam x1 set Ap Ap quotient Lam u set Lam v set Eq set Ap Ap mul_CSNo Ap Ap decode_u u Prim 2 Ap Ap decode_u v Ap ordsucc Prim 2 Ap Ap mul_CSNo Ap Ap decode_u u Ap ordsucc Prim 2 Ap Ap decode_u v Prim 2 x1
+Param b8ff52f838d0ff97beb955ee0b26fad79602e1529f8a2854bda0ecd4193a8a3c If_i : TpArr Prop TpArr set TpArr set set
+Def explicit_Field_div : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr set TpArr set set
+ := Lam x1 set Lam x2 set Lam _ set Lam _ TpArr set TpArr set set Lam x3 TpArr set TpArr set set Lam x set Lam y set Ap Ap Ap If_i Eq set y x2 x2 Ap Prim 0 Lam z set Ap Ap and Ap Ap Prim 1 z x1 Eq set Ap Ap x3 z y x
+Param f1c45e0e9f9df75c62335865582f186c3ec3df1a94bc94b16d41e73bf27899f9 natOfOrderedField_p : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set Prop TpArr set Prop
+Def explicit_OrderedField_rationalp_mult : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set Prop TpArr set Prop
+ := Lam x1 set Lam x2 set Lam x3 set Lam x4 TpArr set TpArr set set Lam x5 TpArr set TpArr set set Lam x6 TpArr set TpArr set Prop Lam x set Ex x7 set Ex x8 set Ap Ap and Ap Ap and Ap Ap Ap Ap Ap Ap Ap natOfOrderedField_p x1 x2 x3 x4 x5 x6 x7 Ap Ap Ap Ap Ap Ap Ap natOfOrderedField_p x1 x2 x3 x4 x5 x6 x8 Eq set Ap Ap x5 x8 x x7
+Def explicit_OrderedField_rationalp_div : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set Prop TpArr set Prop
+ := Lam x1 set Lam x2 set Lam x3 set Lam x4 TpArr set TpArr set set Lam x5 TpArr set TpArr set set Lam x6 TpArr set TpArr set Prop Lam x set Ex x7 set Ex x8 set Ap Ap and Ap Ap and Ap Ap and Ap Ap Ap Ap Ap Ap Ap natOfOrderedField_p x1 x2 x3 x4 x5 x6 x7 Ap Ap Ap Ap Ap Ap Ap natOfOrderedField_p x1 x2 x3 x4 x5 x6 x8 Imp Eq set x8 x2 All p Prop p Eq set x Ap Ap Ap Ap Ap Ap Ap explicit_Field_div x1 x2 x3 x4 x5 x7 x8
+Param 2c81615a11c9e3e301f3301ec7862ba122acea20bfe1c120f7bdaf5a2e18faf4 explicit_Reals : TpArr set TpArr set TpArr set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set set TpArr TpArr set TpArr set Prop Prop
+Conj form100_3_v6 : All x1 set All x2 set All x3 set All x4 TpArr set TpArr set set All x5 TpArr set TpArr set set All x6 TpArr set TpArr set Prop Imp Ap Ap Ap Ap Ap Ap explicit_Reals x1 x2 x3 x4 x5 x6 Ap Ap equip omega Ap Ap encode_p x1 Lam x7 set Ap Ap Ap Ap Ap Ap Ap explicit_OrderedField_rationalp_mult x1 x2 x3 x4 x5 x6 x7
+Conj form100_3_v7 : All x1 set All x2 set All x3 set All x4 TpArr set TpArr set set All x5 TpArr set TpArr set set All x6 TpArr set TpArr set Prop Imp Ap Ap Ap Ap Ap Ap explicit_Reals x1 x2 x3 x4 x5 x6 Ex x7 TpArr set set All x8 set Imp Ap Ap Prim 1 x8 Ap Ap encode_p x1 Lam x10 set Ap Ap Ap Ap Ap Ap Ap explicit_OrderedField_rationalp_mult x1 x2 x3 x4 x5 x6 x10 Ex x9 set Ap Ap and Ap Ap Prim 1 x9 omega Eq set Ap x7 x9 x8
+Conj form100_3_v8 : All x1 set All x2 set All x3 set All x4 TpArr set TpArr set set All x5 TpArr set TpArr set set All x6 TpArr set TpArr set Prop Imp Ap Ap Ap Ap Ap Ap explicit_Reals x1 x2 x3 x4 x5 x6 Ap Ap equip omega Ap Ap encode_p x1 Lam x7 set Ap Ap Ap Ap Ap Ap Ap explicit_OrderedField_rationalp_div x1 x2 x3 x4 x5 x6 x7
+Conj form100_3_v9 : All x1 set All x2 set All x3 set All x4 TpArr set TpArr set set All x5 TpArr set TpArr set set All x6 TpArr set TpArr set Prop Imp Ap Ap Ap Ap Ap Ap explicit_Reals x1 x2 x3 x4 x5 x6 Ex x7 TpArr set set All x8 set Imp Ap Ap Prim 1 x8 Ap Ap encode_p x1 Lam x10 set Ap Ap Ap Ap Ap Ap Ap explicit_OrderedField_rationalp_div x1 x2 x3 x4 x5 x6 x10 Ex x9 set Ap Ap and Ap Ap Prim 1 x9 omega Eq set Ap x7 x9 x8
+Param 3fb62f75e778736947d086a36d35ebe45a5d60bf0a340a0761ba08a396d4123a explicit_Nats : TpArr set TpArr set TpArr TpArr set set Prop
+Param ec4f9ffffa60d2015503172b35532a59cebea3390c398d0157fd3159e693eb97 explicit_Nats_one_mult : TpArr set TpArr set TpArr TpArr set set TpArr set TpArr set set
+Conj form100_3_v10 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 Ap Ap equip Ap Ap encode_p Ap Ap setprod x1 x1 Lam x4 set Ap Ap quotient Lam u set Lam v set Eq set Ap Ap Ap Ap Ap explicit_Nats_one_mult x1 x2 x3 Ap Ap decode_u u Prim 2 Ap Ap decode_u v Ap ordsucc Prim 2 Ap Ap Ap Ap Ap explicit_Nats_one_mult x1 x2 x3 Ap Ap decode_u u Ap ordsucc Prim 2 Ap Ap decode_u v Prim 2 x4 x1

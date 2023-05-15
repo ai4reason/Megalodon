@@ -1,0 +1,143 @@
+Axiom and3I : forall A B C:prop, A -> B -> C -> A /\ B /\ C.
+Definition iden : set := "core_simplicity_iden".
+Definition comp : set -> set -> set := fun s t => pair "core_simplicity_comp" (pair s t).
+Definition one : set := "core_simplicity_one".
+Definition sum : set -> set -> set := fun A B => pair "core_simplicity_sum" (pair A B).
+Definition prod : set -> set -> set := fun A B => pair "core_simplicity_prod" (pair A B).
+Definition unit : set := "core_simplicity_unit".
+Definition injl : set -> set := fun t => pair "core_simplicity_injl" t.
+Definition injr : set -> set := fun t => pair "core_simplicity_injr" t.
+Definition case : set -> set -> set := fun s t => pair "core_simplicity_case" (pair s t).
+Definition spair : set -> set -> set := fun s t => pair "core_simplicity_pair" (pair s t).
+Definition take : set -> set := fun t => pair "core_simplicity_take" t.
+Definition drop : set -> set := fun t => pair "core_simplicity_drop" t.
+
+Infix + 450 left := sum.
+Infix * 450 left := prod.
+
+Axiom distinct_1 : forall x y z, pair \x63 x <> pair (pair \x63 y) z.
+Axiom distinct_2 : forall x y z, pair (pair \x63 y) z <> pair \x63 x.
+Axiom neq_one_sum : forall A B, one <> A + B.
+Axiom neq_one_prod : forall A B, one <> A * B.
+Axiom neq_sum_prod : forall A B C D, A + B <> C * D.
+Axiom sum_inj : forall A B C D, A + B = C + D -> A = C /\ B = D.
+Axiom prod_inj : forall A B C D, A * B = C * D -> A = C /\ B = D.
+Axiom neq_iden_comp : forall x y, iden <> comp x y.
+Axiom neq_iden_unit : iden <> unit.
+Axiom neq_comp_unit : forall x y, comp x y <> unit.
+Axiom neq_iden_injl : forall x, iden <> injl x.
+Axiom neq_comp_injl : forall x y z, comp x y <> injl z.
+Axiom neq_unit_injl : forall x, unit <> injl x.
+Axiom neq_iden_injr : forall x, iden <> injr x.
+Axiom neq_comp_injr : forall x y z, comp x y <> injr z.
+Axiom neq_unit_injr : forall x, unit <> injr x.
+Axiom neq_injl_injr : forall x y, injl x <> injr y.
+Axiom neq_iden_case : forall x y, iden <> case x y.
+Axiom neq_comp_case : forall x y z w, comp x y <> case z w.
+Axiom neq_unit_case : forall x y, unit <> case x y.
+Axiom neq_injl_case : forall x y z, injl x <> case y z.
+Axiom neq_injr_case : forall x y z, injr x <> case y z.
+Axiom neq_iden_spair : forall x y, iden <> spair x y.
+Axiom neq_comp_spair : forall x y z w, comp x y <> spair z w.
+Axiom neq_unit_spair : forall x y, unit <> spair x y.
+Axiom neq_injl_spair : forall x y z, injl x <> spair y z.
+Axiom neq_injr_spair : forall x y z, injr x <> spair y z.
+Axiom neq_case_spair : forall x y z w, case x y <> spair z w.
+Axiom neq_iden_take : forall x, iden <> take x.
+Axiom neq_comp_take : forall x y z, comp x y <> take z.
+Axiom neq_unit_take : forall x, unit <> take x.
+Axiom neq_injl_take : forall x y, injl x <> take y.
+Axiom neq_injr_take : forall x y, injr x <> take y.
+Axiom neq_case_take : forall x y z, case x y <> take z.
+Axiom neq_spair_take : forall x y z, spair x y <> take z.
+Axiom neq_iden_drop : forall x, iden <> drop x.
+Axiom neq_comp_drop : forall x y z, comp x y <> drop z.
+Axiom neq_unit_drop : forall x, unit <> drop x.
+Axiom neq_injl_drop : forall x y, injl x <> drop y.
+Axiom neq_injr_drop : forall x y, injr x <> drop y.
+Axiom neq_case_drop : forall x y z, case x y <> drop z.
+Axiom neq_spair_drop : forall x y z, spair x y <> drop z.
+Axiom neq_take_drop : forall x y, take x <> drop y.
+Axiom comp_inj : forall x y z w, comp x y = comp z w -> x = z /\ y = w.
+Axiom comp_inj_1 : forall x y z w, comp x y = comp z w -> x = z.
+Axiom comp_inj_2 : forall x y z w, comp x y = comp z w -> y = w.
+Axiom injl_inj : forall x y, injl x = injl y -> x = y.
+Axiom injr_inj : forall x y, injr x = injr y -> x = y.
+Axiom case_inj : forall x y z w, case x y = case z w -> x = z /\ y = w.
+Axiom case_inj_1 : forall x y z w, case x y = case z w -> x = z.
+Axiom case_inj_2 : forall x y z w, case x y = case z w -> y = w.
+Axiom spair_inj : forall x y z w, spair x y = spair z w -> x = z /\ y = w.
+Axiom spair_inj_1 : forall x y z w, spair x y = spair z w -> x = z.
+Axiom spair_inj_2 : forall x y z w, spair x y = spair z w -> y = w.
+Axiom take_inj : forall x y, take x = take y -> x = y.
+Axiom drop_inj : forall x y, drop x = drop y -> x = y.
+Definition type_p : set -> prop := fun A =>
+  forall p:set -> prop,
+       p one
+    -> (forall A B, p A -> p B -> p (A + B))
+    -> (forall A B, p A -> p B -> p (A * B))
+    -> p A.
+Axiom type_one : type_p one.
+Axiom type_sum : forall A B, type_p A -> type_p B -> type_p (A + B).
+Axiom type_prod : forall A B, type_p A -> type_p B -> type_p (A * B).
+Axiom type_ind : forall p:set -> prop,
+       p one
+    -> (forall A B, type_p A -> p A -> type_p B -> p B -> p (A + B))
+    -> (forall A B, type_p A -> p A -> type_p B -> p B -> p (A * B))
+    -> forall A, type_p A -> p A.
+Axiom type_sum_inv : forall A B, type_p (A + B) -> type_p A /\ type_p B.
+Axiom type_prod_inv : forall A B, type_p (A * B) -> type_p A /\ type_p B.
+Definition term_p : set -> prop := fun t =>
+  forall p:set -> prop,
+       p iden
+    -> (forall s t, p s -> p t -> p (comp s t))
+    -> p unit
+    -> (forall t, p t -> p (injl t))
+    -> (forall t, p t -> p (injr t))
+    -> (forall s t, p s -> p t -> p (case s t))
+    -> (forall s t, p s -> p t -> p (spair s t))
+    -> (forall t, p t -> p (take t))
+    -> (forall t, p t -> p (drop t))
+    -> p t.
+Axiom term_iden : term_p iden.
+Axiom term_comp : forall s t, term_p s -> term_p t -> term_p (comp s t).
+Axiom term_unit : term_p unit.
+Axiom term_injl : forall t, term_p t -> term_p (injl t).
+Axiom term_injr : forall t, term_p t -> term_p (injr t).
+Axiom term_case : forall s t, term_p s -> term_p t -> term_p (case s t).
+Axiom term_spair : forall s t, term_p s -> term_p t -> term_p (spair s t).
+Axiom term_take : forall t, term_p t -> term_p (take t).
+Axiom term_drop : forall t, term_p t -> term_p (drop t).
+Definition of : set -> set -> set -> prop := fun t A B =>
+  forall p:set -> set -> set -> prop,
+       (forall A, type_p A -> p iden A A)
+    -> (forall A B C s t, p s A B -> p t B C -> p (comp s t) A C)
+    -> (forall A, type_p A -> p unit A one)
+    -> (forall A B C t, type_p C -> p t A B -> p (injl t) A (B + C))
+    -> (forall A B C t, type_p B -> p t A C -> p (injr t) A (B + C))
+    -> (forall A B C D s t, p s (A * C) D -> p t (B * C) D -> p (case s t) ((A + B) * C) D)
+    -> (forall A B C s t, p s A B -> p t A C -> p (spair s t) A (B * C))
+    -> (forall A B C t, type_p B -> p t A C -> p (take t) (A * B) C)
+    -> (forall A B C t, type_p A -> p t B C -> p (drop t) (A * B) C)
+    -> p t A B.
+Axiom of_iden : forall A, type_p A -> of iden A A.
+Axiom of_comp : forall A B C s t, of s A B -> of t B C -> of (comp s t) A C.
+Axiom of_unit : forall A, type_p A -> of unit A one.
+Axiom of_injl : forall A B C t, type_p C -> of t A B -> of (injl t) A (B + C).
+Axiom of_injr : forall A B C t, type_p B -> of t A C -> of (injr t) A (B + C).
+Axiom of_case : forall A B C D s t, of s (A * C) D -> of t (B * C) D -> of (case s t) ((A + B) * C) D.
+Axiom of_spair : forall A B C s t, of s A B -> of t A C -> of (spair s t) A (B * C).
+Axiom of_take : forall A B C t, type_p B -> of t A C -> of (take t) (A * B) C.
+Axiom of_drop : forall A B C t, type_p A -> of t B C -> of (drop t) (A * B) C.
+Axiom of_ind : forall p:set -> set -> set -> prop,
+       (forall A, type_p A -> p iden A A)
+    -> (forall A B C s t, of s A B -> p s A B -> of t B C -> p t B C -> p (comp s t) A C)
+    -> (forall A, type_p A -> p unit A one)
+    -> (forall A B C t, type_p C -> of t A B -> p t A B -> p (injl t) A (B + C))
+    -> (forall A B C t, type_p B -> of t A C -> p t A C -> p (injr t) A (B + C))
+    -> (forall A B C D s t, of s (A * C) D -> p s (A * C) D -> of t (B * C) D -> p t (B * C) D -> p (case s t) ((A + B) * C) D)
+    -> (forall A B C s t, of s A B -> p s A B -> of t A C -> p t A C -> p (spair s t) A (B * C))
+    -> (forall A B C t, type_p B -> of t A C -> p t A C -> p (take t) (A * B) C)
+    -> (forall A B C t, type_p A -> of t B C -> p t B C -> p (drop t) (A * B) C)
+    -> forall t A B, of t A B -> p t A B.
+Axiom of_wf : forall t A B, of t A B -> term_p t /\ type_p A /\ type_p B.

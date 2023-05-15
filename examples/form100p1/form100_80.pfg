@@ -1,0 +1,21 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Param 2ba7d093d496c0f2909a6e2ea3b2e4a943a97740d27d15003a815d25340b379a and : TpArr Prop TpArr Prop Prop
+Param 1de7fcfb8d27df15536f5567084f73d70d2b8526ee5d05012e7c9722ec76a8a6 setexp : TpArr set TpArr set set
+Param f336a4ec8d55185095e45a638507748bac5384e04e0c48d008e4f6a9653e9c44 encode_p : TpArr set TpArr TpArr set Prop set
+Param 729ee87b361f57aed9acd8e4cdffcb3b80c01378d2410a0dabcf2c08b759e074 prime_nat : TpArr set Prop
+Param 3be1c5f3e403e02caebeaf6a2b30d019be74b996581a62908316c01702a459df nat_primrec : TpArr set TpArr TpArr set TpArr set set TpArr set set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Param 35a1ef539d3e67ef8257da2bd992638cf1225c34d637bc7d8b45cf51e0445d80 mul_nat : TpArr set TpArr set set
+Param c7aaa670ef9b6f678b8cf10b13b2571e4dc1e6fde061d1f641a5fa6c30c09d46 decode_u : TpArr set TpArr set set
+Param 76bef6a46d22f680befbd3f5ca179f517fb6d2798abc5cd2ebbbc8753d137948 bij : TpArr set TpArr set TpArr TpArr set set Prop
+Conj form100_80_v1 : All x1 set Imp Ap Ap Prim 1 x1 omega Imp Ap Ap Prim 1 Prim 2 x1 Ex x2 set Ap Ap and Ap Ap Prim 1 x2 omega Ex x3 set Ap Ap and Ap Ap Prim 1 x3 Ap Ap setexp Ap Ap encode_p omega Lam x9 set Ap prime_nat x9 x2 Ap Ap and Eq set x1 Ap Ap Ap nat_primrec Ap ordsucc Prim 2 Lam i set Lam r set Ap Ap mul_nat Ap Ap decode_u x3 i r x2 All x4 set Imp Ap Ap Prim 1 x4 omega All x5 set Imp Ap Ap Prim 1 x5 Ap Ap setexp Ap Ap encode_p omega Lam x8 set Ap prime_nat x8 x4 Imp Eq set x1 Ap Ap Ap nat_primrec Ap ordsucc Prim 2 Lam i set Lam r set Ap Ap mul_nat Ap Ap decode_u x5 i r x4 Ap Ap and Eq set x2 x4 Ex x6 TpArr set set Ap Ap and Ap Ap Ap bij x2 x2 x6 All x7 set Imp Ap Ap Prim 1 x7 x2 Eq set Ap Ap decode_u x3 x7 Ap Ap decode_u x5 Ap x6 x7
+Param ec4f9ffffa60d2015503172b35532a59cebea3390c398d0157fd3159e693eb97 explicit_Nats_one_mult : TpArr set TpArr set TpArr TpArr set set TpArr set TpArr set set
+Def explicit_Nats_one_divides : TpArr set TpArr set TpArr TpArr set set TpArr set TpArr set Prop
+ := Lam x1 set Lam x2 set Lam x3 TpArr set set Lam m set Lam n set Ap Ap and Ap Ap and Ap Ap Prim 1 m x1 Ap Ap Prim 1 n x1 Ex x4 set Ap Ap and Ap Ap Prim 1 x4 x1 Eq set Ap Ap Ap Ap Ap explicit_Nats_one_mult x1 x2 x3 x4 m n
+Param 9577468199161470abc0815b6a25e03706a4e61d5e628c203bf1f793606b1153 or : TpArr Prop TpArr Prop Prop
+Def explicit_Nats_one_prime : TpArr set TpArr set TpArr TpArr set set TpArr set Prop
+ := Lam x1 set Lam x2 set Lam x3 TpArr set set Lam p set Ap Ap and Ap Ap Prim 1 p x1 All x4 set Imp Ap Ap Prim 1 x4 x1 Imp Ap Ap Ap Ap Ap explicit_Nats_one_divides x1 x2 x3 x4 p Ap Ap or Eq set x4 x2 Eq set x4 p
+Param 3fb62f75e778736947d086a36d35ebe45a5d60bf0a340a0761ba08a396d4123a explicit_Nats : TpArr set TpArr set TpArr TpArr set set Prop
+Conj form100_80_v2 : All x1 set All x2 set All x3 TpArr set set Imp Ap Ap Ap explicit_Nats x1 x2 x3 All x4 set Imp Ap Ap Prim 1 x4 x1 Ex x5 set Ap Ap and Ap Ap Prim 1 x5 omega Ex x6 set Ap Ap and Ap Ap Prim 1 x6 Ap Ap setexp Ap Ap encode_p x1 Lam x12 set Ap Ap Ap Ap explicit_Nats_one_prime x1 x2 x3 x12 x5 Ap Ap and Eq set x4 Ap Ap Ap nat_primrec Ap ordsucc Prim 2 Lam i set Lam r set Ap Ap Ap Ap Ap explicit_Nats_one_mult x1 x2 x3 Ap Ap decode_u x6 i r x5 All x7 set Imp Ap Ap Prim 1 x7 omega All x8 set Imp Ap Ap Prim 1 x8 Ap Ap setexp Ap Ap encode_p x1 Lam x11 set Ap Ap Ap Ap explicit_Nats_one_prime x1 x2 x3 x11 x7 Imp Eq set x4 Ap Ap Ap nat_primrec Ap ordsucc Prim 2 Lam i set Lam r set Ap Ap Ap Ap Ap explicit_Nats_one_mult x1 x2 x3 Ap Ap decode_u x8 i r x7 Ap Ap and Eq set x5 x7 Ex x9 TpArr set set Ap Ap and Ap Ap Ap bij x5 x5 x9 All x10 set Imp Ap Ap Prim 1 x10 x5 Eq set Ap Ap decode_u x6 x10 Ap Ap decode_u x8 Ap x9 x10

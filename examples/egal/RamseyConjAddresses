@@ -1,0 +1,221 @@
+Below are the addresses corresponding to the conjectures
+in RamseyConjs.mg. Bounties could be placed at these addresses.
+We begin with two cases that have already been proven.
+
+For more information about Ramsey numbers see the wikipedia page:
+
+https://en.wikipedia.org/wiki/Ramsey's_theorem
+
+The address TMZocj1XErQapTAoABSGUJ1RAjXt75xntgu corresponds
+to the proposition not_TwoRamseyProp_3_3_5. This proposition
+has already been proven (see egal/Ramsey_3_3_5.mg), so it
+does not make sense to place a bounty there. Any bounties
+placed there will be immediately claimable by whoever
+published the proof in Ramsey_3_3_5.mg.
+
+not_TwoRamseyProp_3_3_5 : TMZocj1XErQapTAoABSGUJ1RAjXt75xntgu
+
+Similarly, the address TMHKQEdCUZbJETaBCrXS7FuUE9ppei8HCHe
+corresponds to the proposition TwoRamseyProp_3_3_6.
+This has already been proven (see Ramsey_3_3_6.mg).
+
+TwoRamseyProp_3_3_6 : TMHKQEdCUZbJETaBCrXS7FuUE9ppei8HCHe
+
+The following 71 conjectures correspond to proving R(r,s) > N for
+different values of R(r,s) > N. They are known to be true.  In most
+cases the numbers are represented as finite ordinals in unary using
+the empty set (for 0) and ordinal successor.  In some cases the power
+set operator is applied to a finite ordinal n to obtain a set of size
+2^n. In some cases the bound is weak and the conjecture may be
+relatively easy to prove.  For example, not_TwoRamseyProp_6_7_Power_3
+effectively states R(6,7) > 8 and can be proven by giving a graph on
+the power set of 3 for which every subset of size 6 is not a clique
+and every subset of size is not an anticlique. Almost every graph will
+satisfy this property.
+
+not_TwoRamseyProp_3_4_8 : TMZTRwksZ429x7jwcuaATRxKhUvGEdp5Nyj
+not_TwoRamseyProp_3_5_Power_3 : TMVHzDbwLEUq7ZdF7SwdxojLSSZrETq2ty7
+not_TwoRamseyProp_3_5_13 : TMcGK8KWhfaCkgZUqXFaa4wSTBr6oTf89PQ
+not_TwoRamseyProp_3_6_Power_3 : TMU5S3VcCxhSGM557BB2pMPSuPt47UcKSax
+not_TwoRamseyProp_3_6_Power_4 : TMLyvZypyq14D3Q2vyHSse88YzHewwRcCDB
+not_TwoRamseyProp_3_6_17 : TMMeqRAd9xzG4jtxa9EUaL64uqRevdds6jW
+not_TwoRamseyProp_3_7_Power_3 : TMYhjqt4H2QCQA9Zta5ft1wkbEUoFrtyrHr
+not_TwoRamseyProp_3_7_Power_4 : TMRgsDDE1r3HdbuN5FnQLLbtL4VxT2U4oxm
+not_TwoRamseyProp_3_7_22 : TMJKbZjgHwR1R1hCak4EgwPjmA8HNR1AzVe
+not_TwoRamseyProp_3_8_Power_3 : TMdrnqT6ipbhyhibu4PcP9mdhihVk6gdmpW
+not_TwoRamseyProp_3_8_Power_4 : TMEzzwYRHW3oFCPn7Htm5N2aQV4NeasT58S
+not_TwoRamseyProp_3_8_27 : TMXv8MmejVaeybNBgqmLP4so3SqWZWxqJE7
+not_TwoRamseyProp_3_9_Power_3 : TMH8CuMPvv8wWJ9ctLwnaHum2JwFwWZzhf1
+not_TwoRamseyProp_3_9_Power_4 : TMUYsSwSxE7bzhNET5QLRoGiQNtgyLc2q5s
+not_TwoRamseyProp_3_9_Power_5 : TMPP44pD9m61Ua5QkmuR3pGQpGyy1uVuguG
+not_TwoRamseyProp_3_9_35 : TMdKrj9bPB76LVKYCPjJUYHDSFYdfmXkww3
+not_TwoRamseyProp_3_10_Power_3 : TMY6yrGra8BMSi2im1iBh6Y5hhYyP9C2Mhc
+not_TwoRamseyProp_3_10_Power_4 : TMFWhbv4YPX463UqrwxCVfPnPMgkcn1EwGf
+not_TwoRamseyProp_3_10_Power_5 : TMVPg3DwriFjvu4n82kK8Ka8fkKqzddN4vH
+not_TwoRamseyProp_3_10_39 : TMKUcnY4Z28obHfQWVZn56bFru9zRQdBzzA
+not_TwoRamseyProp_4_4_Power_3 : TMb2Sy7PW4A7JxWuNHKhF1RyJi1ALA12yEn
+not_TwoRamseyProp_4_4_Power_4 : TMV3LTHyCBnhXvur7GPWJBv9EbT5YUC4S8K
+not_TwoRamseyProp_4_4_17 : TMFYWunQezDrkhpMUee7saZdayoEVM4SsbP
+not_TwoRamseyProp_4_5_Power_3 : TMSiba4Q39wbstpCeDBgTvu9cgj6j7foegZ
+not_TwoRamseyProp_4_5_Power_4 : TMK6infbDwDHS4b8r9xmZohrD5GBwPDg9Y6
+not_TwoRamseyProp_4_5_24 : TMXaEY6oQ7QdVZuqvs3nB3u1a3PaeREqW4b
+not_TwoRamseyProp_4_6_Power_3 : TMdAvV5dAUEbvvnvouGFbsYA3hNp6AZi2gh
+not_TwoRamseyProp_4_6_Power_4 : TMGspMoqWL7PcaQVkGiQko7y57XzeaECkiZ
+not_TwoRamseyProp_4_6_Power_5 : TMNEbNDi1x9cRwNgQ365q4mQrTA21mcZzpE
+not_TwoRamseyProp_4_6_35 : TMTP6yNEuLJgxabKFMpXXG2jXMmGBhXo7LG
+not_TwoRamseyProp_4_7_Power_3 : TMbxdFJCUamZbt2MySrR82XMAYXTTixrrL4
+not_TwoRamseyProp_4_7_Power_4 : TMReAUbFDvWy1AjAZs14R81dre36VoPsfS5
+not_TwoRamseyProp_4_7_Power_5 : TMKi1D84D9M7yXLUMiez2HapYajJVBTbpiu
+not_TwoRamseyProp_4_7_48 : TMWNCQzzBFKBFRj2Vg4QhjCUg9Pno3QpkbU
+not_TwoRamseyProp_4_8_Power_3 : TMMqajLmzgVcjmZyYogunHvh5hWoxHNDAq4
+not_TwoRamseyProp_4_8_Power_4 : TMQtVpgWyNwmDEV4a1phzjan4LZCrtCQ8AV
+not_TwoRamseyProp_4_8_Power_5 : TMGQTLwKsfK567DHtN8vAVcv2UTVvaSG6AA
+not_TwoRamseyProp_4_8_58 : TMEoc7MD7M2kuGeqGA7VTD67gWsQvS7QyjS
+not_TwoRamseyProp_4_9_Power_3 : TMHUSbZSpkav3xHNGZ7eqfLj6JfLMimtjNs
+not_TwoRamseyProp_4_9_Power_4 : TMahh56eTuXexupey9e4a2qs5ebXZ1CqUEz
+not_TwoRamseyProp_4_9_Power_5 : TMFCRqFBwt3J6dxcFHn5EgswrUMNWr9nBFZ
+not_TwoRamseyProp_4_9_Power_6 : TMQGT6GGrGNc3fnpNVVyzYp1UfDQkmUx5hh
+not_TwoRamseyProp_4_9_72 : TMVDStJK2rAYDiNJCHMNaCGuAU5KY6GpwG1
+not_TwoRamseyProp_5_5_Power_3 : TMK7GHozXXyUDvZ7sWzWvZ2D2rA4QwFie5p
+not_TwoRamseyProp_5_5_Power_4 : TMFG8Vmyysj75BgACYiq1K3RPqwRAgxQupZ
+not_TwoRamseyProp_5_5_Power_5 : TMGmDYbRXrpoiZjRi312cY1fvzjX3vVcMbz
+not_TwoRamseyProp_5_5_42 : TMbu5cNHpJ8J5t435KssbZiaKf7Av2ASGBH
+not_TwoRamseyProp_5_6_Power_3 : TMcxptoPKiJ8Q67vE6chP4KauMz56jXhuHS
+not_TwoRamseyProp_5_6_Power_4 : TMFbYaKNtu4zJfq46WL5ucePjpjFmuGjeLQ
+not_TwoRamseyProp_5_6_Power_5 : TMc5MAkbjb79K9dcjGUEYC76314eQZkiw1c
+not_TwoRamseyProp_5_6_57 : TMGVzjSdaN6obxzPsnYbvq9nQJ5sH3qYUGL
+not_TwoRamseyProp_5_7_Power_3 : TMJ6qQh3fADYVrttCTFyjugyUroHquv9VWk
+not_TwoRamseyProp_5_7_Power_4 : TMHp76CfXyf9JAxPqM3r8GumwMrRLHTjim5
+not_TwoRamseyProp_5_7_Power_5 : TMRXV6eS9sr6MsLUcUz8gb8uXmdYMxjNmFJ
+not_TwoRamseyProp_5_7_Power_6 : TMNXFB9HwrMCgkiMLxVBRW5nkQVbRbLU9YD
+not_TwoRamseyProp_5_7_79 : TMW6xdLtbxVSHVaUL6epngvPdpDXyzQoeHp
+not_TwoRamseyProp_5_8_Power_3 : TMV4oLWxxL9gduEPEmbPFnaF48mrcfXvy4Z
+not_TwoRamseyProp_5_8_Power_4 : TMccab19u1j95mqYTexxZsq7E8qdHsBL31Q
+not_TwoRamseyProp_5_8_Power_5 : TMPaUGYW3WyPmb41n83C3Z1tqsB6wYa5DQH
+not_TwoRamseyProp_5_8_Power_6 : TMYZ6xiWaWa4LUtduMqzRe1BndeKk1nnKcV
+not_TwoRamseyProp_5_8_100 : TMPs8cxp8Zg5ugHirdaPo8qrEuBCkcZ8tcf
+not_TwoRamseyProp_6_6_Power_3 : TMWJvuKAYvjKtFnHjHUoDnoTzE8kibgeGit
+not_TwoRamseyProp_6_6_Power_4 : TMYNoFmD6Rb2sEwpA7PgB7cRraVw1JDdGHZ
+not_TwoRamseyProp_6_6_Power_5 : TMTYNCqRgcySPyfZGBzZgcqScw5RS6X2hhC
+not_TwoRamseyProp_6_6_Power_6 : TMTxgdseSpFSGHDNR7RSMbhK5Wk3jSstF5Q
+not_TwoRamseyProp_6_6_101 : TMLsyJxzLDBGJt4RLuXffhVfBnk72RE9DL4
+not_TwoRamseyProp_6_7_Power_3 : TMPTEnXyPsjhnTtGm6Lrnj4MzaEboGdfVfR
+not_TwoRamseyProp_6_7_Power_4 : TMaZ4F5ahqctbqyMkTp4YZkmtTKg1JZBdEX
+not_TwoRamseyProp_6_7_Power_5 : TMVnsD3eB7hnvajnroG6dpv4ve85pkroCCz
+not_TwoRamseyProp_6_7_Power_6 : TMExwwLP8cRBB4esj7b44gEfGL8BFAi8H6F
+not_TwoRamseyProp_6_7_114 : TMcWxeWu1w1WJJfzUim5sTbF4UaXzfcJuDa
+
+The remaining problems are in the positive form asserting R(r,s) <= N.
+In some cases the positive form is known to be true.
+In other cases it is open, but proving either the positive form
+or its negation would allow a user to claim bounties at the
+address of the positive form.
+
+The following 73 positive forms are known to be true and so should
+(unless there is some error) be provable in principle.
+Some may be easy due to the bound being very weak
+(e.g., TwoRamseyProp_3_4_Power_8 effectively says R(3,4) <= 256).
+Obtaining a proof that could be published into the Proofgold
+chain might require developing a theory with lemmas over
+several documents.
+
+TwoRamseyProp_3_4_9 : TMNqnATDwgaDsTFX1M9RmSouPYDn9u67dAZ
+TwoRamseyProp_3_4_Power_4 : TMa4Lc4AyMhSWuiBQmLra5Cex3wBXf15o16
+TwoRamseyProp_3_4_Power_5 : TMQzy35yBcche2UXwdvoZVnt3dyp4LnFDNx
+TwoRamseyProp_3_4_Power_6 : TMchT1fHoSCWkPkaNu2nSYwcXiQaD73EHTD
+TwoRamseyProp_3_4_Power_7 : TMNHo4B3BUr9TbU35fH9h7nCyQRMLfjAGhA
+TwoRamseyProp_3_4_Power_8 : TMW38xrr6tkiKg7v3rwvzcQ3h7M1j5bb3Po
+TwoRamseyProp_3_5_14 : TMbShW7mSiehCqEg6gfAGZXGbBLt5TA2atT
+TwoRamseyProp_3_5_Power_4 : TMGMoKMeC2QJu2UhVYot5qJzaXu3dYkTHUb
+TwoRamseyProp_3_5_Power_5 : TMG3jmdBxNxSKQWdVCkb63peTMJTqK4n1EP
+TwoRamseyProp_3_5_Power_6 : TMGzjbC1rwhqhaSAB4bJquzeoVAfqjbXQ45
+TwoRamseyProp_3_5_Power_7 : TMMdpPGZzqSgcaWdRPhoxs8FZagr1Ku3sh8
+TwoRamseyProp_3_5_Power_8 : TMTsPkynff2LXJmYGRT2UET2mF6RGJNXZVf
+TwoRamseyProp_3_6_18 : TMbJ1MogStdKCGN3J3j1hThprkcWjA8ggEB
+TwoRamseyProp_3_6_Power_5 : TMVhEw2QbtGaDDY51t2cwuHDMUzaETWib2D
+TwoRamseyProp_3_6_Power_6 : TMP3JV9tNhcdfcVDZj734eiYJhHwDfegyBB
+TwoRamseyProp_3_6_Power_7 : TMPDXGn6qXa3HLYqqLBszZJeUxFMihnMw4B
+TwoRamseyProp_3_6_Power_8 : TMSMammDfv4rySY6UrYupgxMbaKDFRTHpRs
+TwoRamseyProp_3_7_23 : TMGKH8FtpMKQL5nSjsU22A45gjtZpd5Yarm
+TwoRamseyProp_3_7_Power_5 : TMb4eT18NCpi4ejC4ECKxNQaagNAEGTj4LA
+TwoRamseyProp_3_7_Power_6 : TMUmwLeejdDfRmrpuF1TaHgjbWn93x6nNLU
+TwoRamseyProp_3_7_Power_7 : TMPUFYxWzFBgwayouu4SUU8EzvgByyNgcRD
+TwoRamseyProp_3_7_Power_8 : TMHQTw2ojQ2k5rHnX37gyhp5MT9LPqwD5Ri
+TwoRamseyProp_3_8_28 : TMJeasRF8U3ej45EdWxUA85TXjati3kbPyS
+TwoRamseyProp_3_8_Power_5 : TMXaAN4JK3kL6dtksJvq6QFMvxFqNdDnm74
+TwoRamseyProp_3_8_Power_6 : TMS7xacvnKSxxiXgHWv6QKF29XtvuLERhYD
+TwoRamseyProp_3_8_Power_7 : TMWq6xRb5gdxucG1V74VfEoc5e8YiEdpg3P
+TwoRamseyProp_3_8_Power_8 : TMG2j6KQNEncd1vzvTgFjYmAtyCVQjohd29
+TwoRamseyProp_3_9_36 : TMavx891tAmc71YDKiSXQBD2Rm932Qp23tk
+TwoRamseyProp_3_9_Power_6 : TMRpVz5Q3k2b8S6a2jGKwBWyUNFh8KbNoNo
+TwoRamseyProp_3_9_Power_7 : TMM77b3mnpsLDSBDVUzxoB9SFRd1mopPYzh
+TwoRamseyProp_3_9_Power_8 : TMcBQxbdGYVjjofGuDJiHwa928JUDUhzRF2
+TwoRamseyProp_3_10_42 : TMLgkDpY2A4KZzDRtTk8w1SzySmFN7ygd1R
+TwoRamseyProp_3_10_Power_6 : TMHXjGJcjf1kvrEFrD1XP3Jds6hXJyvEFQD
+TwoRamseyProp_3_10_Power_7 : TMNxMK9VqypkQxHtcMqNFv1TdqTsc1SmxJj
+TwoRamseyProp_3_10_Power_8 : TMP3ZwqJREJLdQZ2JJjCfzTu2gmLShT4zSu
+TwoRamseyProp_4_4_18 : TMbeXnozpPPnYPGE5hdooJdVvco3rwg45tS
+TwoRamseyProp_4_4_Power_5 : TMM1zbu3WmwYVsxxmcESD8kFqbfFQwTcR4f
+TwoRamseyProp_4_4_Power_6 : TMJv5tmSnJSKJgVYvRKQVVMBttzVWdfnLJf
+TwoRamseyProp_4_4_Power_7 : TMcpdNTccL8xFQ6JC8GfX7sHkqzpvE9KXaR
+TwoRamseyProp_4_4_Power_8 : TMYh85Mw7Hngazh6x1sa1XBJgDz7EvtDSmP
+TwoRamseyProp_4_5_25 : TMaGCJ8SmUjESVqqhCFM894vFTpNfi7Zcbo
+TwoRamseyProp_4_5_Power_5 : TMV3YoyvmjyjxRvvRFvzzy1SBNJiVLAPcj7
+TwoRamseyProp_4_5_Power_6 : TMNtFFfd9MiGZHZJfJRTckZNh38Pw2NJkh4
+TwoRamseyProp_4_5_Power_7 : TMT72t5wVipcDyKEUp2NxiqgKBBeFAzCwTA
+TwoRamseyProp_4_5_Power_8 : TMHfWMTzVfcKRiJmWVLEZgC8gKLUfsZsF6J
+TwoRamseyProp_4_6_41 : TMGyu8j3dnjTxE99spsMGXnkEp8QU5d7ePK
+TwoRamseyProp_4_6_Power_6 : TMd3rAdqu6qzfWvG6z8fctmdsnvMEex6ykJ
+TwoRamseyProp_4_6_Power_7 : TMaxYGLoNcZ9npUhCq7eKJZwDrsBerDyapG
+TwoRamseyProp_4_6_Power_8 : TMbtUxRqtMgd4aNMTSCvkjGoUv8hpYZp8Nk
+TwoRamseyProp_4_7_61 : TMXtyXPKJFL6wYpipDCsjK7fJScGSuFPN1S
+TwoRamseyProp_4_7_Power_6 : TMUTpcc8in2onNu2AC3fbS6Q9SegWNaMCmE
+TwoRamseyProp_4_7_Power_7 : TMF6AWwpeiybjsgiLTDQnEnRddXAVqdwusM
+TwoRamseyProp_4_7_Power_8 : TMSLHY3cxsrK4S1KyUWnWZkGMrWWNc1uQST
+TwoRamseyProp_4_8_84 : TML8t7q8Wz5HP9YGrvJcp2vGuNDwrRGNP57
+TwoRamseyProp_4_8_Power_7 : TMNx667poeYtsT7KTZTGnyLTq5KdQm1nJxa
+TwoRamseyProp_4_8_Power_8 : TMSkRiSt5qZMy1KuD4arx7FcdmvDDNJib5f
+TwoRamseyProp_4_9_115 : TMRc1h6FhfYCoCofHKNvxpR82dzXF2ndG1R
+TwoRamseyProp_4_9_Power_7 : TMYjJ5cgHonhxfDky3NTprMxo36acV14s8x
+TwoRamseyProp_4_9_Power_8 : TMKYb87veLxzurwXFUttEMEyFTGChwJXW6Z
+TwoRamseyProp_5_5_48 : TMctie53cBVHdM4Dvc2CpJMCm7QGMPDGRQm
+TwoRamseyProp_5_5_Power_6 : TMFmfYexZpQQTd5iYiCqFrsY32PBd2EqPzm
+TwoRamseyProp_5_5_Power_7 : TMJPAjAu1aKMLh3RpYFM65GzSwohzEYgaA9
+TwoRamseyProp_5_5_Power_8 : TMSwfavHeMj9kJLBS2Sc79vbDjTwV2rRpb2
+TwoRamseyProp_5_6_87 : TMcD2ZaGBnE6sxdoAA2GFAG6mQsKZPZHvdq
+TwoRamseyProp_5_6_Power_7 : TMdu7Jgg2EakX7Nvz69Z1gfVbW2afcXvDVA
+TwoRamseyProp_5_6_Power_8 : TMZDhzNsA5pbx1rQ29J1jQEUqKozxpVpnPS
+TwoRamseyProp_5_7_143 : TMVSgM5dy7dbA4eVmKwUK4yUt8vdufNQapi
+TwoRamseyProp_5_7_Power_8 : TMQjipjMrCSNCqNGoiGJVr3qghrzBSnicBx
+TwoRamseyProp_5_8_216 : TMMm14Wr2mksV4NLhHHbALNnE9PqjBKWHKT
+TwoRamseyProp_5_8_Power_8 : TMQjEqYWm45Jzke34ekXu4NhZB6ejU4NJKb
+TwoRamseyProp_6_6_165 : TMFcryYsFNf2kRz2njXmBfrmXoxJ9Dp7FkP
+TwoRamseyProp_6_6_Power_8 : TMH3bevkcqvh8mvvjxFmnKn1ZN54nPPmNma
+TwoRamseyProp_6_7_298 : TMTj9pJWZUioWqtxHD9EmyauhheXzt3yYRj
+
+Each of the following 22 conjectures is an open problem of mathematics.
+In particular, proving one of the conjectures or its negation would
+increase the current knowledge about Ramsey numbers.
+
+TwoRamseyProp_3_10_40 : TMdvEn8UmrSjZRZwuJBKRu3CDNJVsVpbEZJ
+TwoRamseyProp_3_10_41 : TMFULvhHjCsGFYPpsvnET6iD7oP1RL5JiHW
+TwoRamseyProp_4_6_36 : TMUnmw49fNPNqFFquQctTBy16LwoDRrxTg7
+TwoRamseyProp_4_6_40 : TMN4q5W37NkZMoR6vedSpCh9okznLfUoQbH
+TwoRamseyProp_4_7_49 : TMXZCujSRwE3ypPsErAyadfWgkYTrvzwgKb
+TwoRamseyProp_4_7_60 : TMa9UyXyWCAfApzbofsANmb2xABVQdP4og7
+TwoRamseyProp_4_8_59 : TMdvK7rphvbxbWK3nPKGsaqxfChhJg49aCK
+TwoRamseyProp_4_8_83 : TMVJbMfaXk3HFrKnfAMfXYBJzo57MiwdVe6
+TwoRamseyProp_4_9_73 : TMVRXEJ5cjvMtDZmVkM6JU5ZrWgQHMk4dVn
+TwoRamseyProp_4_9_114 : TMKENiMj8e2EAfjfbMajJn6DVuR7nGTomoB
+TwoRamseyProp_5_5_43 : TMNUq5RbcM6eMfgZZQwN7xZNjZQaoV9H2Vo
+TwoRamseyProp_5_5_47 : TMHQLAu8LNq833psgUYemBdTPiRj2wTeAyb
+TwoRamseyProp_5_6_58 : TMPGnKYdBa3khY844daC3MQL8bRM2LmZ8yv
+TwoRamseyProp_5_6_86 : TMJ7MPMgsZpZQkTaVS352SSVg1mcEGMKtkx
+TwoRamseyProp_5_7_80 : TMbpMY5y2tVTnzo6TLtjiRUusv3eKTSXsKn
+TwoRamseyProp_5_7_142 : TMa7KQh2wjJGHQ2Kyf5VPBowLgAaKWQ1LDa
+TwoRamseyProp_5_8_101 : TMXm5VieR3P3dBUvtSEpesaMqWpwDN1M3Va
+TwoRamseyProp_5_8_215 : TMLZCSMmwK2QPMcAiYXtjNvHzpWoeRrAtn2
+TwoRamseyProp_6_6_102 : TMVADVhyFCzdS62thUm1sCyWzWwqbrZgrjq
+TwoRamseyProp_6_6_164 : TMW9bczVUMdHGUsDKNseVb6Z4KJxYd5HK9R
+TwoRamseyProp_6_7_115 : TMWy6aLQZ8awR6aqVNTTgj3ZLwovY2a39s2
+TwoRamseyProp_6_7_297 : TMZXeYbd2fNjbxnQqC2Fxqgp3AK6JjC9dHT

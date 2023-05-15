@@ -1,0 +1,21 @@
+Document 29c988c5e6c620410ef4e61bcfcbe4213c77013974af40759d8b732c07d61967
+Base set
+Param 2ba7d093d496c0f2909a6e2ea3b2e4a943a97740d27d15003a815d25340b379a and : TpArr Prop TpArr Prop Prop
+Param c68e5a1f5f57bc5b6e12b423f8c24b51b48bcc32149a86fc2c30a969a15d8881 setminus : TpArr set TpArr set set
+Param 4daffb669546d65312481b5f945330815f8f5c460c7278516e497b08a82751e5 int : set
+Param bd01a809e97149be7e091bf7cbb44e0c2084c018911c24e159f585455d8e6bd0 Sing : TpArr set set
+Param 6fc30ac8f2153537e397b9ff2d9c981f80c151a73f96cf9d56ae2ee27dfd1eb2 omega : set
+Param 204ad52cabbe4675636421d1481695b86daeb768902254898efb0a6889a98848 equiv_int_mod : TpArr set TpArr set TpArr set Prop
+Param 48d05483e628cb37379dd5d279684d471d85c642fe63533c3ad520b84b18df9d mul_SNo : TpArr set TpArr set set
+Def quadratic_residue_mod : TpArr set TpArr set Prop
+ := Lam q set Lam n set Ap Ap and Ap Ap and Ap Ap Prim 1 q Ap Ap setminus int Ap Sing Prim 2 Ap Ap Prim 1 n omega Ex x1 set Ap Ap and Ap Ap Prim 1 x1 n Ap Ap Ap equiv_int_mod Ap Ap mul_SNo x1 x1 q n
+Param b8ff52f838d0ff97beb955ee0b26fad79602e1529f8a2854bda0ecd4193a8a3c If_i : TpArr Prop TpArr set TpArr set set
+Param 65d8837d7b0172ae830bed36c8407fcd41b7d875033d2284eb2df245b42295a6 ordsucc : TpArr set set
+Param 268a6c1da15b8fe97d37be85147bc7767b27098cdae193faac127195e8824808 minus_SNo : TpArr set set
+Def Legendre : TpArr set TpArr set set
+ := Lam a set Lam p set Ap Ap Ap If_i Ap Ap quadratic_residue_mod a p Ap ordsucc Prim 2 Ap Ap Ap If_i Ap Ap Ap equiv_int_mod a Prim 2 p Prim 2 Ap minus_SNo Ap ordsucc Prim 2
+Param 729ee87b361f57aed9acd8e4cdffcb3b80c01378d2410a0dabcf2c08b759e074 prime_nat : TpArr set Prop
+Param cc51438984361070fa0036749984849f690f86f00488651aabd635e92983c745 exp_SNo_nat : TpArr set TpArr set set
+Param 16510b6e91dc8f8934f05b3810d2b54c286c5652cf26501797ea52c33990fa93 div_SNo : TpArr set TpArr set set
+Param 127d043261bd13d57aaeb99e7d2c02cae2bd0698c0d689b03e69f1ac89b3c2c6 add_SNo : TpArr set TpArr set set
+Conj quadratic_reciprocity_nat_buggy : All x1 set Imp Ap Ap Prim 1 x1 omega All x2 set Imp Ap Ap Prim 1 x2 omega Imp Ap prime_nat x1 Imp Ap Ap Prim 1 Ap ordsucc Ap ordsucc Prim 2 x1 Imp Ap prime_nat x2 Imp Ap Ap Prim 1 Ap ordsucc Ap ordsucc Prim 2 x2 Eq set Ap Ap mul_SNo Ap Ap Legendre x1 x2 Ap Ap Legendre x2 x1 Ap Ap exp_SNo_nat Ap minus_SNo Ap ordsucc Prim 2 Ap Ap mul_SNo Ap Ap div_SNo Ap Ap add_SNo x1 Ap minus_SNo Ap ordsucc Prim 2 Ap ordsucc Ap ordsucc Prim 2 Ap Ap div_SNo Ap Ap add_SNo x2 Ap minus_SNo Ap ordsucc Prim 2 Ap ordsucc Ap ordsucc Prim 2

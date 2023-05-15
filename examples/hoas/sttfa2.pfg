@@ -1,0 +1,12 @@
+Document 513140056e2032628f48d11e221efe29892e9a03a661d3b691793524a5176ede
+Base syn
+Param 9f6255f6733b5c76be428b7da0ec9678f85a51b29f713c5c8ed99943db177235 sttfa_rule0_rewp : TpArr TpArr syn TpArr syn Prop Prop
+Param acffe930efdc8024c6181328915b3db0bd3654f898b74a618c88cfca0d9a2e93 valid_sig_tp : TpArr TpArr syn TpArr syn Prop TpArr TpArr syn TpArr syn Prop TpArr syn Prop
+Param b5b4cbac6093f95fc9de03f7c6e204c7d9695b9564c27b45ff7e3db89e395349 sttfa_ptype_tp : syn
+Param e2f6d2ca23b7a900cd014cf627894957c9513603c6277eaf5c31f78c2f917c5f of : TpArr TpArr syn TpArr syn Prop TpArr TpArr syn TpArr syn Prop TpArr TpArr syn TpArr syn Prop TpArr syn TpArr syn Prop
+Param d1fb0780ad6f65919ae2c7e19a246df49bd6c4078c2f663f14f4c6d0aa52c48e emp2 : TpArr syn TpArr syn Prop
+Param b071f1fce07241186e2ac5d1e747eb3596d94982ff7df0a13211f170a5b04f55 Kind : syn
+Known Known1 : All x1 TpArr syn TpArr syn Prop All x2 TpArr syn TpArr syn Prop All x3 syn Imp Ap Ap Ap Ap Ap of x1 x2 emp2 x3 Kind Ap Ap Ap valid_sig_tp x1 x2 x3
+Known Known2 : All x4 TpArr syn TpArr syn Prop All x5 TpArr syn TpArr syn Prop All x6 TpArr syn TpArr syn Prop Ap Ap Ap Ap Ap of x4 x5 x6 sttfa_ptype_tp Kind
+Thm valid_sig_tp_sttfa_type_sigp : All x1 TpArr syn TpArr syn Prop All x2 TpArr syn TpArr syn Prop Imp Ap sttfa_rule0_rewp x1 Imp Ap sttfa_rule0_rewp x2 Ap Ap Ap valid_sig_tp x1 x2 sttfa_ptype_tp
+ := TmLa x1 TpArr syn TpArr syn Prop TmLa x2 TpArr syn TpArr syn Prop PrLa _ Ap sttfa_rule0_rewp x1 PrLa _ Ap sttfa_rule0_rewp x2 PrAp TmAp TmAp TmAp Known1 x1 x2 sttfa_ptype_tp TmAp TmAp TmAp Known2 x1 x2 emp2

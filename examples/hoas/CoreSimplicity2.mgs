@@ -1,0 +1,163 @@
+(** Type Semantics and Big Step Semantics, could be generalized **)
+(** Note that we define relations instead of functions since function spaces are nonstandard. **)
+Definition one_interp : set -> prop := fun x => x = nil.
+
+Definition injl_interp : set -> set := fun x => pair "L" x.
+Definition injr_interp : set -> set := fun y => pair "R" y.
+
+Axiom injl_interp_inj : forall x y, injl_interp x = injl_interp y -> x = y.
+
+Axiom injr_interp_inj : forall x y, injr_interp x = injr_interp y -> x = y.
+
+Axiom injl_interp_not_injr_interp : forall x y, injl_interp x <> injr_interp y.
+
+Definition sum_interp : (set -> prop) -> (set -> prop) -> set -> prop
+  := fun X Y z =>
+          (exists x, X x /\ z = injl_interp x)
+       \/ (exists y, Y y /\ z = injr_interp y).
+
+Axiom sum_interp_IL : forall X Y:set -> prop, forall x, X x -> sum_interp X Y (injl_interp x).
+
+Axiom sum_interp_IR : forall X Y:set -> prop, forall y, Y y -> sum_interp X Y (injr_interp y).
+
+Axiom sum_interp_E : forall X Y:set -> prop, forall z, sum_interp X Y z -> forall p:set -> prop,
+      (forall x, X x -> p (injl_interp x))
+   -> (forall y, Y y -> p (injr_interp y))
+   -> p z.
+
+Definition spair_interp : set -> set -> set := fun x y => pair "P" (pair x y).
+
+Axiom spair_interp_inj : forall x y z w, spair_interp x y = spair_interp z w -> x = z /\ y = w.
+
+Definition prod_interp : (set -> prop) -> (set -> prop) -> set -> prop
+  := fun X Y z => exists x y, X x /\ Y y /\ z = spair_interp x y.
+
+Axiom prod_interp_I : forall X Y:set -> prop, forall x y, X x -> Y y -> prod_interp X Y (spair_interp x y).
+
+Axiom prod_interp_E : forall X Y:set -> prop, forall z, prod_interp X Y z
+  -> forall p:set -> prop,
+          (forall x y, X x -> Y y -> p (spair_interp x y))
+       -> p z.
+
+Definition tyev : set -> (set -> prop) -> prop
+  := fun A X =>
+     forall p:set -> (set -> prop) -> prop,
+         p one one_interp
+      -> (forall A B, forall X Y:set -> prop, p A X -> p B Y -> p (A + B) (sum_interp X Y))
+      -> (forall A B, forall X Y:set -> prop, p A X -> p B Y -> p (A * B) (prod_interp X Y))
+      -> p A X.
+
+Axiom tyev_one : tyev one one_interp.
+
+Axiom tyev_sum : forall A B, forall X Y:set -> prop, tyev A X -> tyev B Y -> tyev (A + B) (sum_interp X Y).
+
+Axiom tyev_prod : forall A B, forall X Y:set -> prop, tyev A X -> tyev B Y -> tyev (A * B) (prod_interp X Y).
+
+Axiom tyev_total : forall A, type_p A -> exists X:set -> prop, tyev A X.
+
+Axiom tyev_ind : forall p:set -> (set -> prop) -> prop,
+      p one one_interp
+   -> (forall A B, forall X Y:set -> prop, tyev A X -> p A X -> tyev B Y -> p B Y -> p (A + B) (sum_interp X Y))
+   -> (forall A B, forall X Y:set -> prop, tyev A X -> p A X -> tyev B Y -> p B Y -> p (A * B) (prod_interp X Y))
+   -> forall A, forall X:set -> prop, tyev A X -> p A X.
+
+Axiom tyev_functional_lem : forall A, forall X:set -> prop, tyev A X -> forall B, forall Y:set -> prop, tyev B Y -> A = B -> X = Y.
+
+Axiom tyev_functional : forall A, forall X Y:set -> prop, tyev A X -> tyev A Y -> X = Y.
+
+Axiom tyev_inv : forall A, forall X:set -> prop, tyev A X ->
+  forall p:prop,
+       (A = one -> X = one_interp -> p)
+    -> (forall B C, forall Y Z:set -> prop, tyev B Y -> tyev C Z -> A = B + C -> X = sum_interp Y Z -> p)
+    -> (forall B C, forall Y Z:set -> prop, tyev B Y -> tyev C Z -> A = B * C -> X = prod_interp Y Z -> p)
+    -> p.
+
+Axiom tyev_sum_inv : forall A B, forall X:set -> prop, tyev (A + B) X -> exists Y Z:set -> prop, tyev A Y /\ tyev B Z /\ X = sum_interp Y Z.
+
+Axiom tyev_prod_inv : forall A B, forall X:set -> prop, tyev (A * B) X -> exists Y Z:set -> prop, tyev A Y /\ tyev B Z /\ X = prod_interp Y Z.
+
+Definition ev : set -> set -> set -> prop
+  := fun t a b =>
+  forall p:set -> set -> set -> prop,
+       (forall a, p iden a a)
+    -> (forall s t a b c, p s a b -> p t b c -> p (comp s t) a c)
+    -> (forall a, p unit a nil)
+    -> (forall t a b, p t a b -> p (injl t) a (injl_interp b))
+    -> (forall t a b, p t a b -> p (injr t) a (injr_interp b))
+    -> (forall s t a c d, term_p t -> p s (spair_interp a c) d -> p (case s t) (spair_interp (injl_interp a) c) d)
+    -> (forall s t b c d, term_p s -> p t (spair_interp b c) d -> p (case s t) (spair_interp (injr_interp b) c) d)
+    -> (forall s t a b c, p s a b -> p t a c -> p (spair s t) a (spair_interp b c))
+    -> (forall t a b c, p t a c -> p (take t) (spair_interp a b) c)
+    -> (forall t a b c, p t b c -> p (drop t) (spair_interp a b) c)
+    -> p t a b.
+
+Axiom ev_iden : forall a, ev iden a a.
+
+Axiom ev_comp : forall s t a b c, ev s a b -> ev t b c -> ev (comp s t) a c.
+
+Axiom ev_unit : forall a, ev unit a nil.
+
+Axiom ev_injl : forall t a b, ev t a b -> ev (injl t) a (injl_interp b).
+
+Axiom ev_injr : forall t a b, ev t a b -> ev (injr t) a (injr_interp b).
+
+Axiom ev_case_l : forall s t a c d, term_p t -> ev s (spair_interp a c) d -> ev (case s t) (spair_interp (injl_interp a) c) d.
+
+Axiom ev_case_r : forall s t b c d, term_p s -> ev t (spair_interp b c) d -> ev (case s t) (spair_interp (injr_interp b) c) d.
+
+Axiom ev_spair : forall s t a b c, ev s a b -> ev t a c -> ev (spair s t) a (spair_interp b c).
+
+Axiom ev_take : forall t a b c, ev t a c -> ev (take t) (spair_interp a b) c.
+
+Axiom ev_drop : forall t a b c, ev t b c -> ev (drop t) (spair_interp a b) c.
+
+Axiom ev_ind : forall p:set -> set -> set -> prop,
+     (forall a, ev iden a a -> p iden a a)
+  -> (forall s t a b c, ev s a b -> p s a b -> ev t b c -> p t b c -> p (comp s t) a c)
+  -> (forall a, ev unit a nil -> p unit a nil)
+  -> (forall t a b, ev t a b -> p t a b -> p (injl t) a (injl_interp b))
+  -> (forall t a b, ev t a b -> p t a b -> p (injr t) a (injr_interp b))
+  -> (forall s t a c d, term_p t -> ev s (spair_interp a c) d -> p s (spair_interp a c) d -> p (case s t) (spair_interp (injl_interp a) c) d)
+  -> (forall s t b c d, term_p s -> ev t (spair_interp b c) d -> p t (spair_interp b c) d -> p (case s t) (spair_interp (injr_interp b) c) d)
+  -> (forall s t a b c, ev s a b -> p s a b -> ev t a c -> p t a c -> p (spair s t) a (spair_interp b c))
+  -> (forall t a b c, ev t a c -> p t a c -> p (take t) (spair_interp a b) c)
+  -> (forall t a b c, ev t b c -> p t b c -> p (drop t) (spair_interp a b) c)
+  -> forall t a b, ev t a b -> p t a b.
+
+Axiom ev_inv : forall t a b, ev t a b ->
+  forall p:prop,
+       (t = iden -> a = b -> p)
+    -> (forall s' t' a' b' c', ev s' a' b' -> ev t' b' c' -> t = comp s' t' -> a = a' -> b = c' -> p)
+    -> (t = unit -> b = nil -> p)
+    -> (forall t' a' b', ev t' a' b' -> t = injl t' -> a = a' -> b = injl_interp b' -> p)
+    -> (forall t' a' b', ev t' a' b' -> t = injr t' -> a = a' -> b = injr_interp b' -> p)
+    -> (forall s' t' a' c' d', term_p t' -> ev s' (spair_interp a' c') d' -> t = case s' t' -> a = spair_interp (injl_interp a') c' -> b = d' -> p)
+    -> (forall s' t' b' c' d', term_p s' -> ev t' (spair_interp b' c') d' -> t = case s' t' -> a = spair_interp (injr_interp b') c' -> b = d' -> p)
+    -> (forall s' t' a' b' c', ev s' a' b' -> ev t' a' c' -> t = spair s' t' -> a = a' -> b = spair_interp b' c' -> p)
+    -> (forall t' a' b' c', ev t' a' c' -> t = take t' -> a = spair_interp a' b' -> b = c' -> p)
+    -> (forall t' a' b' c', ev t' b' c' -> t = drop t' -> a = spair_interp a' b' -> b = c' -> p)
+    -> p.
+
+Axiom ev_iden_inv : forall a b, ev iden a b -> a = b.
+
+Axiom ev_comp_inv : forall s t a c, ev (comp s t) a c -> exists b, ev s a b /\ ev t b c.
+
+Axiom ev_unit_inv : forall a b, ev unit a b -> b = nil.
+
+Axiom ev_injl_inv : forall t a b, ev (injl t) a b -> exists b', ev t a b' /\ b = injl_interp b'.
+
+Axiom ev_injr_inv : forall t a b, ev (injr t) a b -> exists b', ev t a b' /\ b = injr_interp b'.
+
+Axiom ev_case_inv : forall s t a b, ev (case s t) a b -> (exists a' c', a = spair_interp (injl_interp a') c' /\ ev s (spair_interp a' c') b) \/ (exists b' c', a = spair_interp (injr_interp b') c' /\ ev t (spair_interp b' c') b).
+
+Axiom ev_spair_inv : forall s t a b, ev (spair s t) a b -> exists b' c', ev s a b' /\ ev t a c' /\ b = spair_interp b' c'.
+
+Axiom ev_take_inv : forall t a b, ev (take t) a b -> exists a' b', a = spair_interp a' b' /\ ev t a' b.
+
+Axiom ev_drop_inv : forall t a b, ev (drop t) a b -> exists a' b', a = spair_interp a' b' /\ ev t b' b.
+
+Definition SwapSpec : set -> set -> prop
+  := fun x y =>
+     (forall z, x = injl_interp z -> y = injr_interp z)
+     /\
+     (forall z, x = injr_interp z -> y = injl_interp z).
