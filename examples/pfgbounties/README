@@ -98,7 +98,7 @@ in Nov2021ConjsWithBounties.mg.
 
 megalodon -owned ownedNov222023 -I Nov2021ConjPreamble.mgs Nov2021ConjsWithBounties.mg
 
-* OEIS
+* OEIS - https://github.com/ai4reason/oeis-mgpg1000
 
 1000 conjectures are about proving the equality of two
 functions that appear to compute the same OEIS sequence.
