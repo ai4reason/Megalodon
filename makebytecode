@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir bin
+
 # If ocamlc is not in your PATH, put the full path here.
 export OCAMLC=ocamlc
 export OCAMLLEX=ocamllex
