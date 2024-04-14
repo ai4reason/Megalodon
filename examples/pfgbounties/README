@@ -28,14 +28,14 @@ outstanding bounties).  Most of the randomly generated propositions
 with unclaimed bounties (of 25 bars each) are in the file
 RandomlyGenerated.mg.
 
-megalodon -hf -owned ownedSep132023 -I PfgPreambleSep2020.mgs RandomlyGenerated.mg
+megalodon -hf -owned ownedNov222023 -I PfgPreambleSep2020.mgs RandomlyGenerated.mg
 
 To prove one of these, create a separate file (mysoln.mg) copying the
 proposition over (with its context, meaning declarations in the
 relevant section).  Then fill in the proof and create a Proofgold
 document:
 
-megalodon -hf -owned ownedSep132023 -I PfgPreambleSep2020.mgs mysoln.mg > mysoln.pfg.
+megalodon -hf -owned ownedNov222023 -I PfgPreambleSep2020.mgs mysoln.mg > mysoln.pfg.
 
 The problems are classified into the following categories: Random1,
 Random2, Random3, QBF, HOSetConstr (Set Constraints), HOUnif (HO
@@ -56,7 +56,7 @@ with bounties of 26 bars each, for a total of 30758 bars, about 11% of
 the outstanding bounties.  These variants are in
 RandomlyGeneratedAIMVariants.mg.
 
-megalodon -hf -owned ownedSep132023 -I PfgPreambleSep2020.mgs RandomlyGeneratedAIMVariants.mg
+megalodon -hf -owned ownedNov222023 -I PfgPreambleSep2020.mgs RandomlyGeneratedAIMVariants.mg
 
 * Ramsey Problems
 
@@ -65,7 +65,7 @@ correspond to open mathematics problems.  The specific propositions
 and more information is in RamseyConjsWithBounties.mg.  These bounties
 are a total of about 32,300 bars, roughly 11.5% of the outstanding bounties.
 
-megalodon -owned ownedSep132023 -I PfgEAug2022Preamble.mgs RamseyConjsWithBounties.mg
+megalodon -owned ownedNov222023 -I PfgEAug2022Preamble.mgs RamseyConjsWithBounties.mg
 
 In some cases, the bounty can be proven by appropriately translating
 a counterexample into a proof. A source for such counterexamples is here:
@@ -96,5 +96,18 @@ about 29,025 bars, forming roughly 10% of the outstanding bounties.
 The propositions are listed here with information about the bounties
 in Nov2021ConjsWithBounties.mg.
 
-megalodon -owned ownedSep132023 -I Nov2021ConjPreamble.mgs Nov2021ConjsWithBounties.mg
+megalodon -owned ownedNov222023 -I Nov2021ConjPreamble.mgs Nov2021ConjsWithBounties.mg
 
+* OEIS
+
+1000 conjectures are about proving the equality of two
+functions that appear to compute the same OEIS sequence.
+Each of the 1000 conjectures has a bounty of 1 bar, about 0.35%
+of the total outstanding bounties.
+
+The 1000 are combined into the file OEIS1000.mg, with each
+conjecture in its own section. If you wish to prove one of them,
+copy the section into its own file. The full file (which currently
+has no proofs) can be checked as follows:
+
+megalodon -owned ownedNov222023 -I PfgEAug2022Preamble.mgs OEIS1000.mg

@@ -36,6 +36,8 @@ type token =
   | OPENCOM
   | CLOSECOM
   | SALT
+  | OPAQUE
+  | TRANSPARENT
   | TREASURE
   | TITLE
   | AUTHOR

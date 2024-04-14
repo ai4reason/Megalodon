@@ -1,4 +1,4 @@
-(* Copyright (c) 2020-2022 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
+(* Copyright (c) 2020-2023 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
 
 open Syntax
 open Parser
@@ -380,6 +380,7 @@ let sigtmh : (string,string) Hashtbl.t  = Hashtbl.create 1000;;
 let sigknh : (string,string) Hashtbl.t  = Hashtbl.create 1000;;
 let sigtmof : (string,ptp) Hashtbl.t  = Hashtbl.create 1000;;
 let sigdelta : (string,ptm) Hashtbl.t = Hashtbl.create 1000;;
+let sigdelta_opaque : (string,ptm) Hashtbl.t = Hashtbl.create 1000;;
 let sigtm = ref [];;
 let sigpf = ref [];;
 let polytm = ref [];;
@@ -703,6 +704,24 @@ let megaauto_set_known h =
   else if h = "c1253491187dd3685e59eca2206b98305093ded6398e1deec69a95b81adc2515" then
     known_Pi_cod_ext := Some(h)
 
+let make_opaque x =
+  try
+    let xh = Hashtbl.find sigtmh x in
+    let m = Hashtbl.find sigdelta xh in
+    Hashtbl.add sigdelta_opaque xh m;
+    Hashtbl.remove sigdelta xh;
+  with Not_found ->
+    Printf.printf "WARNING: %s was not transparent, so not made opaque.\n" x
+
+let make_transparent x =
+  try
+    let xh = Hashtbl.find sigtmh x in
+    let m = Hashtbl.find sigdelta_opaque xh in
+    Hashtbl.add sigdelta xh m;
+    Hashtbl.remove sigdelta_opaque xh;
+  with Not_found ->
+    Printf.printf "WARNING: %s was not opaque, so not made transparent.\n" x
+  
 let evaluate_docitem_1 ditem =
   begin
     match !sigoutfile with
@@ -739,6 +758,8 @@ let evaluate_docitem_1 ditem =
       end
   | ShowProofTerms(b) -> showproofterms := b
   | Salt(x) -> salt := Some x
+  | Opaque (xl) -> List.iter make_opaque xl
+  | Transparent (xl) -> List.iter make_transparent xl
   | Treasure(x) ->
       treasure := Some x;
   | Section(x) ->
@@ -1087,6 +1108,7 @@ let evaluate_docitem_1 ditem =
 	  if (xi,xtp) <> (i,agtp) then raise (Failure(x ^ " is the name of a built-in primitive which does not have the given type."));
 	  if i > 6 then raise (Failure("It is forbidden to have more than 6 type variables."));
 	  let xhv = tm_id (Prim(xj)) sigtmof sigdelta in
+          if !sexprinfo then Printf.printf "(PRIM %d \"%s\" \"%s\" %s)\n" xj x xhv (tp_to_sexpr agtp);
 	  if x = "Empty" then set0 := Some(xhv);
 	  add_sigdelta xhv (0,Prim(xj));
 	  if !pfgtheory = Egal then megaauto_set_item xhv false;
@@ -1139,6 +1161,7 @@ let evaluate_docitem_1 ditem =
 	    else
 	      try
 		let xhv = Hashtbl.find sigtmh x in
+                if !sexprinfo then Printf.printf "(PARAM \"%s\" \"%s\" %d %s)\n" x xhv i (tp_to_sexpr agtp);
 		if !pfgtheory = Egal then megaauto_set_item xhv false;
                 if !pfgtheory = Egal && xhv = "7a7fd30507c2156eeace3d2784ada104fee81316a9d6f02db384ad7f0a180e26" then seqcons := Some(xhv);
                 if fofp() && i = 0 && not (Hashtbl.mem fofskip xhv) then Hashtbl.add tptp_id_name xhv (tptpize_name x,agtp);
@@ -1244,6 +1267,7 @@ let evaluate_docitem_1 ditem =
                   th0sg := Printf.sprintf "thf(%s_def,definition,%s). %% %s" (tptpize_name x) (th0_def_str bgtp xhv bgtm) xhv::!th0sg
                 end
             end;
+          if !sexprinfo then Printf.printf "(DEF \"%s\" \"%s\" %d %s %s)\n" x xhv i (tp_to_sexpr bgtp) (tm_to_sexpr bgtm);
           begin
             match !sexprallsubgoals_inclfile with
             | None -> ()
@@ -1348,6 +1372,7 @@ let evaluate_docitem_1 ditem =
                   th0sg := Printf.sprintf "thf(%s_def,definition,%s). %% %s" (tptpize_name x) (th0_def_str agtp xhv bgtm) xhv::!th0sg;
                 end
             end;
+          if !sexprinfo then Printf.printf "(DEF \"%s\" \"%s\" %d %s %s)\n" x xhv i (tp_to_sexpr agtp) (tm_to_sexpr bgtm);
           begin
             match !sexprallsubgoals_inclfile with
             | None -> ()
@@ -1431,6 +1456,7 @@ let evaluate_docitem_1 ditem =
             else
               th0sg := Printf.sprintf "thf(%s,axiom,%s). %% %s" (tptpize_name x) (th0_str agtm []) ahv::!th0sg
         end;
+      if !sexprinfo then Printf.printf "(AXIOM \"%s\" \"%s\" %d %s)\n" x ahv i (tm_to_sexpr agtm);
       begin
         match !sexprallsubgoals_inclfile with
         | None -> ()
@@ -1506,6 +1532,7 @@ let evaluate_docitem_1 ditem =
 	  | None -> ()
 	end;
       if (!verbosity > 3) then (Printf.printf "Proposition of %s %s : %s was assigned id %s\n" c x (tm_to_str agtm) ahv; flush stdout);
+      if !sexprinfo then Printf.printf "(THM \"%s\" \"%s\" \"%s\" %d %s)\n" x ahv (Hash.hashval_hexstring pfgahv) i (tm_to_sexpr agtm);
       begin
         match !sexprallsubgoals_inclfile with
         | None -> ()
@@ -2334,6 +2361,7 @@ let evaluate_pftac_1 pitem thmname i gpgtm gphv pfggphv =
 		  raise (Failure("Proof doesn't prove the proposition."))
 	      | Some(dl) ->
 		  deltaset := dl;
+                  if !sexprinfo then (List.iter (fun d -> Printf.printf "(DELTA \"%s\")\n" d) dl; Printf.printf "(QED)\n");
                   if !pfgout then List.iter (fun d -> Hashtbl.add pfgdelta d ()) !deltaset;
 		  if (!verbosity > 19) then (Printf.printf "Delta Set:"; List.iter (fun h -> Printf.printf " %s" h) dl; Printf.printf "\n"; flush stdout);
 		  let dhv = ppf_id (i,dgpf) sigtmof sigdelta in
@@ -2359,6 +2387,7 @@ let evaluate_pftac_1 pitem thmname i gpgtm gphv pfggphv =
 		      end
 		  end;
 	    with AdmittedPf ->
+              if !sexprinfo then Printf.printf "(QEDWITHADMITS)\n";
 	      if (!verbosity > 9) then (Printf.printf "Theorem %s admitted\n" thmname; flush stdout);
               if !pfgout && i = 0 then pfgmain := PfgConj(gphv,thmname,gpgtm)::!pfgmain;
 	      if (!ajax && !ajaxactive) then (Printf.printf "I$"; exit 1);
@@ -2379,6 +2408,7 @@ let evaluate_pftac_1 pitem thmname i gpgtm gphv pfggphv =
       end
   | Admitted ->
       begin
+        if !sexprinfo then Printf.printf "(ADMITTED)\n";
         if !pfgout && i = 0 then pfgmain := PfgConj(gphv,thmname,gpgtm)::!pfgmain;
 	if i > 0 then (*** x will look polymorphic with i types after the appropriate section is ended ***)
 	  pushpolypf ((thmname,i),gpgtm);
@@ -3715,6 +3745,12 @@ let _ =
                 Printf.fprintf hc " padding: 1px;\n";
                 Printf.fprintf hc " margin: 1px;\n";
                 Printf.fprintf hc "}\n";
+                Printf.fprintf hc ".subproof {\n";
+                Printf.fprintf hc " border-style: solid;\n";
+                Printf.fprintf hc " border-width: 1px;\n";
+                Printf.fprintf hc " padding: 1px;\n";
+                Printf.fprintf hc " margin: 1px;\n";
+                Printf.fprintf hc "}\n";
                 Printf.fprintf hc ".section {\n";
                 Printf.fprintf hc " border-style: solid;\n";
                 Printf.fprintf hc " border-width: 2px;\n";
@@ -3769,6 +3805,10 @@ let _ =
 	      end
 	    else
 	      raise (Failure("Expected -th0allsubgoals <fileprefix>"))
+          end
+        else if Sys.argv.(!j) = "-sexprinfo" then
+          begin
+            sexprinfo := true
           end
         else if Sys.argv.(!j) = "-reportbushydeps" then
           begin

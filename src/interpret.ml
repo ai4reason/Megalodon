@@ -1,4 +1,4 @@
-(* Copyright (c) 2020-2021 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
+(* Copyright (c) 2020-2023 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
 (*** File: interpret.ml ***)
 (*** Chad E Brown ***)
 (*** Feb 2014 ***)
@@ -19,6 +19,14 @@ let pfstate : pfstatetype list ref = ref []
 
 let metavarcx : (string, tp list * tp) Hashtbl.t = Hashtbl.create 10
 let metavarassoc : (string, tm) Hashtbl.t = Hashtbl.create 10
+
+let rec pwise_tp_p a b =
+  if a = b then
+    true
+  else
+    match a with
+    | Ar(a1,a2) -> pwise_tp_p a2 b
+    | _ -> false
 
 let rec cxtm_to_dbcx cxtm =
   match cxtm with
@@ -504,9 +512,23 @@ In the remaining cases, atp is monomorphic (no TpVars):
 	  begin
 	    match ntp with
 	    | Ar(a1tp,Ar(a2tp,rtp)) ->
-		let a1tm = check_tm_r a1 a1tp poly sgtmof sgtm cxtp cxtm in
-		let a2tm = check_tm_r a2 a2tp poly sgtmof sgtm cxtp cxtm in
-		(Ap(Ap(n,a1tm),a2tm),rtp)
+               let (a1tm,a1tp2) = extract_tm_r a1 poly sgtmof sgtm cxtp cxtm in
+               if a1tp = a1tp2 then
+		 let a2tm = check_tm_r a2 a2tp poly sgtmof sgtm cxtp cxtm in
+		 (Ap(Ap(n,a1tm),a2tm),rtp)
+               else if pwise_tp_p a1tp2 a1tp then (** extend pointwise to higher types **)
+                 begin
+                   if a1tp = a2tp && a1tp = rtp then (** binary operator **)
+                     let a2tm = check_tm_r a2 a1tp2 poly sgtmof sgtm cxtp cxtm in
+                     pointwise_binop_tm_r n a1tp2 a1tp a1tm a2tm
+                   else if a1tp = a2tp && rtp = Prop then
+                     let a2tm = check_tm_r a2 a1tp2 poly sgtmof sgtm cxtp cxtm in
+                     pointwise_binreln_tm_r n a1tp2 a1tp a1tm a2tm
+                   else
+                     raise (Failure ("Ill-typed use of " ^ x))
+                 end
+               else
+                 raise (Failure ("Ill-typed use of " ^ x))
 	    | _ -> raise (Failure (x ^ " does not have the type of something expecting two arguments"))
 	  end
       end
@@ -543,9 +565,21 @@ In the remaining cases, atp is monomorphic (no TpVars):
       begin
 	match ntp with
 	| Ar(a1tp,rtp) ->
-	    let a1tm = check_tm_r a1 a1tp poly sgtmof sgtm cxtp cxtm in
-	    (Ap(n,a1tm),rtp)
-	| _ -> raise (Failure (x ^ " does not have the type of something expecting two arguments"))
+            let (a1tm,a1tp2) = extract_tm_r a1 poly sgtmof sgtm cxtp cxtm in
+            if a1tp = a1tp2 then
+	      (Ap(n,a1tm),rtp)
+            else if pwise_tp_p a1tp2 a1tp then (** extend pointwise to higher types **)
+              begin
+                if rtp = a1tp then
+                  pointwise_unop_tm_r n a1tp2 a1tp a1tm
+                else if rtp = Prop then
+                  pointwise_pred_tm_r n a1tp2 a1tp a1tm
+                else
+                  raise (Failure ("Ill-typed use of " ^ x))
+              end
+            else
+              raise (Failure ("Ill-typed use of " ^ x))
+	| _ -> raise (Failure (x ^ " does not have the type of something expecting an argument"))
       end
   | Preo(x,a1) ->
       let xs = Hashtbl.find prefixsem x in
@@ -553,9 +587,21 @@ In the remaining cases, atp is monomorphic (no TpVars):
       begin
 	match ntp with
 	| Ar(a1tp,rtp) ->
-	    let a1tm = check_tm_r a1 a1tp poly sgtmof sgtm cxtp cxtm in
-	    (Ap(n,a1tm),rtp)
-	| _ -> raise (Failure (x ^ " does not have the type of something expecting two arguments"))
+            let (a1tm,a1tp2) = extract_tm_r a1 poly sgtmof sgtm cxtp cxtm in
+            if a1tp = a1tp2 then
+	      (Ap(n,a1tm),rtp)
+            else if pwise_tp_p a1tp2 a1tp then (** extend pointwise to higher types **)
+              begin
+                if rtp = a1tp then
+                  pointwise_unop_tm_r n a1tp2 a1tp a1tm
+                else if rtp = Prop then
+                  pointwise_pred_tm_r n a1tp2 a1tp a1tm
+                else
+                  raise (Failure ("Ill-typed use of " ^ x))
+              end
+            else
+              raise (Failure ("Ill-typed use of " ^ x))
+	| _ -> raise (Failure (x ^ " does not have the type of something expecting an argument"))
       end
   | MTuple(a,bl) ->
       let l = 1 + List.length bl in
@@ -882,6 +928,46 @@ and check_tm_r a mtp poly sgtmof sgtm cxtp cxtm =
 	n
       else
 	raise (Failure("Type Error found " ^ (tp_to_str ntp) ^ " expected " ^ (tp_to_str mtp)))
+and pointwise_binop_tm_r n a b m1 m2 =
+  if a = b then
+    (Ap(Ap(n,m1),m2),b)
+  else
+    match a with
+    | Ar(a1,a2) ->
+       let (m3,c) = pointwise_binop_tm_r n a2 b (gen_lam_body m1) (gen_lam_body m2) in
+       (Lam(a1,m3),Ar(a1,c))
+    | _ ->
+       raise (Failure "impossible")
+and pointwise_binreln_tm_r n a b m1 m2 =
+  if a = b then
+    (Ap(Ap(n,m1),m2),Prop)
+  else
+    match a with
+    | Ar(a1,a2) ->
+       let (m3,c) = pointwise_binreln_tm_r n a2 b (gen_lam_body m1) (gen_lam_body m2) in
+       (All(a1,m3),Prop)
+    | _ ->
+       raise (Failure "impossible")
+and pointwise_unop_tm_r n a b m =
+  if a = b then
+    (Ap(n,m),b)
+  else
+    match a with
+    | Ar(a1,a2) ->
+       let (m3,c) = pointwise_unop_tm_r n a2 b (gen_lam_body m) in
+       (Lam(a1,m3),Ar(a1,c))
+    | _ ->
+       raise (Failure "impossible")
+and pointwise_pred_tm_r n a b m =
+  if a = b then
+    (Ap(n,m),Prop)
+  else
+    match a with
+    | Ar(a1,a2) ->
+       let (m3,c) = pointwise_pred_tm_r n a2 b (gen_lam_body m) in
+       (All(a1,m3),Prop)
+    | _ ->
+       raise (Failure "impossible")
 and check_tm_r_all bvl body poly sgtmof sgtm cxtp cxtm =
   match bvl with
   | [] -> check_tm_r body Prop poly sgtmof sgtm cxtp cxtm

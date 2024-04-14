@@ -2,6 +2,7 @@
 (*** Chad E. Brown ***)
 (*** Jan 18 2014 ***)
 
+val sexprinfo : bool ref;;
 val reportbushydeps : out_channel option ref;;
 
 type pfgthy = HF | Egal | Mizar | HOAS;;
@@ -111,6 +112,8 @@ type docitem =
   | Author of string * string list
   | Title of string
   | Salt of string
+  | Opaque of string list
+  | Transparent of string list
   | Treasure of string
   | ShowProofTerms of bool
   | Section of string

@@ -99,6 +99,8 @@ rule token = parse
 | "HideProofTerms" as lxm         { update_char_pos lxm; SPECCOMM(lxm) }
 | "Verbose" as lxm { update_char_pos lxm; SPECCOMM(lxm) }
 | "Salt" as lxm { update_char_pos lxm; SALT }
+| "Opaque" as lxm { update_char_pos lxm; OPAQUE }
+| "Transparent" as lxm { update_char_pos lxm; TRANSPARENT }
 | "Treasure" as lxm { update_char_pos lxm; TREASURE }
 | "Title" as lxm { update_char_pos lxm; TITLE }
 | "Author" as lxm { update_char_pos lxm; AUTHOR }

@@ -1,4 +1,4 @@
-(* Copyright (c) 2021-2022 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
+(* Copyright (c) 2021-2023 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
 
 open Syntax
 open Parser

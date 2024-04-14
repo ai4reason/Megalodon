@@ -1,4 +1,4 @@
-(* Copyright (c) 2020 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
+(* Copyright (c) 2020-2023 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
 (* Copyright (c) 2020 The Proofgold developers *)
 (* Copyright (c) 2016 The Qeditas developers *)
 (* Copyright (c) 2017-2018 The Dalilcoin developers *)

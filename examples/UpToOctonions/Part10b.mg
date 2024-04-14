@@ -3141,7 +3141,7 @@ End Reals.
 
 (** Part10b: Irrationality of sqrt of 2 **)
 
-(** First port some basic propertiess of operations on Surreal numbers back to operations on naturals. **)
+(** First port some basic properties of operations on Surreal numbers back to operations on naturals. **)
 Theorem mul_nat_1R : forall x0, mul_nat x0 1 = x0.
 let m.
 rewrite mul_nat_SR m 0 nat_0.

@@ -1,9 +1,82 @@
-(* Copyright (c) 2020-2022 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
+(* Copyright (c) 2020-2023 CIIRC (Czech Institute of Informatics, Robotics and Cybernetics) / CTU (Czech Technical University) *)
 (*** File: syntax.ml ***)
 (*** Chad E. Brown ***)
 (*** Jan 18 2014 (Egal version started) ***)
 
+let sexprinfo = ref false;;
 let reportbushydeps = ref None;;
+
+let notationhrefcntr = ref 0;;
+let postinfixnotationhrefstack : (string,string list) Hashtbl.t = Hashtbl.create 100;;
+let prefixnotationhrefstack : (string,string list) Hashtbl.t = Hashtbl.create 100;;
+let bindernotationhrefstack : (string,string list) Hashtbl.t = Hashtbl.create 100;;
+let tuplenotationhrefstack = ref [];;
+let ifnotationhrefstack = ref [];;
+let setlamnotationhrefstack = ref [];;
+let replnotationhrefstack = ref [];;
+let sepnotationhrefstack = ref [];;
+let replsepnotationhrefstack = ref [];;
+let setenumnotationhrefstack = ref [];;
+let setenum0notationhrefstack = ref [];;
+let setenum1notationhrefstack = ref [];;
+let setenum2notationhrefstack = ref [];;
+let natnotationhrefstack = ref [];;
+
+let pop_notationstack r =
+  match !r with
+  | [] -> ()
+  | _::rr -> r := rr;;
+
+let copy_head_notationstack r =
+  match !r with
+  | [] -> ()
+  | h::rr -> r := h::h::rr;;
+
+let pop_notationhashtbl h =
+  let l = ref [] in
+  Hashtbl.iter
+    (fun k v ->
+      match v with
+      | [] -> ()
+      | _::[] -> ()
+      | _::rr -> l := (k,rr)::!l)
+    h;
+  Hashtbl.clear h;
+  if not (!l = []) then
+    List.iter (fun (k,v) -> Hashtbl.replace h k v) !l
+  
+let copy_head_notationhashtbl h =
+  let l = ref [] in
+  Hashtbl.iter
+    (fun k v ->
+      match v with
+      | [] -> ()
+      | hr::rr -> l := (k,hr::v)::!l)
+    h;
+  Hashtbl.clear h;
+  if not (!l = []) then
+    List.iter (fun (k,v) -> Hashtbl.replace h k v) !l
+
+let wrap_href_special ch s f =
+  match s with
+  | [] -> f()
+  | h::_ ->
+     Printf.fprintf ch "<a href='#%s'>" h;
+     f();
+     Printf.fprintf ch "</a>";;
+
+let wrap_href_special2 ch s s2 f =
+  match s with
+  | [] -> wrap_href_special ch s2 f
+  | h::_ ->
+     Printf.fprintf ch "<a href='#%s'>" h;
+     f();
+     Printf.fprintf ch "</a>";;
+
+let hashtbl_find_or_nil h k =
+  try
+    Hashtbl.find h k
+  with Not_found -> []
 
 type pfgthy = HF | Egal | Mizar | HOAS;;
 
@@ -633,6 +706,8 @@ type docitem =
   | Author of string * string list
   | Title of string
   | Salt of string
+  | Opaque of string list
+  | Transparent of string list
   | Treasure of string
   | ShowProofTerms of bool
   | Section of string
@@ -1337,6 +1412,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
      (List.nth cxpf j,dl)
   | PTpAp(PTpAp(PTpAp(PTpAp(PTpAp(PTpAp(Known(h),a1),a2),a3),a4),a5),a6) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
 	try
 	  match Hashtbl.find sgdelta h with
 	  | (i,p) ->
@@ -1350,6 +1426,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
       end
   | PTpAp(PTpAp(PTpAp(PTpAp(PTpAp(Known(h),a1),a2),a3),a4),a5) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
 	try
 	  match Hashtbl.find sgdelta h with
 	  | (i,p) ->
@@ -1363,6 +1440,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
       end
   | PTpAp(PTpAp(PTpAp(PTpAp(Known(h),a1),a2),a3),a4) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
 	try
 	  match Hashtbl.find sgdelta h with
 	  | (i,p) ->
@@ -1376,6 +1454,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
       end
   | PTpAp(PTpAp(PTpAp(Known(h),a1),a2),a3) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
 	try
 	  match Hashtbl.find sgdelta h with
 	  | (i,p) ->
@@ -1389,6 +1468,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
       end
   | PTpAp(PTpAp(Known(h),a1),a2) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
 	try
 	  match Hashtbl.find sgdelta h with
 	  | (i,p) ->
@@ -1402,6 +1482,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
       end
   | PTpAp(Known(h),a1) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
 	try
 	  match Hashtbl.find sgdelta h with
 	  | (i,p) ->
@@ -1413,6 +1494,7 @@ let rec extr_propofpf sgdelta sgtmof cxtm cxpf d dl =
       end
   | Known(h) ->
       begin
+        if !sexprinfo then Printf.printf "(USESKNOWN \"%s\")\n" h;
         begin
           match !reportbushydeps with
           | Some(ch) -> Printf.fprintf ch "K %s\n" h
@@ -2064,10 +2146,15 @@ let output_asckind_html ch k =
   | AscSet -> output_string ch " &#x2208; "
   | AscSubeq -> output_string ch " &#x2286; "
 
-let output_setinfixop_html ch k =
+let output_plain_setinfixop_html ch k =
   match k with
   | InfMem -> output_string ch " &#x2208; "
   | InfSubq -> output_string ch " &#x2286; "
+
+let output_setinfixop_html ch k =
+  match k with
+  | InfMem -> output_string ch " <a href='#In_notation'>&#x2208;</a> "
+  | InfSubq -> output_string ch " <a href='#Subq_notation'>&#x2286;</a> "
 
 let output_infixop_html ch i =
   match i with
@@ -2204,7 +2291,9 @@ and output_ltree_html_c ch a stmh sknh =
   | NuL(b,x,None,None) ->
       begin
 	if b then output_char ch '-';
-	output_string ch x;
+        wrap_href_special ch !natnotationhrefstack
+          (fun () ->
+	    output_string ch x);
       end
   | NuL(b,x,Some y,None) ->
       begin
@@ -2267,15 +2356,29 @@ and output_ltree_html_c ch a stmh sknh =
   | BiL(x,m,[(xl,o)],c) ->
       let subp = Hashtbl.mem subscript x in
       let supp = Hashtbl.mem superscript x in
-      output_name_html ch x;
+      let setinbd = match o with None -> false | Some(i,_) -> i = AscSet in
+      let setsubqbd = match o with None -> false | Some(i,_) -> i = AscSubeq in
+      let wrap = wrap_href_special ch
+                   (if x = "fun" then
+                      (if setinbd || setsubqbd then !setlamnotationhrefstack else [])
+                    else if x = "forall" then
+                      (if setinbd then ["In_notation"] else if setsubqbd then ["Subq_notation"] else [])
+                    else
+                      hashtbl_find_or_nil bindernotationhrefstack x)
+      in
+      wrap
+        (fun () ->
+          output_name_html ch x);
       if subp then output_string ch "<sub>" else if supp then output_string ch "<sup>" else if not (Hashtbl.mem unicode x) then output_string ch " ";
       output_names_html ch xl;
       begin
 	match o with
 	| None -> ()
 	| Some(i,b) ->
-	    output_asckind_html ch i;
-	    output_ltree_html ch b stmh sknh
+           wrap
+             (fun () ->
+	       output_asckind_html ch i);
+	   output_ltree_html ch b stmh sknh
       end;
       if subp then
 	output_string ch "</sub>"
@@ -2283,14 +2386,28 @@ and output_ltree_html_c ch a stmh sknh =
 	output_string ch "</sup>"
       else
 	begin
-	  output_midtok_html ch m;
+          wrap
+            (fun () ->
+	      output_midtok_html ch m);
 	  output_string ch " "
 	end;
       output_ltree_html ch c stmh sknh
   | BiL(x,m,vll,c) ->
       let subp = Hashtbl.mem subscript x in
       let supp = Hashtbl.mem superscript x in
-      output_name_html ch x;
+      let setinbd = List.exists (fun (xl,o) -> match o with None -> false | Some(i,_) -> i = AscSet) vll in
+      let setsubqbd = List.exists (fun (xl,o) -> match o with None -> false | Some(i,_) -> i = AscSubeq) vll in
+      let wrap = wrap_href_special ch
+                   (if x = "fun" then
+                      (if setinbd || setsubqbd then !setlamnotationhrefstack else [])
+                    else if x = "forall" then
+                      (if setinbd then ["In_notation"] else if setsubqbd then ["Subq_notation"] else [])
+                    else
+                      hashtbl_find_or_nil bindernotationhrefstack x)
+      in
+      wrap
+        (fun () ->
+          output_name_html ch x);
       if subp then output_string ch "<sub>" else if supp then output_string ch "<sup>";
       List.iter
 	(fun (xl,o) ->
@@ -2300,7 +2417,9 @@ and output_ltree_html_c ch a stmh sknh =
 	    match o with
 	    | None -> ()
 	    | Some(i,b) ->
-		output_asckind_html ch i;
+               wrap
+                 (fun () ->
+		   output_asckind_html ch i);
 		output_ltree_html ch b stmh sknh
 	  end;
 	  output_char ch ')';
@@ -2311,16 +2430,22 @@ and output_ltree_html_c ch a stmh sknh =
       else if supp then
 	output_string ch "</sup>"
       else
-	output_midtok_html ch m;
+        wrap
+          (fun () ->
+	    output_midtok_html ch m);
       output_ltree_html ch c stmh sknh
   | PreoL(x,a) ->
-      output_name_html ch x;
+      wrap_href_special ch (hashtbl_find_or_nil prefixnotationhrefstack x)
+        (fun () ->
+          output_name_html ch x);
       output_char ch ' ';
       output_ltree_html ch a stmh sknh
   | PostoL(x,a) ->
       output_ltree_html ch a stmh sknh;
       output_char ch ' ';
-      output_name_html ch x
+      wrap_href_special ch (hashtbl_find_or_nil postinfixnotationhrefstack x)
+        (fun () ->
+          output_name_html ch x)
   | InfoL(x,a,b) ->
       begin
 	if match x with InfNam(y) -> Hashtbl.mem subscript y | _ -> false then
@@ -2341,7 +2466,14 @@ and output_ltree_html_c ch a stmh sknh =
 	  begin
 	    output_ltree_html ch a stmh sknh;
 	    output_char ch ' ';
-	    output_infixop_html ch x;
+            begin
+              match x with
+              | InfNam(xn) ->
+                 wrap_href_special ch (hashtbl_find_or_nil postinfixnotationhrefstack xn)
+                   (fun () ->
+	             output_infixop_html ch x);
+              | InfSet(_) -> output_infixop_html ch x
+            end;
 	    output_char ch ' ';
 	    output_ltree_html ch b stmh sknh
 	  end
@@ -2351,44 +2483,77 @@ and output_ltree_html_c ch a stmh sknh =
       output_char ch ' ';
       output_ltree_html ch b stmh sknh
   | SepL(x,i,a,b) ->
-      output_char ch '{';
+      wrap_href_special ch !sepnotationhrefstack
+        (fun () ->
+          output_char ch '{');
       output_name_html ch x;
-      output_setinfixop_html ch i;
+      wrap_href_special ch !sepnotationhrefstack
+        (fun () ->
+          output_plain_setinfixop_html ch i);
       output_ltree_html ch a stmh sknh;
-      output_char ch '|';
+      wrap_href_special ch !sepnotationhrefstack
+        (fun () ->
+          output_char ch '|');
       output_ltree_html ch b stmh sknh;
-      output_char ch '}';
+      wrap_href_special ch !sepnotationhrefstack
+        (fun () ->
+          output_char ch '}');
   | RepL(x,i,a,b) ->
-      output_char ch '{';
+      wrap_href_special ch !replnotationhrefstack
+        (fun () ->
+          output_char ch '{');
       output_ltree_html ch a stmh sknh;
-      output_char ch '|';
+      wrap_href_special ch !replnotationhrefstack
+        (fun () ->
+          output_char ch '|');
       output_name_html ch x;
-      output_setinfixop_html ch i;
+      wrap_href_special ch !replnotationhrefstack
+        (fun () ->
+          output_plain_setinfixop_html ch i);
       output_ltree_html ch b stmh sknh;
-      output_char ch '}';
+      wrap_href_special ch !replnotationhrefstack
+        (fun () ->
+          output_char ch '}');
   | SepRepL(x,i,a,b,c) ->
-      output_char ch '{';
+      wrap_href_special ch !replsepnotationhrefstack
+        (fun () ->
+          output_char ch '{');
       output_ltree_html ch a stmh sknh;
-      output_char ch '|';
+      wrap_href_special ch !replsepnotationhrefstack
+        (fun () ->
+          output_char ch '|');
       output_name_html ch x;
-      output_setinfixop_html ch i;
+      wrap_href_special ch !replsepnotationhrefstack
+        (fun () ->
+          output_plain_setinfixop_html ch i);
       output_ltree_html ch b stmh sknh;
-      output_string ch ", ";
+      wrap_href_special ch !replsepnotationhrefstack
+        (fun () ->
+          output_string ch ", ");
       output_ltree_html ch c stmh sknh;
-      output_char ch '}';
+      wrap_href_special ch !replsepnotationhrefstack
+        (fun () ->
+          output_char ch '}');
   | SetEnumL([]) ->
-      output_char ch '{';
-      output_char ch '}';
+      wrap_href_special2 ch !setenumnotationhrefstack !setenum0notationhrefstack
+        (fun () ->
+          output_char ch '{';
+          output_char ch '}');
   | SetEnumL(a::bl) ->
-      output_char ch '{';
+      let wrap =
+        match List.length bl with
+        | 0 -> wrap_href_special2 ch !setenumnotationhrefstack !setenum1notationhrefstack
+        | 1 -> wrap_href_special2 ch !setenumnotationhrefstack !setenum2notationhrefstack
+        | _ -> wrap_href_special ch !setenumnotationhrefstack
+      in
+      wrap (fun () -> output_char ch '{');
       output_ltree_html ch a stmh sknh;
 	List.iter
 	  (fun b ->
-	    output_char ch ',';
-	    output_ltree_html ch b stmh sknh;
-	    )
+            wrap (fun () -> output_char ch ',');
+	    output_ltree_html ch b stmh sknh)
 	  bl;
-      output_char ch '}';
+      wrap (fun () -> output_char ch '}');
   | MTupleL(a,bl) ->
       output_char ch '[';
       output_ltree_html ch a stmh sknh;
@@ -2404,21 +2569,33 @@ and output_ltree_html_c ch a stmh sknh =
       output_ltree_html ch a stmh sknh;
       output_char ch ')';
   | ParenL(a,b::cl) ->
-      output_char ch '(';
+      wrap_href_special ch !tuplenotationhrefstack
+        (fun () ->
+          output_char ch '(');
       output_ltree_html ch a stmh sknh;
       List.iter
 	(fun c ->
-	  output_char ch ',';
+          wrap_href_special ch !tuplenotationhrefstack
+            (fun () ->
+	      output_char ch ',');
 	  output_ltree_html ch c stmh sknh;
 	)
 	(b::cl);
-      output_char ch ')';
+      wrap_href_special ch !tuplenotationhrefstack
+        (fun () ->
+          output_char ch ')');
   | IfThenElseL(a,b,c) ->
-      output_string ch "<span class='keyword'>if</span> ";
+      wrap_href_special ch !ifnotationhrefstack
+        (fun () ->
+          output_string ch "<span class='keyword'>if</span> ");
       output_ltree_html ch a stmh sknh;
-      output_string ch " <span class='keyword'>then</span> ";
+      wrap_href_special ch !ifnotationhrefstack
+        (fun () ->
+          output_string ch " <span class='keyword'>then</span> ");
       output_ltree_html ch b stmh sknh;
-      output_string ch " <span class='keyword'>else</span> ";
+      wrap_href_special ch !ifnotationhrefstack
+        (fun () ->
+          output_string ch " <span class='keyword'>else</span> ");
       output_ltree_html ch c stmh sknh
 
 let output_docitem_html ch ditem stmh sknh =
@@ -2426,13 +2603,43 @@ let output_docitem_html ch ditem stmh sknh =
   | Author(x,yl) -> ()
   | Title(x) -> ()
   | Salt(x) -> ()
+  | Opaque(_) -> ()
+  | Transparent(_) -> ()
   | Treasure(x) ->
       Printf.fprintf ch "\n$%s\n" x;
   | ShowProofTerms(_) -> ()
   | Section(x) ->
+     copy_head_notationhashtbl postinfixnotationhrefstack;
+     copy_head_notationhashtbl prefixnotationhrefstack;
+     copy_head_notationhashtbl bindernotationhrefstack;
+     copy_head_notationstack tuplenotationhrefstack;
+     copy_head_notationstack ifnotationhrefstack;
+     copy_head_notationstack setlamnotationhrefstack;
+     copy_head_notationstack replnotationhrefstack;
+     copy_head_notationstack sepnotationhrefstack;
+     copy_head_notationstack replsepnotationhrefstack;
+     copy_head_notationstack setenumnotationhrefstack;
+     copy_head_notationstack setenum0notationhrefstack;
+     copy_head_notationstack setenum1notationhrefstack;
+     copy_head_notationstack setenum2notationhrefstack;
+     copy_head_notationstack natnotationhrefstack;
      Printf.fprintf ch "<div class='section'>\n";
      Printf.fprintf ch "<div class='sectionbegin'>Beginning of Section <b>%s</b></div>\n" x 
   | End(x) ->
+     pop_notationhashtbl postinfixnotationhrefstack;
+     pop_notationhashtbl prefixnotationhrefstack;
+     pop_notationhashtbl bindernotationhrefstack;
+     pop_notationstack tuplenotationhrefstack;
+     pop_notationstack ifnotationhrefstack;
+     pop_notationstack setlamnotationhrefstack;
+     pop_notationstack replnotationhrefstack;
+     pop_notationstack sepnotationhrefstack;
+     pop_notationstack replsepnotationhrefstack;
+     pop_notationstack setenumnotationhrefstack;
+     pop_notationstack setenum0notationhrefstack;
+     pop_notationstack setenum1notationhrefstack;
+     pop_notationstack setenum2notationhrefstack;
+     pop_notationstack natnotationhrefstack;
      Printf.fprintf ch "<div class='sectionend'>End of Section <b>%s</b></div>\n" x;
      Printf.fprintf ch "</div>\n"
   | VarDecl(xl,i,a) ->
@@ -2468,7 +2675,8 @@ let output_docitem_html ch ditem stmh sknh =
       output_ltree_html ch b stmh sknh;
       output_string ch "</span></div>\n";
   | PostInfixDecl(x,b,p,InfixNone) ->
-      output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='infixdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       output_string ch "</span> as an infix operator with priority ";
       output_string ch (string_of_int p);
@@ -2476,8 +2684,10 @@ let output_docitem_html ch ditem stmh sknh =
       output_string ch " corresponding to applying term <span class='ltree'>";
       output_ltree_html ch b stmh sknh;
       output_string ch "</span>.</div>\n";
+      Hashtbl.replace postinfixnotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil postinfixnotationhrefstack x);
   | PostInfixDecl(x,b,p,InfixLeft) ->
-      output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='infixdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       output_string ch "</span> as an infix operator with priority ";
       output_string ch (string_of_int p);
@@ -2485,8 +2695,10 @@ let output_docitem_html ch ditem stmh sknh =
       output_string ch " corresponding to applying term <span class='ltree'>";
       output_ltree_html ch b stmh sknh;
       output_string ch "</span>.</div>\n";
+      Hashtbl.replace postinfixnotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil postinfixnotationhrefstack x);
   | PostInfixDecl(x,b,p,InfixRight) ->
-      output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='infixdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       output_string ch "</span> as an infix operator with priority ";
       output_string ch (string_of_int p);
@@ -2494,8 +2706,10 @@ let output_docitem_html ch ditem stmh sknh =
       output_string ch " corresponding to applying term <span class='ltree'>";
       output_ltree_html ch b stmh sknh;
       output_string ch "</span>.</div>\n";
+      Hashtbl.replace postinfixnotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil postinfixnotationhrefstack x);
   | PostInfixDecl(x,b,p,Postfix) ->
-      output_string ch "<div class='postfixdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='postfixdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       output_string ch "</span> as a postfix operator with priority ";
       output_string ch (string_of_int p);
@@ -2503,8 +2717,10 @@ let output_docitem_html ch ditem stmh sknh =
       output_ltree_html ch b stmh sknh;
       output_string ch "</span>.";
       output_string ch "</div>\n";
+      Hashtbl.replace postinfixnotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil postinfixnotationhrefstack x);
   | PrefixDecl(x,b,p) ->
-      output_string ch "<div class='prefixdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='prefixdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       output_string ch "</span> as a prefix operator with priority ";
       output_string ch (string_of_int p);
@@ -2512,8 +2728,10 @@ let output_docitem_html ch ditem stmh sknh =
       output_ltree_html ch b stmh sknh;
       output_string ch "</span>.";
       output_string ch "</div>\n";
+      Hashtbl.replace prefixnotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil postinfixnotationhrefstack x);
   | BinderDecl(plus,comma,x,a,None) ->
-      output_string ch "<div class='binderdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='binderdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       if plus then
 	output_string ch " <i>x</i>...<i>y</i> [possibly with ascriptions] "
@@ -2526,8 +2744,10 @@ let output_docitem_html ch ditem stmh sknh =
       output_string ch "</span> as a binder notation corresponding to a term constructed using <span class='ltree'>";
       output_ltree_html ch a stmh sknh;
       output_string ch "</span>.</div>\n";
+      Hashtbl.replace bindernotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil bindernotationhrefstack x);
   | BinderDecl(plus,comma,x,a,Some(b)) ->
-      output_string ch "<div class='binderdecl'><b>Notation</b>. We use <span class='ltree'>";
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='binderdecl'><a name='notation_%d'/><b>Notation</b>. We use <span class='ltree'>" !notationhrefcntr;
       output_name_html ch x;
       if plus then
 	output_string ch " <i>x</i>...<i>y</i> [possibly with ascriptions] "
@@ -2542,12 +2762,17 @@ let output_docitem_html ch ditem stmh sknh =
       output_string ch "</span> and handling  &#x2208; or &#x2286; ascriptions using <span class='ltree'>";
       output_ltree_html ch b stmh sknh;
       output_string ch "</span>.</div>\n";
+      Hashtbl.replace bindernotationhrefstack x (Printf.sprintf "notation_%d" !notationhrefcntr::hashtbl_find_or_nil bindernotationhrefstack x);
   | NotationDecl(x,yl) ->
-      output_string ch "<div class='notationdecl'><b>Notation</b>. ";
+      let declare_tuple_notation = ref false in
+      incr notationhrefcntr;
+      Printf.fprintf ch "<div class='notationdecl'><a name='notation_%d'/><b>Notation</b>. " !notationhrefcntr;
       begin
 	match x with
 	| "IfThenElse" ->
 	    begin
+              ifnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!ifnotationhrefstack;
+              if not (!setlamnotationhrefstack = []) then declare_tuple_notation := true;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'><span class='keyword'>if</span> <i>cond</i> <span class='keyword'>then</span> <i>T</i> <span class='keyword'>else</span> <i>E</i></span> is notation corresponding to <span class='ltree'>";
@@ -2558,6 +2783,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "Repl" ->
 	    begin
+              replnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!replnotationhrefstack;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>{<i>B</i>| <i>x</i> &#x2208; <i>A</i>}</span> is notation for <span class='ltree'>";
@@ -2568,6 +2794,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "Sep" ->
 	    begin
+              sepnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!sepnotationhrefstack;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>{<i>x</i> &#x2208; <i>A</i> | <i>B</i>}</span> is notation for <span class='ltree'>";
@@ -2578,6 +2805,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "ReplSep" ->
 	    begin
+              replsepnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!replsepnotationhrefstack;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>{<i>B</i>| <i>x</i> &#x2208; <i>A</i>, <i>C</i>}</span> is notation for <span class='ltree'>";
@@ -2588,6 +2816,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "SetEnum" ->
 	    begin
+              setenumnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!setenumnotationhrefstack;
 	      output_string ch "We now use the set enumeration notation <span class='ltree'>{...,...,...}</span> in general. ";
 	      let rec setenum_notation_expl_r i z yl =
 		match yl with
@@ -2620,6 +2849,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "SetEnum0" ->
 	    begin
+              setenum0notationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!setenum0notationhrefstack;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>{}</span> is notation for <span class='ltree'>";
@@ -2630,6 +2860,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "SetEnum1" ->
 	    begin
+              setenum1notationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!setenum1notationhrefstack;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>{<i>x</i>}</span> is notation for <span class='ltree'>";
@@ -2640,6 +2871,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "SetEnum2" ->
 	    begin
+              setenum2notationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!setenum2notationhrefstack;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>{<i>x</i>,<i>y</i>}</span> is notation for <span class='ltree'>";
@@ -2650,6 +2882,7 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "Nat" ->
 	    begin
+              natnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!natnotationhrefstack;
 	      match yl with
 	      | [y0;yS] ->
 		  output_string ch "Natural numbers 0,1,2,... are notation for the terms formed using <span class='ltree'>";
@@ -2662,6 +2895,8 @@ let output_docitem_html ch ditem stmh sknh =
 	    end
 	| "SetLam" ->
 	    begin
+              setlamnotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!setlamnotationhrefstack;
+              if not (!ifnotationhrefstack = []) then declare_tuple_notation := true;
 	      match yl with
 	      | [y] ->
 		  output_string ch "<span class='ltree'>&#x03bb; <i>x</i> &#x2208; <i>A</i> &#x21d2; <i>B</i></span> is notation for the set <span class='ltree'>";
@@ -2683,6 +2918,15 @@ let output_docitem_html ch ditem stmh sknh =
 	| _ -> raise (Failure("Unknown notation " ^ x))
       end;
       output_string ch "</div>\n";
+      if !declare_tuple_notation then
+        begin
+          incr notationhrefcntr;
+          tuplenotationhrefstack := Printf.sprintf "notation_%d" !notationhrefcntr::!tuplenotationhrefstack;
+          Printf.fprintf ch "<div class='notationdecl'><a name='notation_%d'/><b>Notation</b>. " !notationhrefcntr;
+          output_string ch "We now use n-tuple notation (<i>a<sub>0</sub></i>,...,<i>a<sub>n-1</sub></i>) for n &geq; 2 for &#x03bb; i &#x2208; <i>n</i> . <span class='keyword'>if</span> i = 0 <span class='keyword'>then</span> <i>a<sub>0</sub></i> <span class='keyword'>else</span> ... if</span> i = <i>n-2</i> <span class='keyword'>then</span> <i>a<sub>n-2</sub></i> <span class='keyword'>else</span> <i>a<sub>n-1</sub></i>.\n";
+          output_string ch "</div>\n";
+          
+        end
   | UnicodeDecl(x,ul) -> ()
   | SuperscriptDecl(x) -> (*** I should say something about notation here, but at the moment it would need to be "If x is a binder, then we write its bound variables as a superscript. If x is an infix operator, then we omit the operator and write the second argument as a superscript." ***)
       ()
@@ -2701,7 +2945,7 @@ let output_docitem_html ch ditem stmh sknh =
       begin
 	if x = "In" then
 	  begin
-	    output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>&#x2208;</span>";
+	    output_string ch "<div class='infixdecl'><a name='In_notation'/><b>Notation</b>. We use <span class='ltree'>&#x2208;</span>";
 	    output_string ch "</span> as an infix operator with priority 500";
 	    output_string ch " and no associativity";
 	    output_string ch " corresponding to applying term <span class='ltree'>";
@@ -2714,7 +2958,7 @@ let output_docitem_html ch ditem stmh sknh =
       begin
 	if x = "Subq" then
 	  begin
-	    output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
+	    output_string ch "<div class='infixdecl'><a name='Subq_notation'/><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
 	    output_string ch "</span> as an infix operator with priority 500";
 	    output_string ch " and no associativity";
 	    output_string ch " corresponding to applying term <span class='ltree'>";
@@ -2738,7 +2982,7 @@ let output_docitem_html ch ditem stmh sknh =
       begin
 	if x = "Subq" then
 	  begin
-	    output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
+	    output_string ch "<div class='infixdecl'><a name='Subq_notation'/><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
 	    output_string ch "</span> as an infix operator with priority 500";
 	    output_string ch " and no associativity";
 	    output_string ch " corresponding to applying term <span class='ltree'>";
@@ -2763,7 +3007,7 @@ let output_docitem_html ch ditem stmh sknh =
       begin
 	if x = "Subq" then
 	  begin
-	    output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
+	    output_string ch "<div class='infixdecl'><a name='Subq_notation'/><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
 	    output_string ch "</span> as an infix operator with priority 500";
 	    output_string ch " and no associativity";
 	    output_string ch " corresponding to applying term <span class='ltree'>";
@@ -3342,6 +3586,8 @@ let output_docitem_latex ch ditem stmh sknh =
   | Title(x) ->
      Printf.fprintf ch "\\chapter{%s}\n\n" x
   | Salt(x) -> ()
+  | Opaque(_) -> ()
+  | Transparent(_) -> ()
   | Treasure(x) -> ()
   | ShowProofTerms(_) -> ()
   | Section(_) -> ()
@@ -3612,7 +3858,7 @@ let output_docitem_latex ch ditem stmh sknh =
       begin
 	if x = "Subq" then
 	  begin
-	    output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
+	    output_string ch "<div class='infixdecl'><a name='Subq_notation'/><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
 	    output_string ch "</span> as an infix operator with priority 500";
 	    output_string ch " and no associativity";
 	    output_string ch " corresponding to applying term <span class='ltree'>";
@@ -3637,7 +3883,7 @@ let output_docitem_latex ch ditem stmh sknh =
      begin
 	if x = "Subq" then
 	  begin
-	    output_string ch "<div class='infixdecl'><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
+	    output_string ch "<div class='infixdecl'><a name='Subq_notation'/><b>Notation</b>. We use <span class='ltree'>&#x2286;</span>";
 	    output_string ch "</span> as an infix operator with priority 500";
 	    output_string ch " and no associativity";
 	    output_string ch " corresponding to applying term <span class='ltree'>";
@@ -5390,5 +5636,3 @@ Hashtbl.add logicop "9c60bab687728bc4482e12da2b08b8dbc10f5d71f5cab91acec3c00a79b
 Hashtbl.add logicop "912ad2cdc2d23bb8aa0a5070945f2a90976a948b0e8308917244591f3747f099" ();;
 Hashtbl.add logicop "5a6af35fb6d6bea477dd0f822b8e01ca0d57cc50dfd41744307bc94597fdaa4a" ();;
 Hashtbl.add logicop "7966a66a9bb198103c2a540ccd5ebebdff33c10843cc10eebfc98715e142989c" ();;
-
-

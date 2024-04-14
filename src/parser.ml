@@ -71,6 +71,8 @@ type token =
   | OPENCOM
   | CLOSECOM
   | SALT
+  | OPAQUE
+  | TRANSPARENT
   | TREASURE
   | TITLE
   | AUTHOR
@@ -146,6 +148,8 @@ let tok_to_str tok =
   | OPENCOM -> "(*"
   | CLOSECOM -> "*)"
   | SALT -> "Salt"
+  | OPAQUE -> "Opaque"
+  | TRANSPARENT -> "Transparent"
   | TREASURE -> "Treasure"
   | TITLE -> "Title"
   | AUTHOR -> "Author"
@@ -744,6 +748,13 @@ let read_name_ts tl =
   | (NAM x,tr) -> (x,tr)
   | _ -> raise (ParsingError("Name expected",!lineno,!charno,!lineno,!charno))
 
+let rec read_names_ts tl =
+  match destr_ts tl with
+  | (NAM x,tr) ->
+     let (xl,ts) = read_names_ts tr in
+     (x::xl,ts)
+  | (tok,tr) -> ([],TokStrBuff(tok,tr))
+
 let read_string_ts tl =
   match destr_ts tl with
   | (STRING x,tr) -> (x,tr)
@@ -855,6 +866,14 @@ let parse_docitem tl =
 	    (Treasure(x),tv)
 	| _ -> raise (ParsingError("Syntax error",li,ch,!lineno,!charno))
       end
+  | (OPAQUE,ts) ->
+      let (xl,tu) = read_names_ts ts in
+      let tv = read_expected_ts [DOT] tu in
+      (Opaque(xl),tv)
+  | (TRANSPARENT,ts) ->
+      let (xl,tu) = read_names_ts ts in
+      let tv = read_expected_ts [DOT] tu in
+      (Transparent(xl),tv)
   | (PARAM,tr) ->
       begin
 	let (x,ts) = read_name_ts tr in
