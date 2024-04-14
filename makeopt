@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+mkdir bin
+
 # If ocamlopt is not in your PATH, put the full path here.
 export OCAMLOPT=ocamlopt
 export OCAMLLEX=ocamllex
