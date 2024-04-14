@@ -27984,6 +27984,7 @@ Admitted.
 
 End Conj_real_add_SNo__45__20.
 (** Conj_real_add_SNo__47__0 TMMkXNLbgNQec4JiiWQcHFeBpec3r7HMBXE bounty of about 25 bars **)
+
 Section Conj_real_add_SNo__47__0.
 Variable x:set.
 Variable y:set.

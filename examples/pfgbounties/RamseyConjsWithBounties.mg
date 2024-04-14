@@ -21,10 +21,6 @@ Admitted.
 Theorem not_TwoRamseyProp_3_10_39 : ~TwoRamseyProp 3 10 39.
 Admitted.
 
-(** not_TwoRamseyProp_4_6_35 TMTP6yNEuLJgxabKFMpXXG2jXMmGBhXo7LG bounty of about 300 bars **)
-Theorem not_TwoRamseyProp_4_6_35 : ~TwoRamseyProp 4 6 35.
-Admitted.
-
 (** not_TwoRamseyProp_4_7_48 TMWNCQzzBFKBFRj2Vg4QhjCUg9Pno3QpkbU bounty of about 500 bars **)
 Theorem not_TwoRamseyProp_4_7_48 : ~TwoRamseyProp 4 7 48.
 Admitted.
@@ -133,64 +129,24 @@ Admitted.
 Theorem not_TwoRamseyProp_3_10_Power_5 : ~TwoRamseyProp 3 10 (Power 5).
 Admitted.
 
-(** not_TwoRamseyProp_4_6_Power_5 TMNEbNDi1x9cRwNgQ365q4mQrTA21mcZzpE bounty of about 100 bars **)
-Theorem not_TwoRamseyProp_4_6_Power_5 : ~TwoRamseyProp 4 6 (Power 5).
-Admitted.
-
-(** not_TwoRamseyProp_4_7_Power_5 TMKi1D84D9M7yXLUMiez2HapYajJVBTbpiu bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_4_7_Power_5 : ~TwoRamseyProp 4 7 (Power 5).
-Admitted.
-
-(** not_TwoRamseyProp_4_8_Power_5 TMGQTLwKsfK567DHtN8vAVcv2UTVvaSG6AA bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_4_8_Power_5 : ~TwoRamseyProp 4 8 (Power 5).
-Admitted.
-
-(** not_TwoRamseyProp_4_9_Power_5 TMFCRqFBwt3J6dxcFHn5EgswrUMNWr9nBFZ bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_4_9_Power_5 : ~TwoRamseyProp 4 9 (Power 5).
-Admitted.
-
 (** not_TwoRamseyProp_4_9_Power_6 TMQGT6GGrGNc3fnpNVVyzYp1UfDQkmUx5hh bounty of about 500 bars **)
 Theorem not_TwoRamseyProp_4_9_Power_6 : ~TwoRamseyProp 4 9 (Power 6).
-Admitted.
-
-(** not_TwoRamseyProp_5_5_Power_4 TMFG8Vmyysj75BgACYiq1K3RPqwRAgxQupZ bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_5_5_Power_4 : ~TwoRamseyProp 5 5 (Power 4).
 Admitted.
 
 (** not_TwoRamseyProp_5_5_Power_5 TMGmDYbRXrpoiZjRi312cY1fvzjX3vVcMbz bounty of about 100 bars **)
 Theorem not_TwoRamseyProp_5_5_Power_5 : ~TwoRamseyProp 5 5 (Power 5).
 Admitted.
 
-(** not_TwoRamseyProp_5_6_Power_5 TMc5MAkbjb79K9dcjGUEYC76314eQZkiw1c bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_5_6_Power_5 : ~TwoRamseyProp 5 6 (Power 5).
-Admitted.
-
-(** not_TwoRamseyProp_5_7_Power_5 TMRXV6eS9sr6MsLUcUz8gb8uXmdYMxjNmFJ bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_5_7_Power_5 : ~TwoRamseyProp 5 7 (Power 5).
-Admitted.
-
 (** not_TwoRamseyProp_5_7_Power_6 TMNXFB9HwrMCgkiMLxVBRW5nkQVbRbLU9YD bounty of about 500 bars **)
 Theorem not_TwoRamseyProp_5_7_Power_6 : ~TwoRamseyProp 5 7 (Power 6).
-Admitted.
-
-(** not_TwoRamseyProp_5_8_Power_5 TMPaUGYW3WyPmb41n83C3Z1tqsB6wYa5DQH bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_5_8_Power_5 : ~TwoRamseyProp 5 8 (Power 5).
 Admitted.
 
 (** not_TwoRamseyProp_5_8_Power_6 TMYZ6xiWaWa4LUtduMqzRe1BndeKk1nnKcV bounty of about 500 bars **)
 Theorem not_TwoRamseyProp_5_8_Power_6 : ~TwoRamseyProp 5 8 (Power 6).
 Admitted.
 
-(** not_TwoRamseyProp_6_6_Power_5 TMTYNCqRgcySPyfZGBzZgcqScw5RS6X2hhC bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_6_6_Power_5 : ~TwoRamseyProp 6 6 (Power 5).
-Admitted.
-
 (** not_TwoRamseyProp_6_6_Power_6 TMTxgdseSpFSGHDNR7RSMbhK5Wk3jSstF5Q bounty of about 500 bars **)
 Theorem not_TwoRamseyProp_6_6_Power_6 : ~TwoRamseyProp 6 6 (Power 6).
-Admitted.
-
-(** not_TwoRamseyProp_6_7_Power_5 TMVnsD3eB7hnvajnroG6dpv4ve85pkroCCz bounty of about 500 bars **)
-Theorem not_TwoRamseyProp_6_7_Power_5 : ~TwoRamseyProp 6 7 (Power 5).
 Admitted.
 
 (** not_TwoRamseyProp_6_7_Power_6 TMExwwLP8cRBB4esj7b44gEfGL8BFAi8H6F bounty of about 500 bars **)
@@ -209,16 +165,8 @@ Admitted.
 Theorem TwoRamseyProp_4_7_Power_6 : TwoRamseyProp 4 7 (Power 6).
 Admitted.
 
-(** TwoRamseyProp_4_8_Power_7 TMNx667poeYtsT7KTZTGnyLTq5KdQm1nJxa bounty of about 500 bars **)
-Theorem TwoRamseyProp_4_8_Power_7 : TwoRamseyProp 4 8 (Power 7).
-Admitted.
-
 (** TwoRamseyProp_4_9_Power_7 TMYjJ5cgHonhxfDky3NTprMxo36acV14s8x bounty of about 500 bars **)
 Theorem TwoRamseyProp_4_9_Power_7 : TwoRamseyProp 4 9 (Power 7).
-Admitted.
-
-(** TwoRamseyProp_4_9_Power_8 TMKYb87veLxzurwXFUttEMEyFTGChwJXW6Z bounty of about 500 bars **)
-Theorem TwoRamseyProp_4_9_Power_8 : TwoRamseyProp 4 9 (Power 8).
 Admitted.
 
 (** TwoRamseyProp_5_6_Power_7 TMdu7Jgg2EakX7Nvz69Z1gfVbW2afcXvDVA bounty of about 500 bars **)

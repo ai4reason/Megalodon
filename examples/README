@@ -10,7 +10,7 @@ See form100p1/README for more details.
 * Proofgold bounties
 
 See pfgbounties/README for details about conjectures with Proofgold
-bounties on them as of September 2022.
+bounties on them as of September 2023.
 
 * MetaMath set.mm Translation:
 
@@ -22,6 +22,15 @@ http://grid01.ciirc.cvut.cz/~chad/mmmg.tgz
 
 (Note: mmmg.tgz unzips to a 657MB directory.)
 
+* Mizar Mathematical Library Translation:
+
+A translation of an old snapshot of the Mizar Mathematical Library
+is available in Megalodon format (but without proofs) here:
+
+http://grid01.ciirc.cvut.cz/~chad/mmlmg.tgz
+
+(Note: mmlmg.tgz is 266M and unzips to a 2.7 GB directory.)
+
 * HOTG (in Egal Style) Examples:
 
 The default theory supported by Megalodon (as of version 1.3) is HOTG
@@ -29,34 +38,47 @@ The default theory supported by Megalodon (as of version 1.3) is HOTG
 style vs. the Mizar style see Brown and Pak's paper "A Tale of Two Set
 Theories" from CICM 2019.
 
-Examples from HOTG (in Egal style) are in the egal directory
-, in the form100p1 directory and in the UpToComplexNumbersNoAbstract.
+Examples from HOTG (in Egal style) are in the egal,
+form100p1, UpToOctonions and pfghotgdocsSep142023 directories.
 
-The subdirectory UpToComplexNumbersNoAbstract
-contains a full formalization of the construction of
-Conway's surreal numbers, an extraction of the real numbers
-from the surreal numbers, complex surreal numbers
-and complex numbers. The formalization is given in
-9 parts: Part1.mg - Part9.mg. Each Partn.mg file
-contains a header of some information from the previous
-Parti.mg files with i < n.
+The pfghotgdocsSep142023 directory contains all (1548) documents published in
+the HOTG-Egal theory in Proofgold as of September 14, 2023.
+The documents were backported from Proofgold format to Megalodon format.
+The proofs were not backported, but simply left as omitted.
+More information is in pfghotgdocsSep142023/README.
+
+The subdirectory UpToOctonions contains a full formalization of the
+construction of Conway's surreal numbers, an extraction of the real
+numbers from the surreal numbers and the Cayley-Dickson construction
+yielding surcomplex (including complex) numbers, surquaternions
+(including quaternions) and suroctonions (including octonions).  and
+complex numbers. The formalization is given in 14 parts: Part1.mg -
+Part14.mg. Each Partn.mg file contains a header of some information
+from the previous Parti.mg files with i < n. Additionally, Part10b.mg
+is an aside proving the square root of 2 is irrational.
 
 The files can be (re)checked as follows:
 
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part1.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part2.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part3.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part4.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part5.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part6.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part7.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part8.mg
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Part9.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part1.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part2.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part3.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part4.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part5.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part6.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part7.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part8.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part9.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part10.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part10b.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part11.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part12.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part13.mg
+megalodon -owned ownedSep132023 UpToOctonions/Part14.mg
 
 Additionally there is a Summary.mg file that contains the important
-objects and propositions from the 9 parts but no proofs.
+objects and propositions from all the parts but no proofs.
 
-megalodon -owned ownedSep192022 UpToComplexNumbersNoAbstract/Summary.mg
+megalodon -owned ownedSep132023 UpToOctonions/Summary.mg
 
 Finally there is a preamble file Nov2021ConjPreamble.mgs
 and a file Nov2021ConjsAll.mg containing 23257 automatically generated
@@ -66,7 +88,7 @@ intermediate subderivations from the proofs in the 9 parts.
 Each conjecture results from removing an Ai from the assumption.
 The resulting conjecture may or may not be provable.
 
-megalodon -owned ownedSep192022 -I UpToComplexNumbersNoAbstract/Nov2021ConjPreamble.mgs UpToComplexNumbersNoAbstract/Nov2021ConjsAll.mg
+megalodon -owned ownedSep132023 -I UpToOctonions/Nov2021ConjPreamble.mgs UpToOctonions/Nov2021ConjsAll.mg
 
 There are several kinds of examples in the egal directory.  Some have
 to do with Ramsey numbers and are described in more detail here:
@@ -103,13 +125,13 @@ allows the user to give an ownership file.
 
 Here is how to check the file:
 
-megalodon -owned ownedSep192022 egal/RamseyConjs.mg
+megalodon -owned ownedSep132023 egal/RamseyConjs.mg
 
 To obtain the Proofgold document in a form that can be read by the Proofgold
 commands readdraft, commitdraft and publishdraft, use the -pfg option
 and redirect the standard output as follows:
 
-megalodon -owned ownedSep192022  -pfg egal/RamseyConjs.mg > egal/RamseyConjs.pfg
+megalodon -owned ownedSep132023  -pfg egal/RamseyConjs.mg > egal/RamseyConjs.pfg
 
 Each of these conjectures has a corresponding address.  Bounties can
 be placed at these addresses which can later be claimed by the first
@@ -130,9 +152,9 @@ R(3,3) > 5. The first one translates into a Proofgold document that
 would be too large to fit into a block. The second one translates
 into a Proofgold document that did fit into a block.
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs egal/Ramsey_3_3_5_orig_toobigpfg.mg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs egal/Ramsey_3_3_5_orig_toobigpfg.mg
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs egal/Ramsey_3_3_5.mg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs egal/Ramsey_3_3_5.mg
 
 To obtain the Proofgold documents in a form that can be read by the Proofgold
 commands readdraft, commitdraft and publishdraft, use the -pfg option
@@ -142,22 +164,22 @@ to fit into a block. When Megalodon creates the Proofgold file, it only
 includes information from the preamble that is required to make the Proofgold
 document self-contained.
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs -pfg egal/Ramsey_3_3_5_orig_toobigpfg.mg > egal/Ramsey_3_3_5_orig_toobigpfg.pfg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs -pfg egal/Ramsey_3_3_5_orig_toobigpfg.mg > egal/Ramsey_3_3_5_orig_toobigpfg.pfg
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs -pfg egal/Ramsey_3_3_5.mg > egal/Ramsey_3_3_5.pfg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs -pfg egal/Ramsey_3_3_5.mg > egal/Ramsey_3_3_5.pfg
 
 The following proves R(3,3) <= 6. (Combined with the previous result, we have
 R(3,3) = 6, but we do not make this explicit here.)
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs egal/Ramsey_3_3_6.mg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs egal/Ramsey_3_3_6.mg
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs -pfg egal/Ramsey_3_3_6.mg > egal/Ramsey_3_3_6.pfg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs -pfg egal/Ramsey_3_3_6.mg > egal/Ramsey_3_3_6.pfg
 
 Other Conjectures than the Ramsey problems can be found in
 Dieudonne_2_2.mg and QuotientGroupConjs1.mg.
 
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2.mg
-megalodon -owned ownedSep192022 -I egal/PfgEMay2021Preamble.mgs egal/QuotientGroupConjs1.mg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2.mg
+megalodon -owned ownedSep132023 -I egal/PfgEMay2021Preamble.mgs egal/QuotientGroupConjs1.mg
 
 The version of egal/Dieudonne_2_2.mg distributed with Megalodon 1.4 had bugs
 and is included here as egal/Dieudonne_2_2_buggy.mg.
@@ -166,11 +188,11 @@ In the Egal theory, Megalodon can create fof and th0 ATP problems
 corresponding to admitted proofs. Here are examples of how to use
 it with Dieudonne_2_2_buggy.mg and Dieudonne_2_2.mg.
 
-megalodon -owned ownedSep192022 -fof fofd22buggy -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2_buggy.mg
-megalodon -owned ownedSep192022 -th0 th0d22buggy -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2_buggy.mg
+megalodon -owned ownedSep132023 -fof fofd22buggy -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2_buggy.mg
+megalodon -owned ownedSep132023 -th0 th0d22buggy -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2_buggy.mg
 
-megalodon -owned ownedSep192022 -fof fofd22 -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2.mg
-megalodon -owned ownedSep192022 -th0 th0d22 -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2.mg
+megalodon -owned ownedSep132023 -fof fofd22 -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2.mg
+megalodon -owned ownedSep132023 -th0 th0d22 -I egal/PfgEMay2021Preamble.mgs egal/Dieudonne_2_2.mg
 
 Two of the bugs in Dieudonne_2_2_buggy.mg were identified using the E automated prover
 on one of these files:
@@ -263,7 +285,7 @@ and proving Dieudonne_2_2_13c will easily yield Dieudonne_2_2_13e.
 
 Here are two versions of the Collatz conjecture:
 
-megalodon -owned ownedSep192022 -I egal/PfgEAug2022Preamble.mgs egal/Collatz.mg 
+megalodon -owned ownedSep132023 -I egal/PfgEAug2022Preamble.mgs egal/Collatz.mg 
 
 * Structures
 
@@ -281,11 +303,11 @@ A small document in the Mizar theory is in mizar/MizExample1.mg
 
 Here is how to check it with Megalodon:
 
-megalodon -mizar -owned ownedSep192022 -I mizar/PfgMizarNov2020Preamble.mgs mizar/MizExample1.mg
+megalodon -mizar -owned ownedSep132023 -I mizar/PfgMizarNov2020Preamble.mgs mizar/MizExample1.mg
 
 Here is how to create the corresponding Proofgold document:
 
-megalodon -mizar -owned ownedSep192022 -I mizar/PfgMizarNov2020Preamble.mgs -pfg mizar/MizExample1.mg > mizar/MizExample1.pfg
+megalodon -mizar -owned ownedSep132023 -I mizar/PfgMizarNov2020Preamble.mgs -pfg mizar/MizExample1.mg > mizar/MizExample1.pfg
 
 * HF Examples:
 
@@ -309,11 +331,11 @@ A file with a proof is in hf/Random1_197_pos.mg.
 
 Here is how to check it with Megalodon:
 
-megalodon -hf -owned ownedSep192022 -I hf/PfgPreambleSep2020.mgs hf/Random1_197_pos.mg
+megalodon -hf -owned ownedSep132023 -I hf/PfgPreambleSep2020.mgs hf/Random1_197_pos.mg
 
 Here is how to produce the corresponding Proofgold document:
 
-megalodon -hf -owned ownedSep192022 -I hf/PfgPreambleSep2020.mgs -pfg hf/Random1_197_pos.mg > hf/Random1_197_pos.pfg
+megalodon -hf -owned ownedSep132023 -I hf/PfgPreambleSep2020.mgs -pfg hf/Random1_197_pos.mg > hf/Random1_197_pos.pfg
 
 The random bounty conjecture in Block 26 of Proofgold (but determined by Block 25)
 has the form
@@ -330,11 +352,11 @@ An example proof is in hf/Random3_25_neg.mg.
 
 Here is how to check it with Megalodon:
 
-megalodon -hf -owned ownedSep192022 -I hf/PfgPreambleSep2020.mgs hf/Random3_25_neg.mg
+megalodon -hf -owned ownedSep132023 -I hf/PfgPreambleSep2020.mgs hf/Random3_25_neg.mg
 
 Here is how to create the corresponding Proofgold document:
 
-megalodon -hf -owned ownedSep192022 -I hf/PfgPreambleSep2020.mgs -pfg hf/Random3_25_neg.mg > hf/Random3_25_neg.pfg
+megalodon -hf -owned ownedSep132023 -I hf/PfgPreambleSep2020.mgs -pfg hf/Random3_25_neg.mg > hf/Random3_25_neg.pfg
 
 * HOAS examples:
 
@@ -350,21 +372,21 @@ The file ULam1.mg make some definitions to encode untyped lambda calculus,
 beta reduction and beta equivalence. It also conjectures the existence
 of an identity combinator and a fixed point combinator.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs hoas/ULam1.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs hoas/ULam1.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -pfg hoas/ULam1.mg > hoas/ULam1.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -pfg hoas/ULam1.mg > hoas/ULam1.pfg
 
 ULam2.mg resolves the two previous conjectures by proving the existence of
 an identity combinator and a fixed point combinator. This depends on
 some things from ULam1.mg and PfgHOASULamPreamble.mgs is a mixture of PfgHOASPreamble1.mgs and ULam1.mg.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASULamPreamble.mgs hoas/ULam2.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASULamPreamble.mgs hoas/ULam2.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASULamPreamble.mgs -pfg hoas/ULam2.mg > hoas/ULam2.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASULamPreamble.mgs -pfg hoas/ULam2.mg > hoas/ULam2.pfg
 
 ** Core Simplicity
 
@@ -375,11 +397,11 @@ of the first two files to include when checking the next ones.
 CoreSimplicity1.mg defines types, terms, the typing relation ("of")
 and proves a number of basic properties.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs hoas/CoreSimplicity1.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs hoas/CoreSimplicity1.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -pfg hoas/CoreSimplicity1.mg > hoas/CoreSimplicity1.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -pfg hoas/CoreSimplicity1.mg > hoas/CoreSimplicity1.pfg
 
 CoreSimplicity2.mg gives a semantics for types and a big step semantics.
 This diverges a bit from O'Connor's denotational semantics since
@@ -392,19 +414,19 @@ The file contains two conjectures:
 . ev_sound : soundness of evaluation
 . ExSwap : For every type A there is a term t of type (A + A) |- (A + A) that "swaps" left and right.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs hoas/CoreSimplicity2.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs hoas/CoreSimplicity2.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs -pfg hoas/CoreSimplicity2.mg > hoas/CoreSimplicity2.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs -pfg hoas/CoreSimplicity2.mg > hoas/CoreSimplicity2.pfg
 
 CoreSimplicity3.mg resolves the previous two conjectures.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs -I hoas/CoreSimplicity2.mgs hoas/CoreSimplicity3.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs -I hoas/CoreSimplicity2.mgs hoas/CoreSimplicity3.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs -I hoas/CoreSimplicity2.mgs -pfg hoas/CoreSimplicity3.mg > hoas/CoreSimplicity3.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -I hoas/CoreSimplicity1.mgs -I hoas/CoreSimplicity2.mgs -pfg hoas/CoreSimplicity3.mg > hoas/CoreSimplicity3.pfg
 
 ** Dedukti
 
@@ -412,36 +434,36 @@ Dedukti.mg contains the building blocks for Dedukti's logical framework.
 The signature file DeduktiPreamble.mgs contains the basic
 infrastructure needed for future Dedukti files.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs hoas/Dedukti.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs hoas/Dedukti.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/PfgHOASPreamble1.mgs -pfg hoas/Dedukti.mg > hoas/Dedukti.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/PfgHOASPreamble1.mgs -pfg hoas/Dedukti.mg > hoas/Dedukti.pfg
 
 sttfa.mg corresponds to the Dedukti sttfa from Matita's simple type theory library,
 with proofs of type correctness left as conjectures.
 The signature file sttfa.mgs can be included in order to handle later files
 that depend on sttfa.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/DeduktiPreamble.mgs hoas/sttfa.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/DeduktiPreamble.mgs hoas/sttfa.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/DeduktiPreamble.mgs -pfg hoas/sttfa.mg > hoas/sttfa.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/DeduktiPreamble.mgs -pfg hoas/sttfa.mg > hoas/sttfa.pfg
 
 sttfa2.mg proves one of the conjectures from sttfa.mg as an example.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs hoas/sttfa2.mg
+megalodon -hoas -owned ownedSep132023 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs hoas/sttfa2.mg
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs -pfg hoas/sttfa2.mg > hoas/sttfa2.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs -pfg hoas/sttfa2.mg > hoas/sttfa2.pfg
 
 connectives.mg corresponds to the Dedukti connectives file from Matita's simple type theory library,
 with proofs of type correctness left as conjectures. It depends on sttfa.
 
-megalodon -hoas -owned ownedSep192022 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs hoas/connectives.mgxo
+megalodon -hoas -owned ownedSep132023 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs hoas/connectives.mgxo
 
 To get the Proofgold document:
 
-megalodon -hoas -owned ownedSep192022 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs -pfg hoas/connectives.mg > hoas/connectives.pfg
+megalodon -hoas -owned ownedSep132023 -I hoas/DeduktiPreamble.mgs -I hoas/sttfa.mgs -pfg hoas/connectives.mg > hoas/connectives.pfg

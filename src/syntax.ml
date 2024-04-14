@@ -4028,6 +4028,15 @@ let pfg_objid m a =
   else
     raise (Failure "norm problem in pfg_objid")
 
+let nxtpfgvar phi =
+  incr pfgvarcount;
+  let x = ref (Printf.sprintf "x%d" !pfgvarcount) in
+  while Hashtbl.mem pfgreserved !x || List.mem !x phi do
+    incr pfgvarcount;
+    x := Printf.sprintf "x%d" !pfgvarcount
+  done;
+  !x
+
 let rec tm_pfghf_str_r m phi =
   match m with
   | DB(j) -> List.nth phi j
@@ -4064,8 +4073,7 @@ let rec tm_pfghf_str_r m phi =
 	   try
 	     Hashtbl.find pfgbvarh m
 	   with Not_found ->
-	     incr pfgvarcount;
-	     Printf.sprintf "x%d" !pfgvarcount
+             nxtpfgvar phi
 	 end
        else
 	 "_"
@@ -4080,8 +4088,7 @@ let rec tm_pfghf_str_r m phi =
            if List.mem z phi then raise Not_found;
            z
 	 with Not_found ->
-	   incr pfgvarcount;
-	   Printf.sprintf "x%d" !pfgvarcount
+           nxtpfgvar phi
        end
      in
      Printf.sprintf "Ex %s %s Ap %s %s" x (tp_pfgset_str a1) (tm_pfghf_str_r m1 phi) x
@@ -4103,8 +4110,7 @@ let rec tm_pfghf_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4122,14 +4128,22 @@ let rec tm_pfghf_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
 	in
 	Printf.sprintf "Lam %s %s %s" x (tp_pfgset_str a1) (tm_pfghf_str_r m1 (x::phi))
       end
+
+let nxtpfghyp psi =
+  incr pfghypcount;
+  let x = ref (Printf.sprintf "A%d" !pfghypcount) in
+  while Hashtbl.mem pfgreserved !x || List.mem !x psi do
+    incr pfghypcount;
+    x := Printf.sprintf "A%d" !pfghypcount
+  done;
+  !x
 
 let rec tm_pfgegal_str_r m phi =
   match m with
@@ -4153,8 +4167,7 @@ let rec tm_pfgegal_str_r m phi =
              if List.mem z phi then raise Not_found;
              z
 	   with Not_found ->
-	     incr pfgvarcount;
-	     Printf.sprintf "x%d" !pfgvarcount
+             nxtpfgvar phi
 	 end
        else
 	 "_"
@@ -4169,8 +4182,7 @@ let rec tm_pfgegal_str_r m phi =
            if List.mem z phi then raise Not_found;
            z
 	 with Not_found ->
-	   incr pfgvarcount;
-	   Printf.sprintf "x%d" !pfgvarcount
+           nxtpfgvar phi
        end
      in
      Printf.sprintf "Ex %s %s Ap %s %s" x (tp_pfgset_str a1) (tm_pfgegal_str_r m1 phi) x
@@ -4192,8 +4204,7 @@ let rec tm_pfgegal_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4211,8 +4222,7 @@ let rec tm_pfgegal_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4243,8 +4253,7 @@ let rec tm_pfgmiz_str_r m phi =
              if List.mem z phi then raise Not_found;
              z
 	   with Not_found ->
-	     incr pfgvarcount;
-	     Printf.sprintf "x%d" !pfgvarcount
+             nxtpfgvar phi
 	 end
        else
 	 "_"
@@ -4259,8 +4268,7 @@ let rec tm_pfgmiz_str_r m phi =
            if List.mem z phi then raise Not_found;
            z
 	 with Not_found ->
-	   incr pfgvarcount;
-	   Printf.sprintf "x%d" !pfgvarcount
+           nxtpfgvar phi
        end
      in
      Printf.sprintf "Ex %s %s Ap %s %s" x (tp_pfgset_str a1) (tm_pfgmiz_str_r m1 phi) x
@@ -4282,8 +4290,7 @@ let rec tm_pfgmiz_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4301,8 +4308,7 @@ let rec tm_pfgmiz_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4332,8 +4338,7 @@ let rec tm_pfghoas_str_r m phi =
              if List.mem z phi then raise Not_found;
              z
 	   with Not_found ->
-	     incr pfgvarcount;
-	     Printf.sprintf "x%d" !pfgvarcount
+             nxtpfgvar phi
 	 end
        else
 	 "_"
@@ -4348,8 +4353,7 @@ let rec tm_pfghoas_str_r m phi =
            if List.mem z phi then raise Not_found;
            z
 	 with Not_found ->
-	   incr pfgvarcount;
-	   Printf.sprintf "x%d" !pfgvarcount
+           nxtpfgvar phi
        end
      in
      Printf.sprintf "Ex %s %s Ap %s %s" x (tp_pfgsyn_str a1) (tm_pfghoas_str_r m1 phi) x
@@ -4371,8 +4375,7 @@ let rec tm_pfghoas_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4390,8 +4393,7 @@ let rec tm_pfghoas_str_r m phi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4644,8 +4646,7 @@ let rec pf_pfghf_str_r d phi psi =
                 if List.mem z psi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfghypcount;
-		Printf.sprintf "A%d" !pfghypcount
+                nxtpfghyp psi
 	    end
 	  else
 	    "_"
@@ -4663,8 +4664,7 @@ let rec pf_pfghf_str_r d phi psi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4691,8 +4691,7 @@ let rec pf_pfgegal_str_r d phi psi =
                 if List.mem z psi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfghypcount;
-		Printf.sprintf "A%d" !pfghypcount
+                nxtpfghyp psi
 	    end
 	  else
 	    "_"
@@ -4710,8 +4709,7 @@ let rec pf_pfgegal_str_r d phi psi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4738,8 +4736,7 @@ let rec pf_pfgmiz_str_r d phi psi =
                 if List.mem z psi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfghypcount;
-		Printf.sprintf "A%d" !pfghypcount
+                nxtpfghyp psi
 	    end
 	  else
 	    "_"
@@ -4757,8 +4754,7 @@ let rec pf_pfgmiz_str_r d phi psi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"
@@ -4785,8 +4781,7 @@ let rec pf_pfghoas_str_r d phi psi =
                 if List.mem z psi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfghypcount;
-		Printf.sprintf "A%d" !pfghypcount
+                nxtpfghyp psi
 	    end
 	  else
 	    "_"
@@ -4804,8 +4799,7 @@ let rec pf_pfghoas_str_r d phi psi =
                 if List.mem z phi then raise Not_found;
                 z
 	      with Not_found ->
-		incr pfgvarcount;
-		Printf.sprintf "x%d" !pfgvarcount
+                nxtpfgvar phi
 	    end
 	  else
 	    "_"

@@ -1,0 +1,33 @@
+Section Eq.
+Variable A:SType.
+Definition eq : A->A->prop := fun x y:A => forall Q:A->A->prop, Q x y -> Q y x.
+End Eq.
+Infix = 502 := eq.
+Section Ex.
+Variable A:SType.
+Definition ex : (A->prop)->prop := fun Q:A->prop => forall P:prop, (forall x:A, Q x -> P) -> P.
+End Ex.
+(* Unicode exists "2203" *)
+Binder+ exists , := ex.
+(* Parameter Eps_i "174b78e53fc239e8c2aab4ab5a996a27e3e5741e88070dad186e05fb13f275e5" *)
+Parameter Eps_i : (set->prop)->set.
+Parameter In:set->set->prop.
+Parameter Empty : set.
+(* Unicode Union "22C3" *)
+Parameter Union : set->set.
+(* Unicode Power "1D4AB" *)
+Parameter Power : set->set.
+Parameter Repl : set -> (set -> set) -> set.
+Notation Repl Repl.
+Parameter UnivOf : set->set.
+Definition False : prop :=
+ (forall x0 : prop, x0).
+Definition not : prop -> prop :=
+ (fun x0 : prop => x0 -> False).
+Axiom FalseE : False -> (forall x0 : prop, x0).
+Theorem missingprop_ea44aec6efad1a85cdabc6841579f3bfc41bb74ea3cbd950f345895b284f62e6 : (forall x0 : set -> prop, forall x1 x2 : set -> set -> set -> set -> prop, (forall x3 x4 x5 x6, x0 x3 -> x0 x4 -> x0 x5 -> x0 x6 -> (forall x7 : prop, (x1 x3 x4 x5 x6 -> x7) -> (x2 x3 x4 x5 x6 -> x7) -> (x1 x5 x6 x3 x4 -> x7) -> x7)) -> (forall x3 x4 x5 x6, x0 x3 -> x0 x4 -> x0 x5 -> x0 x6 -> x2 x3 x4 x5 x6 -> x2 x5 x6 x3 x4) -> (forall x3, x0 x3 -> (forall x4, x0 x4 -> (forall x5, x0 x5 -> (forall x6, x0 x6 -> (forall x7, x0 x7 -> (forall x8, x0 x8 -> (forall x9, x0 x9 -> (forall x10, x0 x10 -> (forall x11, x0 x11 -> (forall x12, x0 x12 -> (forall x13, x0 x13 -> (forall x14, x0 x14 -> not (x2 x3 x4 x5 x6) -> not (x2 x3 x4 x7 x8) -> not (x2 x3 x4 x9 x10) -> not (x2 x3 x4 x11 x12) -> not (x2 x3 x4 x13 x14) -> not (x2 x5 x6 x7 x8) -> not (x2 x5 x6 x9 x10) -> not (x2 x5 x6 x11 x12) -> not (x2 x5 x6 x13 x14) -> not (x2 x7 x8 x9 x10) -> not (x2 x7 x8 x11 x12) -> not (x2 x7 x8 x13 x14) -> not (x2 x9 x10 x11 x12) -> not (x2 x9 x10 x13 x14) -> not (x2 x11 x12 x13 x14) -> (forall x15 : prop, (forall x16, x0 x16 -> (forall x17, x0 x17 -> (forall x18, x0 x18 -> (forall x19, x0 x19 -> (forall x20, x0 x20 -> (forall x21, x0 x21 -> (forall x22, x0 x22 -> (forall x23, x0 x23 -> (forall x24, x0 x24 -> (forall x25, x0 x25 -> (forall x26, x0 x26 -> (forall x27, x0 x27 -> x1 x16 x17 x18 x19 -> x1 x18 x19 x20 x21 -> x1 x20 x21 x22 x23 -> x1 x22 x23 x24 x25 -> x1 x24 x25 x26 x27 -> not (x2 x16 x17 x18 x19) -> not (x2 x16 x17 x20 x21) -> not (x2 x16 x17 x22 x23) -> not (x2 x16 x17 x24 x25) -> not (x2 x16 x17 x26 x27) -> not (x2 x18 x19 x20 x21) -> not (x2 x18 x19 x22 x23) -> not (x2 x18 x19 x24 x25) -> not (x2 x18 x19 x26 x27) -> not (x2 x20 x21 x22 x23) -> not (x2 x20 x21 x24 x25) -> not (x2 x20 x21 x26 x27) -> not (x2 x22 x23 x24 x25) -> not (x2 x22 x23 x26 x27) -> not (x2 x24 x25 x26 x27) -> (forall x28 : prop, (x16 = x3 -> x17 = x4 -> x18 = x5 -> x19 = x6 -> x28) -> (x16 = x3 -> x17 = x4 -> x20 = x5 -> x21 = x6 -> x28) -> (x16 = x3 -> x17 = x4 -> x22 = x5 -> x23 = x6 -> x28) -> (x16 = x3 -> x17 = x4 -> x24 = x5 -> x25 = x6 -> x28) -> (x16 = x3 -> x17 = x4 -> x26 = x5 -> x27 = x6 -> x28) -> (x18 = x3 -> x19 = x4 -> x16 = x5 -> x17 = x6 -> x28) -> (x18 = x3 -> x19 = x4 -> x20 = x5 -> x21 = x6 -> x28) -> (x18 = x3 -> x19 = x4 -> x22 = x5 -> x23 = x6 -> x28) -> (x18 = x3 -> x19 = x4 -> x24 = x5 -> x25 = x6 -> x28) -> (x18 = x3 -> x19 = x4 -> x26 = x5 -> x27 = x6 -> x28) -> (x20 = x3 -> x21 = x4 -> x16 = x5 -> x17 = x6 -> x28) -> (x20 = x3 -> x21 = x4 -> x18 = x5 -> x19 = x6 -> x28) -> (x20 = x3 -> x21 = x4 -> x22 = x5 -> x23 = x6 -> x28) -> (x20 = x3 -> x21 = x4 -> x24 = x5 -> x25 = x6 -> x28) -> (x20 = x3 -> x21 = x4 -> x26 = x5 -> x27 = x6 -> x28) -> (x22 = x3 -> x23 = x4 -> x16 = x5 -> x17 = x6 -> x28) -> (x22 = x3 -> x23 = x4 -> x18 = x5 -> x19 = x6 -> x28) -> (x22 = x3 -> x23 = x4 -> x20 = x5 -> x21 = x6 -> x28) -> (x22 = x3 -> x23 = x4 -> x24 = x5 -> x25 = x6 -> x28) -> (x22 = x3 -> x23 = x4 -> x26 = x5 -> x27 = x6 -> x28) -> (x24 = x3 -> x25 = x4 -> x16 = x5 -> x17 = x6 -> x28) -> (x24 = x3 -> x25 = x4 -> x18 = x5 -> x19 = x6 -> x28) -> (x24 = x3 -> x25 = x4 -> x20 = x5 -> x21 = x6 -> x28) -> (x24 = x3 -> x25 = x4 -> x22 = x5 -> x23 = x6 -> x28) -> (x24 = x3 -> x25 = x4 -> x26 = x5 -> x27 = x6 -> x28) -> (x26 = x3 -> x27 = x4 -> x16 = x5 -> x17 = x6 -> x28) -> (x26 = x3 -> x27 = x4 -> x18 = x5 -> x19 = x6 -> x28) -> (x26 = x3 -> x27 = x4 -> x20 = x5 -> x21 = x6 -> x28) -> (x26 = x3 -> x27 = x4 -> x22 = x5 -> x23 = x6 -> x28) -> (x26 = x3 -> x27 = x4 -> x24 = x5 -> x25 = x6 -> x28) -> x28) -> x15)))))))))))) -> x15)))))))))))))).
+admit.
+Qed.
+Theorem missingprop_53f44ff04c7b7e713a71c5f4dc0759dfefc165ec919061d26090fbaef0ce99b4 : (forall x0 : set -> prop, forall x1 x2 : set -> set -> set -> set -> prop, (forall x3 x4 x5 x6, x0 x3 -> x0 x4 -> x0 x5 -> x0 x6 -> (forall x7 : prop, (x1 x3 x4 x5 x6 -> x7) -> (x2 x3 x4 x5 x6 -> x7) -> (x1 x5 x6 x3 x4 -> x7) -> x7)) -> (forall x3 x4 x5 x6, x0 x3 -> x0 x4 -> x0 x5 -> x0 x6 -> x2 x3 x4 x5 x6 -> x2 x5 x6 x3 x4) -> (forall x3, x0 x3 -> (forall x4, x0 x4 -> (forall x5, x0 x5 -> (forall x6, x0 x6 -> (forall x7, x0 x7 -> (forall x8, x0 x8 -> (forall x9, x0 x9 -> (forall x10, x0 x10 -> (forall x11, x0 x11 -> (forall x12, x0 x12 -> (forall x13, x0 x13 -> (forall x14, x0 x14 -> not (x2 x3 x4 x5 x6) -> not (x2 x3 x4 x7 x8) -> not (x2 x3 x4 x9 x10) -> not (x2 x3 x4 x11 x12) -> not (x2 x3 x4 x13 x14) -> not (x2 x5 x6 x7 x8) -> not (x2 x5 x6 x9 x10) -> not (x2 x5 x6 x11 x12) -> not (x2 x5 x6 x13 x14) -> not (x2 x7 x8 x9 x10) -> not (x2 x7 x8 x11 x12) -> not (x2 x7 x8 x13 x14) -> not (x2 x9 x10 x11 x12) -> not (x2 x9 x10 x13 x14) -> not (x2 x11 x12 x13 x14) -> (forall x15 : prop, (forall x16, x0 x16 -> (forall x17, x0 x17 -> (forall x18, x0 x18 -> (forall x19, x0 x19 -> (forall x20, x0 x20 -> (forall x21, x0 x21 -> (forall x22, x0 x22 -> (forall x23, x0 x23 -> (forall x24, x0 x24 -> (forall x25, x0 x25 -> (forall x26, x0 x26 -> (forall x27, x0 x27 -> x1 x16 x17 x18 x19 -> x1 x18 x19 x20 x21 -> x1 x20 x21 x22 x23 -> x1 x22 x23 x24 x25 -> x1 x24 x25 x26 x27 -> not (x2 x16 x17 x18 x19) -> not (x2 x16 x17 x20 x21) -> not (x2 x16 x17 x22 x23) -> not (x2 x16 x17 x24 x25) -> not (x2 x16 x17 x26 x27) -> not (x2 x18 x19 x20 x21) -> not (x2 x18 x19 x22 x23) -> not (x2 x18 x19 x24 x25) -> not (x2 x18 x19 x26 x27) -> not (x2 x20 x21 x22 x23) -> not (x2 x20 x21 x24 x25) -> not (x2 x20 x21 x26 x27) -> not (x2 x22 x23 x24 x25) -> not (x2 x22 x23 x26 x27) -> not (x2 x24 x25 x26 x27) -> (forall x28 : prop, (x16 = x3 -> x17 = x4 -> x28) -> (x18 = x3 -> x19 = x4 -> x28) -> (x20 = x3 -> x21 = x4 -> x28) -> (x22 = x3 -> x23 = x4 -> x28) -> (x24 = x3 -> x25 = x4 -> x28) -> (x26 = x3 -> x27 = x4 -> x28) -> x28) -> x15)))))))))))) -> x15)))))))))))))).
+admit.
+Qed.

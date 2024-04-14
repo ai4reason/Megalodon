@@ -1344,11 +1344,25 @@ and check_pf_r a p polyt polyp sgtmof sgdelta sgtm sgpf cxtp cxtm cxpf =
            let y = String.sub x (i+1) (String.length x - (i+1)) in
 	   megasgof := sgtmof;
            megasgdelta := sgdelta;
-           megaauto autopre y dcxtm dcxpf p
+           begin
+             try
+               megaauto autopre y dcxtm dcxpf p
+             with
+             | SearchLimit ->
+                raise (Failure ("megaauto failed"))
+             | SearchBacktrack -> 
+                raise (Failure ("megaauto failed"))
+           end
          with Not_found ->
 	   megasgof := sgtmof;
            megasgdelta := sgdelta;
-           megaauto "" x dcxtm dcxpf p
+           try
+             megaauto "" x dcxtm dcxpf p
+           with
+           | SearchLimit ->
+              raise (Failure ("megaauto failed"))
+           | SearchBacktrack -> 
+              raise (Failure ("megaauto failed"))
        end
   | Bi("fun",bvl,a1) ->
      check_pf_r_lam p bvl a1 polyt polyp sgtmof sgdelta sgtm sgpf cxtp cxtm cxpf

@@ -70,6 +70,7 @@ val megacontra : string option ref
 
 val megaautosaltlimit : int ref
 exception SearchLimit
+exception SearchBacktrack
 
 val megasgof : (string,ptp) Hashtbl.t ref
 val megasgdelta : (string,ptm) Hashtbl.t ref

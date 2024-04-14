@@ -1,5 +1,5 @@
 This subdirectory contains information about some conjectures that
-have a bounty of some Proofgold bars as of September 2022.  The bounty
+have a bounty of some Proofgold bars as of September 2023.  The bounty
 can be collected by either proving the conjecture or proving the
 negated conjecture. The first class of problems are the "randomly
 generated" bounty propositions in the HF theory during the first six
@@ -10,9 +10,9 @@ command line argument is required.
 
 The collection is not exhaustive. To get the current list of bounties
 use the "reportbounties" command in a Proofgold client.  As of
-September 2022, there is a total of 8240 propositions with bounties
-with the total amount of bounties just over 288,909 Proofgold bars.
-The problems described below correspond to roughly 74% of the
+September 2023, there is a total of 9190 propositions with bounties
+with the total amount of bounties just over 281,000 Proofgold bars.
+The problems described below correspond to roughly 72% of the
 outstanding bounties. Some information about the other bounties can be
 found by reading through the archive of the old Proofgold forum
 available at
@@ -22,20 +22,20 @@ https://prfgld.github.io/forum
 * Randomly Generated
 
 The first 5000 Proofgold blocks automatically placed a bounty of 25
-bars on a randomly generated proposition. 3097 of these 5000 bounties
-are still unclaimed, for a total of 77,425 bars (about 27% of the
+bars on a randomly generated proposition. 3035 of these 5000 bounties
+are still unclaimed, for a total of 75,875 bars (about 27% of the
 outstanding bounties).  Most of the randomly generated propositions
 with unclaimed bounties (of 25 bars each) are in the file
 RandomlyGenerated.mg.
 
-megalodon -hf -owned ownedSep192022 -I PfgPreambleSep2020.mgs RandomlyGenerated.mg
+megalodon -hf -owned ownedSep132023 -I PfgPreambleSep2020.mgs RandomlyGenerated.mg
 
 To prove one of these, create a separate file (mysoln.mg) copying the
 proposition over (with its context, meaning declarations in the
 relevant section).  Then fill in the proof and create a Proofgold
 document:
 
-megalodon -hf -owned ownedSep192022 -I PfgPreambleSep2020.mgs mysoln.mg > mysoln.pfg.
+megalodon -hf -owned ownedSep132023 -I PfgPreambleSep2020.mgs mysoln.mg > mysoln.pfg.
 
 The problems are classified into the following categories: Random1,
 Random2, Random3, QBF, HOSetConstr (Set Constraints), HOUnif (HO
@@ -56,23 +56,28 @@ with bounties of 26 bars each, for a total of 30758 bars, about 11% of
 the outstanding bounties.  These variants are in
 RandomlyGeneratedAIMVariants.mg.
 
-megalodon -hf -owned ownedSep192022 -I PfgPreambleSep2020.mgs RandomlyGeneratedAIMVariants.mg
+megalodon -hf -owned ownedSep132023 -I PfgPreambleSep2020.mgs RandomlyGeneratedAIMVariants.mg
 
 * Ramsey Problems
 
-There are 85 Ramsey Theory problems with bounties, some of which
+There are 67 Ramsey Theory problems with bounties, some of which
 correspond to open mathematics problems.  The specific propositions
-and more information is in RamseyConjsWithBounties.mg.  Each bounty
-roughly 14% of the outstanding bounties.
+and more information is in RamseyConjsWithBounties.mg.  These bounties
+are a total of about 32,300 bars, roughly 11.5% of the outstanding bounties.
 
-megalodon -owned ownedSep192022 -I PfgEAug2022Preamble.mgs RamseyConjsWithBounties.mg
+megalodon -owned ownedSep132023 -I PfgEAug2022Preamble.mgs RamseyConjsWithBounties.mg
+
+In some cases, the bounty can be proven by appropriately translating
+a counterexample into a proof. A source for such counterexamples is here:
+
+http://users.cecs.anu.edu.au/~bdm/data/ramsey.html
 
 * Mizar CNF problems
 
 Bounties are on 1420 problems derived from Mizar theorems.  Most of
 the bounties are (just under) 25 bars, but seven are (just under) 50
-bars, for a total of about 35,675 bars.  (As of September 2022, this
-makes these problems about 12% of the value of the outstanding
+bars, for a total of about 35,675 bars.  (As of September 2023, this
+makes these problems about 12.7% of the value of the outstanding
 bounties.)  These are all simple first-order problems and are very
 likely to be provable.
 
@@ -84,12 +89,12 @@ http://grid01.ciirc.cvut.cz/~chad/cnf_todo_files.tgz
 
 1161 of the 23,257 conjectures in
 
-UpToComplexNumbersNoAbstract/Nov2021ConjsAll.mg
+UpToOctonions/Nov2021ConjsAll.mg
 
 have bounties of about 25 bars each. The total of the bounties is
 about 29,025 bars, forming roughly 10% of the outstanding bounties.
 The propositions are listed here with information about the bounties
 in Nov2021ConjsWithBounties.mg.
 
-megalodon -owned ownedSep192022 -I Nov2021ConjPreamble.mgs Nov2021ConjsWithBounties.mg
+megalodon -owned ownedSep132023 -I Nov2021ConjPreamble.mgs Nov2021ConjsWithBounties.mg
 
