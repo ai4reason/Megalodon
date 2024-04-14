@@ -44,6 +44,7 @@ Unification) CombUnif (Untyped Combinator Unification), AbstrHF
 Diophantine. For more information, see
 
 Brown, Kaliszyk, Gauthier, Urban "Proofgold: Blockchain for Formal Methods" FMBC 2022
+( https://doi.org/10.4230/OASIcs.FMBC.2022.4 )
 
 25 of the propositions are missing from RandomlyGenerated.mg (23 of
 HOUnif and 2 of HOSetConstr), probably due to a bug with the Proofgold
